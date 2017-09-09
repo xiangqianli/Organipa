@@ -9,7 +9,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <Foundation/Foundation.h>
 #import "WFNetworkSessionWrapper.h"
-
+#import "WFSettings.h"
 extern NSString * const WFNetworkBaseUrl;
 
 @interface WFNetworkSessionManager : AFHTTPSessionManager
@@ -18,5 +18,4 @@ extern NSString * const WFNetworkBaseUrl;
 
 + (WFNetworkSessionManager *)sharedManager;
 
-- (WFNetworkSessionWrapper *)wrapperWithRequest:(NSURLRequest *)request
 @end
