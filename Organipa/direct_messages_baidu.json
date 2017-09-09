@@ -1,0 +1,97 @@
+{
+	"user_list": [{
+		"user": {
+			"id": 4127953770161199,
+			"idstr": "4127953770161199",
+			"name": "测试群1",
+			"profile_image_url": "https:\/\/wx3.sinaimg.cn\/wap50\/6a916e86ly1fiz90qs7s8j2050050jsb.jpg?hash=60be9353ac84339f4d085f0f299319d7",
+			"avatar_large": "https:\/\/wx3.sinaimg.cn\/thumbnail\/6a916e86ly1fiz90qs7s8j2050050jsb.jpg?hash=60be9353ac84339f4d085f0f299319d7",
+			"level": 0,
+			"is_blocked": false,
+			"dotted": false,
+			"creator": 1787915910,
+			"member_count": 2,
+			"members": [1787915910, 1499664335098, 2698151361, 1502772753224],
+			"lastChangeTime": 1503900192712,
+			"join_time": 1502772753,
+			"max_member_count": 100,
+			"remindSetting": 2,
+			"admins": [1787915910],
+			"validateType": 3,
+			"round_profile_image_url": "http:\/\/image.storage.weibo.com\/avatar\/wap50\/4127953770161199\/60be9353ac84339f4d085f0f299319d7-1503888805037.png",
+			"round_avatar_large": "http:\/\/image.storage.weibo.com\/avatar\/large\/4127953770161199\/60be9353ac84339f4d085f0f299319d7-1503888805037.png",
+			"member_users": [{
+    			"uid":2194512369,
+    			"uname":"VoCaTionH",
+    			"portrait":"https:\/\/tva1.sinaimg.cn\/crop.0.0.511.511.50\/a0d285c1jw8fciukiqjblj20e70e80t6.jpg"
+			}, {
+				"uid": 2698151361,
+				"uname": "_零用钱",
+				"portrait": "https:\/\/tva1.sinaimg.cn\/crop.0.0.511.511.50\/a0d285c1jw8fciukiqjblj20e70e80t6.jpg"
+			}],
+			"extdesc": "",
+			"screen_name": "VoCaTionH、_零用钱"
+		},
+		"unread_count": 0,
+		"direct_message": {
+			"id": 4147940686053640,
+			"idstr": "4147940686047640",
+			"created_at": 1503153056,
+			"text": "五道口哪家？",
+			"sys_type": 0,
+			"sender_id": 2698151361,
+			"recipient_id": 4127953770161199,
+			"sender_screen_name": "_零用钱",
+			"recipient_screen_name": "测试群1",
+			"mid": "4147940686047640",
+			"isLargeDm": false,
+			"msg_status": 0,
+			"burn_time": 0,
+			"group_chat_message_type": 322,
+			"group_chat_xinfo": {
+				"media_type": 0
+			},
+			"status_id": 0,
+			"dm_type": 6,
+			"sub_type": 0,
+			"media_type": 0,
+			"matchKeyword": false,
+			"oriImageId": 0,
+			"url_objects": [],
+			"recall_status": 0,
+			"type": 3,
+			"qu_res": {
+	        	"intent_candidates": [
+	            {
+	                "extra_info": null,
+	                "from_who": "ml_qu",
+	                "func_slot": "",
+	                "intent": "USER_CATE",
+	                "intent_confidence": 29.488914489746,
+	                "intent_need_clarify": true,
+	                "match_info": "",
+	                "slots": [
+	                    {
+	                        "confidence": 99.21720123291,
+	                        "length": 6,
+	                        "need_clarify": false,
+	                        "normalized_word": "(NERL_PLUS_LOC_ROOT)>(北京市)>(海淀区)>五道口",
+	                        "offset": 0,
+	                        "original_word": "五道口",
+	                        "type": "user_cate_area",
+	                        "word_type": ""
+	                    }
+	                ]
+            	}
+	        ],
+	        "log_id": "unitweb_log_d134c7c0-9075-11e7-a8e3-c97896f2e987_8658",
+	        "raw_query": "五道口哪家？",
+	        "status": 0,
+	        "timestamp": 1,
+	        "current_qu_intent": "USER_CATE",
+        	"intent_confidence": 29.488914489746
+		}
+		},
+		"last_at": "1503132056"
+	}]
+}
