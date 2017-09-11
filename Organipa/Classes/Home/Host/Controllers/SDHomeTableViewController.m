@@ -28,15 +28,12 @@
  */
 
 #import "SDHomeTableViewController.h"
-
 #import "SDAnalogDataGenerator.h"
-
 #import "UIView+SDAutoLayout.h"
-
 #import "SDHomeTableViewCell.h"
 #import "SDEyeAnimationView.h"
 #import "SDShortVideoController.h"
-#import "SDChatTableViewController.h"
+#import "WFMessageTableViewController.h"
 
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
@@ -213,7 +210,7 @@ const CGFloat kHomeTableViewAnimationDuration = 0.25;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIViewController *vc = [SDChatTableViewController new];
+    UIViewController *vc = [[WFMessageTableViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     vc.view.backgroundColor = [UIColor whiteColor];
     [self.navigationController pushViewController:vc animated:YES];

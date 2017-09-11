@@ -31,9 +31,6 @@
 #import "SDBaseNavigationController.h"
 
 #import "SDHomeTableViewController.h"
-#import "SDContactsTableViewController.h"
-#import "SDDiscoverTableViewController.h"
-#import "SDMeTableViewController.h"
 
 #import "GlobalDefines.h"
 
@@ -53,24 +50,11 @@
     
     NSArray *childItemsArray = @[
                                  @{kClassKey  : @"SDHomeTableViewController",
-                                   kTitleKey  : @"微信",
+                                   kTitleKey  : @"消息",
                                    kImgKey    : @"tabbar_mainframe",
                                    kSelImgKey : @"tabbar_mainframeHL"},
   
-                                 @{kClassKey  : @"SDContactsTableViewController",
-                                   kTitleKey  : @"通讯录",
-                                   kImgKey    : @"tabbar_contacts",
-                                   kSelImgKey : @"tabbar_contactsHL"},
-  
-                                 @{kClassKey  : @"SDDiscoverTableViewController",
-                                   kTitleKey  : @"发现",
-                                   kImgKey    : @"tabbar_discover",
-                                   kSelImgKey : @"tabbar_discoverHL"},
-  
-                                 @{kClassKey  : @"SDMeTableViewController",
-                                   kTitleKey  : @"我",
-                                   kImgKey    : @"tabbar_me",
-                                   kSelImgKey : @"tabbar_meHL"} ];
+                                  ];
     
     [childItemsArray enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop) {
         UIViewController *vc = [NSClassFromString(dict[kClassKey]) new];

@@ -13,7 +13,6 @@ target 'Organipa' do
   pod 'YYModel'
   pod 'YYImage'
   pod 'YYWebImage'
-  pod 'Reveal-SDK', '4', :configurations => ['Debug']
   pod 'Masonry'
   pod 'MBProgressHUD', '0.9.2'
   pod 'TTTAttributedLabel'
