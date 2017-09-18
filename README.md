@@ -1,10 +1,5 @@
 # Organipa
 
-##登陆百度云主机
-
-ssh root@182.61.34.214
-密码lxq232300!!
-
 ##数据格式：
 用户元数据：由百度API auth2接口获得：
 user_detail_baidu.json
