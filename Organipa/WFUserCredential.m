@@ -24,14 +24,5 @@ static NSString * const baiduLoginKey = @"baiduLoginKey";
     return credential;
 }
 
-- (void)saveAccessToken:(NSString *)accessToken expiredTime:(NSString *)timeStr{
-    self.baiduLoginAccessTocken = accessToken;
-    self.expiredTime = timeStr;
-    [Lockbox archiveObject:self forKey:<#(NSString *)#> accessibility:<#(CFTypeRef)#>:accessToken forKey:baiduLoginAccessTokenKey];
-    
-    NSTimeInterval rightTime = [self dateConverter:timeStr];
-    [Lockbox set];
-}
-
 
 @end

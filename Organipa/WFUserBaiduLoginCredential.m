@@ -8,6 +8,8 @@
 
 #import "WFUserBaiduLoginCredential.h"
 
+static NSString * const baiduloginExpiredTime = @"baiduloginExpiredTime";
+static NSString * const baiduLoginAccessTocken = @"baiduLoginAccessTocken";
 @implementation WFUserBaiduLoginCredential
 
 - (void)setExpiredTimeWithString:(NSString *)expiredTime{
@@ -22,6 +24,28 @@
     NSLog(@"dateFromString = %@", date);
     NSTimeInterval timeInterval = [date timeIntervalSince1970];
     return timeInterval;
+}
+
++(BOOL)supportsSecureCoding{
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        NSString * expiredTime = [coder decodeObjectForKey:baiduloginExpiredTime];
+        self.expiredTime = [self dateConverter:expiredTime];
+        self.baiduLoginAccessTocken = [coder decodeObjectForKey:baiduLoginAccessTocken];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    NSString * expiredTime;
+    [aCoder encodeObject:expiredTime forKey:baiduloginExpiredTime];
+    self.expiredTime = [self dateConverter:expiredTime];
+    [aCoder encodeObject:self.baiduLoginAccessTocken forKey:baiduLoginAccessTocken];
 }
 
 @end

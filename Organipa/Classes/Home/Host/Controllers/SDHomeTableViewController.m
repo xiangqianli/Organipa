@@ -318,7 +318,6 @@ static NSString * const baiduLoginAppleId = @"2014185";
 
 - (void)loginDidSuccessWithTokenInfo:(BaiduTokenInfo *)tokenInfo
 {
-    [WFUserCredential sharedCredential]save
     NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
 }
 
