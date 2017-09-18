@@ -33,7 +33,7 @@
         self.backgroundColor = [UIColor whiteColor];
         //发送消息
         self.btnSendMessage = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.btnSendMessage.frame = CGRectMake(WFSCREEN_H-40, 5, 30, 30);
+        self.btnSendMessage.frame = CGRectMake(WFSCREEN_W-40, 5, 30, 30);
         self.isAbleToSendTextMessage = NO;
         [self.btnSendMessage setTitle:@"" forState:UIControlStateNormal];
         [self.btnSendMessage setBackgroundImage:[UIImage imageNamed:@"Chat_take_picture"] forState:UIControlStateNormal];

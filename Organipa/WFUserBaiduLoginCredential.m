@@ -7,14 +7,13 @@
 //
 
 #import "WFUserBaiduLoginCredential.h"
+#import <Lockbox.h>
 
 static NSString * const baiduloginExpiredTime = @"baiduloginExpiredTime";
 static NSString * const baiduLoginAccessTocken = @"baiduLoginAccessTocken";
+static NSString * const baiduLoginArchive = @"baiduLoginArchive";
 @implementation WFUserBaiduLoginCredential
 
-- (void)setExpiredTimeWithString:(NSString *)expiredTime{
-    self.expiredTime = [self dateConverter:expiredTime];
-}
 
 - (NSTimeInterval) dateConverter:(NSString *)string{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -34,18 +33,24 @@ static NSString * const baiduLoginAccessTocken = @"baiduLoginAccessTocken";
 {
     self = [super init];
     if (self) {
-        NSString * expiredTime = [coder decodeObjectForKey:baiduloginExpiredTime];
-        self.expiredTime = [self dateConverter:expiredTime];
+        self.expiredTime = [coder decodeObjectForKey:baiduloginExpiredTime];
         self.baiduLoginAccessTocken = [coder decodeObjectForKey:baiduLoginAccessTocken];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
-    NSString * expiredTime;
-    [aCoder encodeObject:expiredTime forKey:baiduloginExpiredTime];
-    self.expiredTime = [self dateConverter:expiredTime];
+    [aCoder encodeObject:self.expiredTime forKey:baiduloginExpiredTime];
     [aCoder encodeObject:self.baiduLoginAccessTocken forKey:baiduLoginAccessTocken];
 }
 
+- (void)save{
+    [Lockbox archiveObject:self forKey:baiduLoginArchive accessibility:kSecAttrAccessibleWhenUnlocked];
+}
+
+- (void)updateWithExpiredTime:(NSString *)expiredTime accessTocken:(NSString *)accessToken{
+    self.expiredTime = expiredTime;
+    self.baiduLoginAccessTocken = accessToken;
+    [self save];
+}
 @end

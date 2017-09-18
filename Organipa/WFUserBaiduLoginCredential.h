@@ -12,8 +12,10 @@
 
 @property (copy, nonatomic) NSString * baiduLoginAccessTocken;
 
-@property (assign, nonatomic) NSTimeInterval expiredTime;
+@property (copy, nonatomic) NSString * expiredTime;
 
-- (void)setExpiredTimeWithString:(NSString *)expiredTime;
+- (void)save;
+
+- (void)updateWithExpiredTime:(NSString *)expiredTime accessTocken:(NSString *)accessToken;
 
 @end
