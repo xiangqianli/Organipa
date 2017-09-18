@@ -60,7 +60,7 @@
     self.navigationItem.titleView = segment;
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:nil action:nil];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:nil];
 }
 - (void)segmentChanged:(UISegmentedControl *)segment

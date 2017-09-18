@@ -18,7 +18,8 @@ target 'Organipa' do
   pod 'TTTAttributedLabel'
   pod 'SDWebImage'
   pod 'SDWebImage/GIF'
-
+  pod 'ReactiveCocoa', '~>2.5'
+  pod 'Lockbox'
   # Pods for Organipa
 
   target 'OrganipaTests' do

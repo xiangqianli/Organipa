@@ -34,6 +34,10 @@
 #import "SDEyeAnimationView.h"
 #import "SDShortVideoController.h"
 #import "WFMessageTableViewController.h"
+#import "BaiduOAuthSDK.h"
+#import "BaiduDelegate.h"
+#import "BaiduAuthCodeDelegate.h"
+#import "WFUserCredential.h"
 
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
@@ -41,9 +45,18 @@
 
 const CGFloat kHomeTableViewAnimationDuration = 0.25;
 
+//static NSString * const baiduLoginApiKey = @"IFbyqQ3dGgjEVCHfy6nUS9H6wUEhI5vO";
+
+static NSString * const baiduLoginApiKey = @"7TjGqkwAU5rQPcC6LKGMjpKd";
+
+//static NSString * const baiduLoginAppleId = @"9962635";
+
+static NSString * const baiduLoginAppleId = @"2014185";
+
+
 #define kCraticalProgressHeight 80
 
-@interface SDHomeTableViewController () <UIGestureRecognizerDelegate>
+@interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate>
 
 @property (nonatomic, weak) SDEyeAnimationView *eyeAnimationView;
 
@@ -60,6 +73,13 @@ const CGFloat kHomeTableViewAnimationDuration = 0.25;
 
 @implementation SDHomeTableViewController
 
+- (instancetype)init{
+    if (self = [super init]) {
+        [BaiduOAuthSDK initWithAPIKey:baiduLoginApiKey appId:baiduLoginAppleId];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -70,6 +90,8 @@ const CGFloat kHomeTableViewAnimationDuration = 0.25;
     [self.tableView registerClass:[SDHomeTableViewCell class] forCellReuseIdentifier:kHomeTableViewControllerCellId];
     
     self.tableView.backgroundColor = [UIColor clearColor];
+    
+    [self logInIfNeed];
 }
 
 - (UISearchController *)searchController
@@ -249,6 +271,55 @@ const CGFloat kHomeTableViewAnimationDuration = 0.25;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
+}
+
+#pragma mark --login
+- (void)logInIfNeed{
+
+    if (![BaiduOAuthSDK isUserTokenValid]) {
+        //[BaiduOAuthSDK smsAuthWithTargetViewController:self scope:@"basic" andDelegate:self];
+        [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" andDelegate:self];
+    }
+}
+
+#pragma mark --login delegate
+- (IBAction)doGetAuthCodeBySms:(id)sender {
+    
+    [BaiduOAuthSDK initWithAPIKey:baiduLoginApiKey appId:baiduLoginAppleId];
+    [BaiduOAuthSDK smsAuthCodeWithTargetViewController:self
+                                                 scope:@"basic"
+                                                mobile:@""
+                                            redirctUrl:@"http://x.baidu.com/plug-in-services/demo/easysleepdiary/auth.php"
+                                            needSignUp:NO
+                                           andDelegate:self];
+}
+
+- (void)authorizationCodeSuccessWithCode:(NSString *)code
+{
+    NSString *message = [NSString stringWithFormat:@"Authorization Code 是 %@",code];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"授权提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    
+    [alertController addAction:defaultAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+- (void)authorizationCodeWithError:(NSError*)error
+{
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"授权提示" message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    
+    [alertController addAction:defaultAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)loginDidSuccessWithTokenInfo:(BaiduTokenInfo *)tokenInfo
+{
+    [WFUserCredential sharedCredential]save
+    NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
 }
 
 @end

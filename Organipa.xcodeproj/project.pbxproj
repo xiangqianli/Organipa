@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1142ACDC817A98F0152016CF /* libPods-OrganipaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 768AA3CC9F6291A38BE91BE4 /* libPods-OrganipaTests.a */; };
+		9E10E5A21F6EE16600680D88 /* BaiduOAuthSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E10E59D1F6EE16600680D88 /* BaiduOAuthSDK.a */; };
+		9E10E7851F6EE23E00680D88 /* WFLoginLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E7801F6EE23E00680D88 /* WFLoginLabelCell.m */; };
+		9E10E7861F6EE23E00680D88 /* WFLoginLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E7811F6EE23E00680D88 /* WFLoginLabelCell.xib */; };
+		9E10E7871F6EE23E00680D88 /* WFRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E7831F6EE23E00680D88 /* WFRegisterViewController.m */; };
+		9E10E7881F6EE23E00680D88 /* WFRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E7841F6EE23E00680D88 /* WFRegisterViewController.xib */; };
+		9E10E78C1F6EE25200680D88 /* WFUserCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E78B1F6EE25200680D88 /* WFUserCredential.m */; };
+		9E10E78E1F6EE25A00680D88 /* LoginSource.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */; };
+		9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E7901F6EE27900680D88 /* UIButton+Common.m */; };
 		9E1D1D8E1F65020B00FF6E29 /* SDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */; };
 		9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D941F65192300FF6E29 /* UIAlertController+Extension.m */; };
 		9E1D1DA51F65192300FF6E29 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D961F65192300FF6E29 /* UIColor+Hex.m */; };
@@ -17,6 +25,7 @@
 		9E1D1DA91F65192300FF6E29 /* UIButton+WFActionBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D9F1F65192300FF6E29 /* UIButton+WFActionBlock.m */; };
 		9E1D1DAA1F65192300FF6E29 /* UIDevice+WFScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1DA11F65192300FF6E29 /* UIDevice+WFScale.m */; };
 		9E1D1DAB1F65192300FF6E29 /* UIView+WFHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1DA31F65192300FF6E29 /* UIView+WFHelper.m */; };
+		9E37A7D51F6FA9C800B0870B /* WFUserBaiduLoginCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */; };
 		9E6C87D01F5BC96600B51BD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C87CF1F5BC96600B51BD7 /* main.m */; };
 		9E6C87D91F5BC96600B51BD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87D71F5BC96600B51BD7 /* Main.storyboard */; };
 		9E6C87DB1F5BC96600B51BD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87DA1F5BC96600B51BD7 /* Assets.xcassets */; };
@@ -177,6 +186,22 @@
 		36260CC506AC676113221058 /* Pods-Organipa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Organipa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Organipa/Pods-Organipa.debug.xcconfig"; sourceTree = "<group>"; };
 		4BFA813DFA9CBD4CCF5CF528 /* libPods-OrganipaUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OrganipaUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		768AA3CC9F6291A38BE91BE4 /* libPods-OrganipaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OrganipaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E10E59D1F6EE16600680D88 /* BaiduOAuthSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = BaiduOAuthSDK.a; sourceTree = "<group>"; };
+		9E10E59E1F6EE16600680D88 /* BaiduAuthCodeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduAuthCodeDelegate.h; sourceTree = "<group>"; };
+		9E10E59F1F6EE16600680D88 /* BaiduOAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduOAuthSDK.h; sourceTree = "<group>"; };
+		9E10E5A01F6EE16600680D88 /* BaiduDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduDelegate.h; sourceTree = "<group>"; };
+		9E10E5A11F6EE16600680D88 /* BaiduTokenInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduTokenInfo.h; sourceTree = "<group>"; };
+		9E10E77F1F6EE23E00680D88 /* WFLoginLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFLoginLabelCell.h; sourceTree = "<group>"; };
+		9E10E7801F6EE23E00680D88 /* WFLoginLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFLoginLabelCell.m; sourceTree = "<group>"; };
+		9E10E7811F6EE23E00680D88 /* WFLoginLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFLoginLabelCell.xib; sourceTree = "<group>"; };
+		9E10E7821F6EE23E00680D88 /* WFRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRegisterViewController.h; sourceTree = "<group>"; };
+		9E10E7831F6EE23E00680D88 /* WFRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRegisterViewController.m; sourceTree = "<group>"; };
+		9E10E7841F6EE23E00680D88 /* WFRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFRegisterViewController.xib; sourceTree = "<group>"; };
+		9E10E78A1F6EE25200680D88 /* WFUserCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserCredential.h; sourceTree = "<group>"; };
+		9E10E78B1F6EE25200680D88 /* WFUserCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserCredential.m; sourceTree = "<group>"; };
+		9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LoginSource.xcassets; sourceTree = "<group>"; };
+		9E10E78F1F6EE27900680D88 /* UIButton+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Common.h"; sourceTree = "<group>"; };
+		9E10E7901F6EE27900680D88 /* UIButton+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Common.m"; sourceTree = "<group>"; };
 		9E1D1D811F64EC6100FF6E29 /* WFPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WFPrefixHeader.pch; path = ../../../../Organipa/WFPrefixHeader.pch; sourceTree = "<group>"; };
 		9E1D1D8C1F65020B00FF6E29 /* SDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBaseViewController.h; sourceTree = "<group>"; };
 		9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBaseViewController.m; sourceTree = "<group>"; };
@@ -197,6 +222,8 @@
 		9E1D1DA11F65192300FF6E29 /* UIDevice+WFScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+WFScale.m"; sourceTree = "<group>"; };
 		9E1D1DA21F65192300FF6E29 /* UIView+WFHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WFHelper.h"; sourceTree = "<group>"; };
 		9E1D1DA31F65192300FF6E29 /* UIView+WFHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WFHelper.m"; sourceTree = "<group>"; };
+		9E37A7D31F6FA9C800B0870B /* WFUserBaiduLoginCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserBaiduLoginCredential.h; sourceTree = "<group>"; };
+		9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserBaiduLoginCredential.m; sourceTree = "<group>"; };
 		9E6C87CB1F5BC96600B51BD7 /* Organipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Organipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6C87CF1F5BC96600B51BD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E6C87D81F5BC96600B51BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -403,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6E900379BB4A595A739C325 /* libPods-Organipa.a in Frameworks */,
+				9E10E5A21F6EE16600680D88 /* BaiduOAuthSDK.a in Frameworks */,
 				9E87E8F11F66082C00B75BAD /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,9 +477,66 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9E10E5931F6EDC4B00680D88 /* Login(登陆) */ = {
+			isa = PBXGroup;
+			children = (
+				9E10E77A1F6EE21900680D88 /* WFLogin */,
+				9E10E59C1F6EE15000680D88 /* BaiduOAuthSDK */,
+			);
+			name = "Login(登陆)";
+			sourceTree = "<group>";
+		};
+		9E10E59C1F6EE15000680D88 /* BaiduOAuthSDK */ = {
+			isa = PBXGroup;
+			children = (
+				9E10E59D1F6EE16600680D88 /* BaiduOAuthSDK.a */,
+				9E10E59E1F6EE16600680D88 /* BaiduAuthCodeDelegate.h */,
+				9E10E59F1F6EE16600680D88 /* BaiduOAuthSDK.h */,
+				9E10E5A01F6EE16600680D88 /* BaiduDelegate.h */,
+				9E10E5A11F6EE16600680D88 /* BaiduTokenInfo.h */,
+			);
+			name = BaiduOAuthSDK;
+			sourceTree = "<group>";
+		};
+		9E10E77A1F6EE21900680D88 /* WFLogin */ = {
+			isa = PBXGroup;
+			children = (
+				9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */,
+				9E10E7891F6EE24600680D88 /* WFAccount */,
+				9E10E77E1F6EE23300680D88 /* View */,
+			);
+			name = WFLogin;
+			sourceTree = "<group>";
+		};
+		9E10E77E1F6EE23300680D88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E10E77F1F6EE23E00680D88 /* WFLoginLabelCell.h */,
+				9E10E7801F6EE23E00680D88 /* WFLoginLabelCell.m */,
+				9E10E7811F6EE23E00680D88 /* WFLoginLabelCell.xib */,
+				9E10E7821F6EE23E00680D88 /* WFRegisterViewController.h */,
+				9E10E7831F6EE23E00680D88 /* WFRegisterViewController.m */,
+				9E10E7841F6EE23E00680D88 /* WFRegisterViewController.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		9E10E7891F6EE24600680D88 /* WFAccount */ = {
+			isa = PBXGroup;
+			children = (
+				9E10E78A1F6EE25200680D88 /* WFUserCredential.h */,
+				9E10E78B1F6EE25200680D88 /* WFUserCredential.m */,
+				9E37A7D31F6FA9C800B0870B /* WFUserBaiduLoginCredential.h */,
+				9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */,
+			);
+			name = WFAccount;
+			sourceTree = "<group>";
+		};
 		9E1D1D921F65191500FF6E29 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9E10E78F1F6EE27900680D88 /* UIButton+Common.h */,
+				9E10E7901F6EE27900680D88 /* UIButton+Common.m */,
 				9E87E8F31F66084400B75BAD /* ACMacros.h */,
 				9E87E8C31F6607CC00B75BAD /* NSDate+Utils.h */,
 				9E87E8C41F6607CC00B75BAD /* NSDate+Utils.m */,
@@ -501,6 +586,7 @@
 		9E6C87CD1F5BC96600B51BD7 /* Organipa */ = {
 			isa = PBXGroup;
 			children = (
+				9E10E5931F6EDC4B00680D88 /* Login(登陆) */,
 				9E6C88BE1F5C3DA200B51BD7 /* Home(群列表) */,
 				9E1D1D921F65191500FF6E29 /* Utils */,
 				9E6C887B1F5C3DA200B51BD7 /* Chat(聊天页面) */,
@@ -1180,6 +1266,7 @@
 				9E6C89641F5C3DA200B51BD7 /* MLEmoji_ExpressionImage.plist in Resources */,
 				9E87E9141F660C1400B75BAD /* chatfrom_bg_normal.png in Resources */,
 				9E6C88611F5C3D9300B51BD7 /* 17.jpg in Resources */,
+				9E10E78E1F6EE25A00680D88 /* LoginSource.xcassets in Resources */,
 				9E87E9191F660C1400B75BAD /* headImage.jpeg in Resources */,
 				9E87E9091F660C1400B75BAD /* chat_animation2.png in Resources */,
 				9E87E9121F660C1400B75BAD /* Chat_take_picture.png in Resources */,
@@ -1200,11 +1287,13 @@
 				9E6C885D1F5C3D9300B51BD7 /* 13.jpg in Resources */,
 				9E6C88671F5C3D9300B51BD7 /* 23.jpg in Resources */,
 				9E87E9081F660C1400B75BAD /* chat_animation1.png in Resources */,
+				9E10E7881F6EE23E00680D88 /* WFRegisterViewController.xib in Resources */,
 				9E6C884C1F5C3D9300B51BD7 /* icon1.jpg in Resources */,
 				9E6C885C1F5C3D9300B51BD7 /* 12.jpg in Resources */,
 				9E6C89631F5C3DA200B51BD7 /* MLEmoji_Expression.plist in Resources */,
 				9E6C87DB1F5BC96600B51BD7 /* Assets.xcassets in Resources */,
 				9E6C88481F5C3D9300B51BD7 /* test2.jpg in Resources */,
+				9E10E7861F6EE23E00680D88 /* WFLoginLabelCell.xib in Resources */,
 				9E6C886D1F5C3D9300B51BD7 /* Images.xcassets in Resources */,
 				9E6C886C1F5C3D9300B51BD7 /* Discover.xcassets in Resources */,
 				9E6C88461F5C3D9300B51BD7 /* test0.jpg in Resources */,
@@ -1441,10 +1530,15 @@
 				9E6C893F1F5C3DA200B51BD7 /* SDAppFrameTabBarController.m in Sources */,
 				9E6C89611F5C3DA200B51BD7 /* LEETheme.m in Sources */,
 				9E8830E01F5FD56B00A4B467 /* WFNetworkSessionWrapper.m in Sources */,
+				9E10E7871F6EE23E00680D88 /* WFRegisterViewController.m in Sources */,
+				9E37A7D51F6FA9C800B0870B /* WFUserBaiduLoginCredential.m in Sources */,
 				9E6C896B1F5C3DA200B51BD7 /* NSAttributedString+MLExpression.m in Sources */,
 				9E6C897B1F5C3DA300B51BD7 /* SDRefreshView.m in Sources */,
 				9E87E91D1F660D1400B75BAD /* WFMessageTableViewController.m in Sources */,
+				9E10E78C1F6EE25200680D88 /* WFUserCredential.m in Sources */,
+				9E10E7851F6EE23E00680D88 /* WFLoginLabelCell.m in Sources */,
 				9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */,
+				9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */,
 				9E6C895B1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m in Sources */,
 				9E6C89681F5C3DA200B51BD7 /* NSString+MLLabel.m in Sources */,
 				9E6C87D01F5BC96600B51BD7 /* main.m in Sources */,
@@ -1627,6 +1721,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Organipa/Classes/Vender/VoiceLib",
+					"$(PROJECT_DIR)/Organipa",
+					"$(PROJECT_DIR)/Organipa/WFShipper/Vender/VoiceLib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BUPT.Organipa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1646,6 +1742,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Organipa/Classes/Vender/VoiceLib",
+					"$(PROJECT_DIR)/Organipa",
+					"$(PROJECT_DIR)/Organipa/WFShipper/Vender/VoiceLib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BUPT.Organipa;
 				PRODUCT_NAME = "$(TARGET_NAME)";

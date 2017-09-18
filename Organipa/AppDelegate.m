@@ -34,6 +34,11 @@
 
 #import "SDHomeTableViewController.h"
 
+#import "BaiduDelegate.h"
+#import "BaiduAuthCodeDelegate.h"
+#import "SDHomeTableViewController.h"
+
+
 @interface AppDelegate ()
 
 @end
@@ -42,6 +47,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [SDAppFrameTabBarController new];
     self.window.backgroundColor = [UIColor whiteColor];
