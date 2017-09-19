@@ -12,7 +12,7 @@
 @implementation WFNetworkSessionManager( WFBaiduUser )
 
 - (void)getUserInfoWithAccessTocken:(NSString *)accessTocken CompletionBlock:(WFCompletionCallback)completionBlock{
-    NSString * url = [NSString stringWithFormat:@"%@%@", self.WFNetworkBaseUrl, @"passport/users/getLoggedInUser"];
+    NSString * url = [NSString stringWithFormat:@"%@%@", self.WFBaiduNetworkBaseUrl, @"passport/users/getLoggedInUser"];
     WFNetworkMethodType type = WFNetworkMethodTypePost;
     NSDictionary * parameters = @{@"access_token":accessTocken};
     [self sendRequestWithUrl:url method:type parameters:parameters success:^(NSInteger statusCode, id responseObject) {
@@ -26,7 +26,7 @@
     }];
 }
 
-- (NSString *)WFNetworkBaseUrl{
+- (NSString *)WFBaiduNetworkBaseUrl{
     return @"https://openapi.baidu.com/rest/2.0/";
 }
 

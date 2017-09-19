@@ -63,6 +63,7 @@ static NSString * const baiduLoginTimeArchive = @"baiduLoginArchiveTime";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (credential == nil) {
+            credential = [[WFUserBaiduLoginCredential alloc]init];
             credential.baiduLoginAccessTocken = [Lockbox unarchiveObjectForKey:baiduLoginTockenArchive];
             credential.expiredTime = [Lockbox unarchiveObjectForKey:baiduLoginTimeArchive];
         }

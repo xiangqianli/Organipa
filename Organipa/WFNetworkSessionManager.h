@@ -15,6 +15,7 @@ extern NSString * const WFNetworkBaseUrl;
 
 typedef void(^WFNetworkSuccessBlock)(NSInteger statusCode, id responseObject);
 typedef void(^WFNetworkFailureBlock)(NSInteger statusCode, id responseObject);
+typedef void (^WFCompletionCallback)(id response, BOOL isSuccess);
 
 typedef NS_ENUM(NSInteger, WFNetworkMethodType){
     WFNetworkMethodTypeGet,

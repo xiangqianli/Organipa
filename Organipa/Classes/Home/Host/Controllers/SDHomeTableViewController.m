@@ -37,8 +37,13 @@
 #import "BaiduOAuthSDK.h"
 #import "BaiduDelegate.h"
 #import "BaiduAuthCodeDelegate.h"
+
 #import "WFUserBaiduLoginCredential.h"
+#import "WFUserRongyunLoginCredential.h"
 #import "WFHostEngine.h"
+#import "WFAddNewGroupController.h"
+
+#import "WFUser.h"
 
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
@@ -57,7 +62,7 @@ static NSString * const baiduLoginAppleId = @"2014185";
 
 #define kCraticalProgressHeight 80
 
-@interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate>
+@interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate, WFHostEngineProtocal>
 
 @property (nonatomic, weak) SDEyeAnimationView *eyeAnimationView;
 
@@ -98,6 +103,10 @@ static NSString * const baiduLoginAppleId = @"2014185";
     self.tableView.backgroundColor = [UIColor clearColor];
     
     [self logInIfNeed];
+    
+    [self getBaiduUser];
+    
+    [self initBar];
 
 }
 
@@ -199,7 +208,6 @@ static NSString * const baiduLoginAppleId = @"2014185";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     
-    
     if (!self.tableView.isDragging) return;
     if (![keyPath isEqualToString:kHomeObserveKeyPath] || self.tableView.contentOffset.y > 0) return;
     
@@ -283,13 +291,35 @@ static NSString * const baiduLoginAppleId = @"2014185";
 #pragma mark --login
 - (void)logInIfNeed{
 
-    if (![BaiduOAuthSDK isUserTokenValid] || [WFUserBaiduLoginCredential sharedCredential] == nil) {
+    if (![BaiduOAuthSDK isUserTokenValid] || [WFUserBaiduLoginCredential sharedCredential].baiduLoginAccessTocken== nil) {
         //[BaiduOAuthSDK smsAuthWithTargetViewController:self scope:@"basic" andDelegate:self];
         [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic" andDelegate:self];
     }
     
 }
 
+- (void)getBaiduUser{
+    [self.hostEngine getCurrentUserInfoWithAccessTocken:[WFUserBaiduLoginCredential sharedCredential].baiduLoginAccessTocken CompletionHandler:^(WFUser *user, NSError *error) {
+        if (error == nil) {
+            self.baiduUser = user;
+            [self.hostEngine getRongyunUserWithBaiduUser:user completionHandler:^(NSString *userToken, NSError *error) {
+                if (error == nil) {
+                    [[WFUserRongyunLoginCredential sharedCredential] updateWithAccessTocken:userToken];
+                }
+            }];
+        }
+    }];
+}
+
+- (void)initBar{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGroup)];
+}
+
+- (void)addNewGroup{
+    WFAddNewGroupController * addNewGroupController = [[WFAddNewGroupController alloc]init];
+    addNewGroupController.user = [self.user copy];
+    [self.navigationController pushViewController:addNewGroupController animated:YES];
+}
 #pragma mark --login delegate
 - (IBAction)doGetAuthCodeBySms:(id)sender {
     
@@ -336,11 +366,11 @@ static NSString * const baiduLoginAppleId = @"2014185";
 {
     NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
     [[WFUserBaiduLoginCredential sharedCredential]updateWithExpiredTime:tokenInfo.expiresIn accessTocken:tokenInfo.accessToken];
-    [self.hostEngine getCurrentUserInfoWithAccessTocken:tokenInfo.accessToken CompletionHandler:^(WFUser *user, NSError *error) {
-        if (error == nil) {
-            self.baiduUser = user;
-        }
-    }];
+    
 }
 
+#pragma mark -- WFHostEngineProtocal
+- (WFUser *)user{
+    return self.user;
+}
 @end

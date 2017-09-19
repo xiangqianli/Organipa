@@ -10,5 +10,11 @@
 
 @implementation WFUser
 
-
+- (id)copyWithZone:(NSZone *)zone{
+    WFUser * user = [[WFUser alloc]init];
+    user.uid = self.uid;
+    user.uname = [self.uname copy];
+    user.portrait = [self.portrait copy];
+    return user;
+}
 @end

@@ -10,10 +10,20 @@
 
 @class WFUser;
 typedef void(^WFHostEngineCompletionUserHandler)(WFUser * user, NSError * error);
+typedef void(^WFHostEngineCompletionRongyunUserHandler)(NSString * userToken, NSError * error);
+
+@protocol WFHostEngineProtocal
+
+- (WFUser *)user;
+
+@end
 
 @interface WFHostEngine : NSObject
-@property (strong, nonatomic) NSOperationQueue * ioqueue;
 
+//百度账户的获取
 - (void)getCurrentUserInfoWithAccessTocken:(NSString *)accessTocken CompletionHandler:(WFHostEngineCompletionUserHandler)completionHandler;
+
+//根据百度id获取融云token
+- (void)getRongyunUserWithBaiduUser:(WFUser *)user completionHandler:(WFHostEngineCompletionRongyunUserHandler)completionHandler;
 
 @end

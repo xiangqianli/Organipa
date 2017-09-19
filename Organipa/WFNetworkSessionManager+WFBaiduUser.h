@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "WFNetworkSessionManager.h"
 
-typedef void (^WFCompletionCallback)(id response, BOOL isSuccess);
 
 @interface WFNetworkSessionManager (WFBaiduUser)
 

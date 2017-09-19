@@ -13,7 +13,6 @@
 		9E10E7861F6EE23E00680D88 /* WFLoginLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E7811F6EE23E00680D88 /* WFLoginLabelCell.xib */; };
 		9E10E7871F6EE23E00680D88 /* WFRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E7831F6EE23E00680D88 /* WFRegisterViewController.m */; };
 		9E10E7881F6EE23E00680D88 /* WFRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E7841F6EE23E00680D88 /* WFRegisterViewController.xib */; };
-		9E10E78C1F6EE25200680D88 /* WFUserCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E78B1F6EE25200680D88 /* WFUserCredential.m */; };
 		9E10E78E1F6EE25A00680D88 /* LoginSource.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */; };
 		9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E7901F6EE27900680D88 /* UIButton+Common.m */; };
 		9E1D1D8E1F65020B00FF6E29 /* SDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */; };
@@ -29,6 +28,11 @@
 		9E37A7DE1F6FCA4700B0870B /* WFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7DD1F6FCA4700B0870B /* WFUser.m */; };
 		9E37A7E31F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */; };
 		9E37A7E91F70ADC100B0870B /* WFHostEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7E81F70ADC100B0870B /* WFHostEngine.m */; };
+		9E37A7EE1F70C5EB00B0870B /* WFAddNewGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7EC1F70C5EB00B0870B /* WFAddNewGroupController.m */; };
+		9E37A7EF1F70C5EB00B0870B /* WFAddNewGroupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E37A7ED1F70C5EB00B0870B /* WFAddNewGroupController.xib */; };
+		9E37A7F21F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7F11F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m */; };
+		9E37A7F51F70D2E000B0870B /* WFGroupEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7F41F70D2E000B0870B /* WFGroupEngine.m */; };
+		9E37A7F81F70DB5E00B0870B /* WFUserRongyunLoginCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7F71F70DB5E00B0870B /* WFUserRongyunLoginCredential.m */; };
 		9E6C87D01F5BC96600B51BD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C87CF1F5BC96600B51BD7 /* main.m */; };
 		9E6C87D91F5BC96600B51BD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87D71F5BC96600B51BD7 /* Main.storyboard */; };
 		9E6C87DB1F5BC96600B51BD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87DA1F5BC96600B51BD7 /* Assets.xcassets */; };
@@ -200,8 +204,6 @@
 		9E10E7821F6EE23E00680D88 /* WFRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRegisterViewController.h; sourceTree = "<group>"; };
 		9E10E7831F6EE23E00680D88 /* WFRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRegisterViewController.m; sourceTree = "<group>"; };
 		9E10E7841F6EE23E00680D88 /* WFRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFRegisterViewController.xib; sourceTree = "<group>"; };
-		9E10E78A1F6EE25200680D88 /* WFUserCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserCredential.h; sourceTree = "<group>"; };
-		9E10E78B1F6EE25200680D88 /* WFUserCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserCredential.m; sourceTree = "<group>"; };
 		9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LoginSource.xcassets; sourceTree = "<group>"; };
 		9E10E78F1F6EE27900680D88 /* UIButton+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Common.h"; sourceTree = "<group>"; };
 		9E10E7901F6EE27900680D88 /* UIButton+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Common.m"; sourceTree = "<group>"; };
@@ -233,6 +235,15 @@
 		9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WFNetworkSessionManager+WFBaiduUser.m"; sourceTree = "<group>"; };
 		9E37A7E71F70ADC100B0870B /* WFHostEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFHostEngine.h; sourceTree = "<group>"; };
 		9E37A7E81F70ADC100B0870B /* WFHostEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFHostEngine.m; sourceTree = "<group>"; };
+		9E37A7EB1F70C5EB00B0870B /* WFAddNewGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFAddNewGroupController.h; sourceTree = "<group>"; };
+		9E37A7EC1F70C5EB00B0870B /* WFAddNewGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFAddNewGroupController.m; sourceTree = "<group>"; };
+		9E37A7ED1F70C5EB00B0870B /* WFAddNewGroupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFAddNewGroupController.xib; sourceTree = "<group>"; };
+		9E37A7F01F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WFNetworkSessionManager+WFRongyunUser.h"; sourceTree = "<group>"; };
+		9E37A7F11F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WFNetworkSessionManager+WFRongyunUser.m"; sourceTree = "<group>"; };
+		9E37A7F31F70D2E000B0870B /* WFGroupEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFGroupEngine.h; sourceTree = "<group>"; };
+		9E37A7F41F70D2E000B0870B /* WFGroupEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFGroupEngine.m; sourceTree = "<group>"; };
+		9E37A7F61F70DB5E00B0870B /* WFUserRongyunLoginCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserRongyunLoginCredential.h; sourceTree = "<group>"; };
+		9E37A7F71F70DB5E00B0870B /* WFUserRongyunLoginCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserRongyunLoginCredential.m; sourceTree = "<group>"; };
 		9E6C87CB1F5BC96600B51BD7 /* Organipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Organipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6C87CF1F5BC96600B51BD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E6C87D81F5BC96600B51BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -511,7 +522,6 @@
 			isa = PBXGroup;
 			children = (
 				9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */,
-				9E10E7891F6EE24600680D88 /* WFAccount */,
 				9E10E77E1F6EE23300680D88 /* View */,
 			);
 			name = WFLogin;
@@ -533,10 +543,10 @@
 		9E10E7891F6EE24600680D88 /* WFAccount */ = {
 			isa = PBXGroup;
 			children = (
-				9E10E78A1F6EE25200680D88 /* WFUserCredential.h */,
-				9E10E78B1F6EE25200680D88 /* WFUserCredential.m */,
 				9E37A7D31F6FA9C800B0870B /* WFUserBaiduLoginCredential.h */,
 				9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */,
+				9E37A7F61F70DB5E00B0870B /* WFUserRongyunLoginCredential.h */,
+				9E37A7F71F70DB5E00B0870B /* WFUserRongyunLoginCredential.m */,
 			);
 			name = WFAccount;
 			sourceTree = "<group>";
@@ -573,6 +583,7 @@
 		9E37A7DB1F6FCA3500B0870B /* WFModel */ = {
 			isa = PBXGroup;
 			children = (
+				9E10E7891F6EE24600680D88 /* WFAccount */,
 				9E37A7DC1F6FCA4700B0870B /* WFUser.h */,
 				9E37A7DD1F6FCA4700B0870B /* WFUser.m */,
 			);
@@ -584,6 +595,8 @@
 			children = (
 				9E37A7E11F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.h */,
 				9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */,
+				9E37A7F01F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.h */,
+				9E37A7F11F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m */,
 			);
 			name = WFRequest;
 			sourceTree = "<group>";
@@ -872,6 +885,8 @@
 				9E6C88CC1F5C3DA200B51BD7 /* Views */,
 				9E37A7E71F70ADC100B0870B /* WFHostEngine.h */,
 				9E37A7E81F70ADC100B0870B /* WFHostEngine.m */,
+				9E37A7F31F70D2E000B0870B /* WFGroupEngine.h */,
+				9E37A7F41F70D2E000B0870B /* WFGroupEngine.m */,
 			);
 			path = Host;
 			sourceTree = "<group>";
@@ -882,6 +897,9 @@
 				9E6C88C11F5C3DA200B51BD7 /* SDHomeTableViewController.h */,
 				9E6C88C21F5C3DA200B51BD7 /* SDHomeTableViewController.m */,
 				9E6C88C31F5C3DA200B51BD7 /* ShortVideoController */,
+				9E37A7EB1F70C5EB00B0870B /* WFAddNewGroupController.h */,
+				9E37A7EC1F70C5EB00B0870B /* WFAddNewGroupController.m */,
+				9E37A7ED1F70C5EB00B0870B /* WFAddNewGroupController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1316,6 +1334,7 @@
 				9E6C88561F5C3D9300B51BD7 /* 6.jpg in Resources */,
 				9E6C88421F5C3D9300B51BD7 /* pic5.jpg in Resources */,
 				9E6C885D1F5C3D9300B51BD7 /* 13.jpg in Resources */,
+				9E37A7EF1F70C5EB00B0870B /* WFAddNewGroupController.xib in Resources */,
 				9E6C88671F5C3D9300B51BD7 /* 23.jpg in Resources */,
 				9E87E9081F660C1400B75BAD /* chat_animation1.png in Resources */,
 				9E10E7881F6EE23E00680D88 /* WFRegisterViewController.xib in Resources */,
@@ -1567,14 +1586,15 @@
 				9E6C896B1F5C3DA200B51BD7 /* NSAttributedString+MLExpression.m in Sources */,
 				9E6C897B1F5C3DA300B51BD7 /* SDRefreshView.m in Sources */,
 				9E87E91D1F660D1400B75BAD /* WFMessageTableViewController.m in Sources */,
-				9E10E78C1F6EE25200680D88 /* WFUserCredential.m in Sources */,
 				9E37A7DE1F6FCA4700B0870B /* WFUser.m in Sources */,
 				9E37A7E91F70ADC100B0870B /* WFHostEngine.m in Sources */,
 				9E10E7851F6EE23E00680D88 /* WFLoginLabelCell.m in Sources */,
 				9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */,
 				9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */,
 				9E6C895B1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m in Sources */,
+				9E37A7F51F70D2E000B0870B /* WFGroupEngine.m in Sources */,
 				9E6C89681F5C3DA200B51BD7 /* NSString+MLLabel.m in Sources */,
+				9E37A7EE1F70C5EB00B0870B /* WFAddNewGroupController.m in Sources */,
 				9E6C87D01F5BC96600B51BD7 /* main.m in Sources */,
 				9E87E8B51F6605AF00B75BAD /* UUAVAudioPlayer.m in Sources */,
 				9E6C89791F5C3DA300B51BD7 /* SDRefreshFooterView.m in Sources */,
@@ -1586,6 +1606,7 @@
 				9E6C89651F5C3DA200B51BD7 /* MLEmojiLabel.m in Sources */,
 				9E6C896C1F5C3DA200B51BD7 /* NSString+MLExpression.m in Sources */,
 				9E87E8F21F66082C00B75BAD /* Mp3Recorder.m in Sources */,
+				9E37A7F21F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m in Sources */,
 				9E87E8C51F6607CC00B75BAD /* NSDate+Utils.m in Sources */,
 				9E8830D71F5F06D200A4B467 /* WFNetworkSessionManager.m in Sources */,
 				9E6C896A1F5C3DA200B51BD7 /* MLTextAttachment.m in Sources */,
@@ -1593,6 +1614,7 @@
 				9E6C89581F5C3DA200B51BD7 /* SDHomeTableViewController.m in Sources */,
 				9E6C897A1F5C3DA300B51BD7 /* SDRefreshHeaderView.m in Sources */,
 				9E87E8B61F6605AF00B75BAD /* UUImageAvatarBrowser.m in Sources */,
+				9E37A7F81F70DB5E00B0870B /* WFUserRongyunLoginCredential.m in Sources */,
 				9E6C89601F5C3DA200B51BD7 /* SDAnalogDataGenerator.m in Sources */,
 				9E1D1DA71F65192300FF6E29 /* WFHelpers.m in Sources */,
 				9E6C89411F5C3DA200B51BD7 /* SDBaseNavigationController.m in Sources */,

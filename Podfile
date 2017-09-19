@@ -20,6 +20,7 @@ target 'Organipa' do
   pod 'SDWebImage/GIF'
   pod 'ReactiveCocoa', '~>2.5'
   pod 'Lockbox'
+  pod 'RongCloudIM/IMLib', '~> 2.8.3'
   # Pods for Organipa
 
   target 'OrganipaTests' do
