@@ -174,6 +174,23 @@
     [self.chatModel addSpecifiedItem:dic];
     [self.chatTableView reloadData];
     [self tableViewScrollToBottom];
+    NSInteger messageType = dic[@"type"];
+    switch (messageType) {
+        case UUMessageTypeText:{
+            RCTextMessage * textMessage = [RCTextMessage messageWithContent:dic[@"strContent"]];
+            [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_GROUP targetId:[NSString stringWithFormat:@"%ld",self.group.gid] content:textMessage pushContent:nil pushData:nil success:^(long messageId) {
+                [self.chatModel addSpecifiedItem:dic];
+                [self.chatTableView reloadData];
+                [self tableViewScrollToBottom];
+                NSLog(@"发送成功，当前消息ID : %ld",messageId);
+            } error:^(RCErrorCode nErrorCode, long messageId) {
+                NSLog(@"发送失败，消息ID：%ld, 错误码%ld", messageId, nErrorCode);
+            }];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - tableView delegate & datasource

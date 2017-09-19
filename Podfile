@@ -21,6 +21,7 @@ target 'Organipa' do
   pod 'ReactiveCocoa', '~>2.5'
   pod 'Lockbox'
   pod 'RongCloudIM/IMLib', '~> 2.8.3'
+  pod 'Realm'
   # Pods for Organipa
 
   target 'OrganipaTests' do

@@ -94,7 +94,9 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
     
     self.tableView.rowHeight = [SDHomeTableViewCell fixedHeight];
     
-    [self setupDataWithCount:10];
+    //[self setupDataWithCount:10]; 模拟自己造数据
+    
+    [self setUpRealData];
     
     [self.tableView registerClass:[SDHomeTableViewCell class] forCellReuseIdentifier:kHomeTableViewControllerCellId];
     
@@ -119,6 +121,11 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)setUpRealData{
+    NSArray * conversationArray = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:ConversationType_GROUP],nil];
+    [self.dataArray addObjectsFromArray:[[RCIMClient sharedRCIMClient]getConversationList:conversationArray]];
 }
 
 - (void)setupDataWithCount:(NSInteger)count
