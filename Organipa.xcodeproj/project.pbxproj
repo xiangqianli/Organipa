@@ -26,6 +26,9 @@
 		9E1D1DAA1F65192300FF6E29 /* UIDevice+WFScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1DA11F65192300FF6E29 /* UIDevice+WFScale.m */; };
 		9E1D1DAB1F65192300FF6E29 /* UIView+WFHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1DA31F65192300FF6E29 /* UIView+WFHelper.m */; };
 		9E37A7D51F6FA9C800B0870B /* WFUserBaiduLoginCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */; };
+		9E37A7DE1F6FCA4700B0870B /* WFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7DD1F6FCA4700B0870B /* WFUser.m */; };
+		9E37A7E31F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */; };
+		9E37A7E91F70ADC100B0870B /* WFHostEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7E81F70ADC100B0870B /* WFHostEngine.m */; };
 		9E6C87D01F5BC96600B51BD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C87CF1F5BC96600B51BD7 /* main.m */; };
 		9E6C87D91F5BC96600B51BD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87D71F5BC96600B51BD7 /* Main.storyboard */; };
 		9E6C87DB1F5BC96600B51BD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87DA1F5BC96600B51BD7 /* Assets.xcassets */; };
@@ -224,6 +227,12 @@
 		9E1D1DA31F65192300FF6E29 /* UIView+WFHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WFHelper.m"; sourceTree = "<group>"; };
 		9E37A7D31F6FA9C800B0870B /* WFUserBaiduLoginCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserBaiduLoginCredential.h; sourceTree = "<group>"; };
 		9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserBaiduLoginCredential.m; sourceTree = "<group>"; };
+		9E37A7DC1F6FCA4700B0870B /* WFUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUser.h; sourceTree = "<group>"; };
+		9E37A7DD1F6FCA4700B0870B /* WFUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUser.m; sourceTree = "<group>"; };
+		9E37A7E11F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WFNetworkSessionManager+WFBaiduUser.h"; sourceTree = "<group>"; };
+		9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WFNetworkSessionManager+WFBaiduUser.m"; sourceTree = "<group>"; };
+		9E37A7E71F70ADC100B0870B /* WFHostEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFHostEngine.h; sourceTree = "<group>"; };
+		9E37A7E81F70ADC100B0870B /* WFHostEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFHostEngine.m; sourceTree = "<group>"; };
 		9E6C87CB1F5BC96600B51BD7 /* Organipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Organipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6C87CF1F5BC96600B51BD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E6C87D81F5BC96600B51BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -561,6 +570,24 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		9E37A7DB1F6FCA3500B0870B /* WFModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E37A7DC1F6FCA4700B0870B /* WFUser.h */,
+				9E37A7DD1F6FCA4700B0870B /* WFUser.m */,
+			);
+			name = WFModel;
+			sourceTree = "<group>";
+		};
+		9E37A7E01F6FCF0C00B0870B /* WFRequest */ = {
+			isa = PBXGroup;
+			children = (
+				9E37A7E11F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.h */,
+				9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */,
+			);
+			name = WFRequest;
+			sourceTree = "<group>";
+		};
 		9E6C87C21F5BC96600B51BD7 = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +613,8 @@
 		9E6C87CD1F5BC96600B51BD7 /* Organipa */ = {
 			isa = PBXGroup;
 			children = (
+				9E37A7E01F6FCF0C00B0870B /* WFRequest */,
+				9E37A7DB1F6FCA3500B0870B /* WFModel */,
 				9E10E5931F6EDC4B00680D88 /* Login(登陆) */,
 				9E6C88BE1F5C3DA200B51BD7 /* Home(群列表) */,
 				9E1D1D921F65191500FF6E29 /* Utils */,
@@ -841,6 +870,8 @@
 				9E6C88C01F5C3DA200B51BD7 /* Controllers */,
 				9E6C88C91F5C3DA200B51BD7 /* Models */,
 				9E6C88CC1F5C3DA200B51BD7 /* Views */,
+				9E37A7E71F70ADC100B0870B /* WFHostEngine.h */,
+				9E37A7E81F70ADC100B0870B /* WFHostEngine.m */,
 			);
 			path = Host;
 			sourceTree = "<group>";
@@ -1512,6 +1543,7 @@
 				9E1D1DAA1F65192300FF6E29 /* UIDevice+WFScale.m in Sources */,
 				9E6C895C1F5C3DA200B51BD7 /* SDEyeAnimationView.m in Sources */,
 				9E6C89711F5C3DA200B51BD7 /* README.md in Sources */,
+				9E37A7E31F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m in Sources */,
 				9E6C89401F5C3DA200B51BD7 /* SDBaseRefreshView.m in Sources */,
 				9E6C89661F5C3DA200B51BD7 /* NSAttributedString+MLLabel.m in Sources */,
 				9E6C89471F5C3DA200B51BD7 /* SDWebViewController.m in Sources */,
@@ -1536,6 +1568,8 @@
 				9E6C897B1F5C3DA300B51BD7 /* SDRefreshView.m in Sources */,
 				9E87E91D1F660D1400B75BAD /* WFMessageTableViewController.m in Sources */,
 				9E10E78C1F6EE25200680D88 /* WFUserCredential.m in Sources */,
+				9E37A7DE1F6FCA4700B0870B /* WFUser.m in Sources */,
+				9E37A7E91F70ADC100B0870B /* WFHostEngine.m in Sources */,
 				9E10E7851F6EE23E00680D88 /* WFLoginLabelCell.m in Sources */,
 				9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */,
 				9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */,

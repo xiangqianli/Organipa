@@ -16,6 +16,7 @@
 #import "UIDevice+WFScale.h"
 #import "ACMacros.h"
 #import "WFConst.h"
+#import "WFSettings.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <RACCommand.h>
 

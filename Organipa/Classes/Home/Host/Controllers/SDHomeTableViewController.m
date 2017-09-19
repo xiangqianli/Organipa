@@ -37,7 +37,8 @@
 #import "BaiduOAuthSDK.h"
 #import "BaiduDelegate.h"
 #import "BaiduAuthCodeDelegate.h"
-#import "WFUserCredential.h"
+#import "WFUserBaiduLoginCredential.h"
+#import "WFHostEngine.h"
 
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
@@ -62,12 +63,16 @@ static NSString * const baiduLoginAppleId = @"2014185";
 
 @property (nonatomic, strong) SDShortVideoController *shortVideoController;
 
+@property (nonatomic, strong) WFHostEngine * hostEngine;
+
 @property (nonatomic, assign) BOOL tableViewIsHidden;
 
 @property (nonatomic, assign) CGFloat tabBarOriginalY;
 @property (nonatomic, assign) CGFloat tableViewOriginalY;
 
 @property (nonatomic, strong) UISearchController *searchController;
+
+@property (nonatomic, strong) WFUser * baiduUser;
 
 @end
 
@@ -76,6 +81,7 @@ static NSString * const baiduLoginAppleId = @"2014185";
 - (instancetype)init{
     if (self = [super init]) {
         [BaiduOAuthSDK initWithAPIKey:baiduLoginApiKey appId:baiduLoginAppleId];
+        _hostEngine = [[WFHostEngine alloc]init];
     }
     return self;
 }
@@ -92,6 +98,7 @@ static NSString * const baiduLoginAppleId = @"2014185";
     self.tableView.backgroundColor = [UIColor clearColor];
     
     [self logInIfNeed];
+
 }
 
 - (UISearchController *)searchController
@@ -276,10 +283,11 @@ static NSString * const baiduLoginAppleId = @"2014185";
 #pragma mark --login
 - (void)logInIfNeed{
 
-    if (![BaiduOAuthSDK isUserTokenValid]) {
+    if (![BaiduOAuthSDK isUserTokenValid] || [WFUserBaiduLoginCredential sharedCredential] == nil) {
         //[BaiduOAuthSDK smsAuthWithTargetViewController:self scope:@"basic" andDelegate:self];
-        [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" andDelegate:self];
+        [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic" andDelegate:self];
     }
+    
 }
 
 #pragma mark --login delegate
@@ -316,9 +324,23 @@ static NSString * const baiduLoginAppleId = @"2014185";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)loginFailedWithError:(NSError *)error{
+    NSLog(@"login error.");
+}
+
+- (void)loginDidCancel{
+    NSLog(@"login cancel.");
+}
+
 - (void)loginDidSuccessWithTokenInfo:(BaiduTokenInfo *)tokenInfo
 {
     NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
+    [[WFUserBaiduLoginCredential sharedCredential]updateWithExpiredTime:tokenInfo.expiresIn accessTocken:tokenInfo.accessToken];
+    [self.hostEngine getCurrentUserInfoWithAccessTocken:tokenInfo.accessToken CompletionHandler:^(WFUser *user, NSError *error) {
+        if (error == nil) {
+            self.baiduUser = user;
+        }
+    }];
 }
 
 @end

@@ -15,6 +15,4 @@
 
 + (instancetype)sharedCredential;
 
-- (void)saveAccessToken:(NSString *)accessToken expiredTime:(NSString *)timeStr;
-
 @end

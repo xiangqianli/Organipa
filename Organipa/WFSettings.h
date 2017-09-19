@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString * const WFNetworkBaseUrl = @"182.61.34.214";
+#define kWFNetworkBaiduUrlKey   @"kWFNetworkBaiduUrlKey"
+
 
 @interface WFSettings : NSObject
 
