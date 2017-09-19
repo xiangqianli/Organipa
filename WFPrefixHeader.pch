@@ -20,5 +20,6 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <RACCommand.h>
 #import <RongIMLib/RongIMLib.h>
+#import <Realm/Realm.h>
 
 #endif /* WFPrefixHeader_pch */

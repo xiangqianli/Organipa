@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WFUser : NSObject<NSCopying>
+@interface WFUser : RLMObject<NSCopying>
 
 @property (nonatomic, assign) NSInteger uid;
 @property (nonatomic, copy) NSString * uname;

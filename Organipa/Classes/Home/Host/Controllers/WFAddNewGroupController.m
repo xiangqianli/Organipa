@@ -16,15 +16,12 @@ static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSucces
 
 @property (weak, nonatomic) IBOutlet UITextField *groupName;
 
-@property (strong, nonatomic) WFGroupEngine * groupEngine;
-
 @end
 
 @implementation WFAddNewGroupController
 
 - (instancetype)init{
     if (self = [super init]) {
-        _groupEngine = [[WFGroupEngine alloc]init];
     }
     return self;
 }
@@ -43,7 +40,7 @@ static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSucces
 }
 
 - (void)sendRequest{
-    [self.groupEngine createGroup:_user.uid groupName:_groupName.text completionHandler:^(WFGroup *group, NSError *error) {
+    [[WFGroupEngine sharedGroupEngine] createGroup:_user.uid groupName:_groupName.text completionHandler:^(WFGroup *group, NSError *error) {
         [[NSNotificationCenter defaultCenter]postNotificationName:WFAddNewGroupSuccessNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:group,@"group",nil]];
         [self.navigationController popViewControllerAnimated:YES];
     }];

@@ -37,6 +37,8 @@
 		9E37A8001F70EF2300B0870B /* WFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7FF1F70EF2300B0870B /* WFGroup.m */; };
 		9E37A8041F71065500B0870B /* WFJoinCurrentGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A8021F71065500B0870B /* WFJoinCurrentGroupController.m */; };
 		9E37A8051F71065500B0870B /* WFJoinCurrentGroupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E37A8031F71065500B0870B /* WFJoinCurrentGroupController.xib */; };
+		9E37A8101F7191F400B0870B /* WFMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A80F1F7191F400B0870B /* WFMessage.m */; };
+		9E37A8131F71959A00B0870B /* WFMessageEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A8121F71959A00B0870B /* WFMessageEngine.m */; };
 		9E6C87D01F5BC96600B51BD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C87CF1F5BC96600B51BD7 /* main.m */; };
 		9E6C87D91F5BC96600B51BD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87D71F5BC96600B51BD7 /* Main.storyboard */; };
 		9E6C87DB1F5BC96600B51BD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87DA1F5BC96600B51BD7 /* Assets.xcassets */; };
@@ -103,7 +105,6 @@
 		9E6C89581F5C3DA200B51BD7 /* SDHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88C21F5C3DA200B51BD7 /* SDHomeTableViewController.m */; };
 		9E6C89591F5C3DA200B51BD7 /* SDShortVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88C51F5C3DA200B51BD7 /* SDShortVideoController.m */; };
 		9E6C895A1F5C3DA200B51BD7 /* SDShortVideoProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88C81F5C3DA200B51BD7 /* SDShortVideoProgressView.m */; };
-		9E6C895B1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88CB1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m */; };
 		9E6C895C1F5C3DA200B51BD7 /* SDEyeAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88CF1F5C3DA200B51BD7 /* SDEyeAnimationView.m */; };
 		9E6C895D1F5C3DA200B51BD7 /* SDHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88D11F5C3DA200B51BD7 /* SDHomeTableViewCell.m */; };
 		9E6C89601F5C3DA200B51BD7 /* SDAnalogDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C88DA1F5C3DA200B51BD7 /* SDAnalogDataGenerator.m */; };
@@ -255,6 +256,10 @@
 		9E37A8011F71065400B0870B /* WFJoinCurrentGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFJoinCurrentGroupController.h; sourceTree = "<group>"; };
 		9E37A8021F71065500B0870B /* WFJoinCurrentGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFJoinCurrentGroupController.m; sourceTree = "<group>"; };
 		9E37A8031F71065500B0870B /* WFJoinCurrentGroupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFJoinCurrentGroupController.xib; sourceTree = "<group>"; };
+		9E37A80E1F7191F400B0870B /* WFMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFMessage.h; sourceTree = "<group>"; };
+		9E37A80F1F7191F400B0870B /* WFMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFMessage.m; sourceTree = "<group>"; };
+		9E37A8111F71959A00B0870B /* WFMessageEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFMessageEngine.h; sourceTree = "<group>"; };
+		9E37A8121F71959A00B0870B /* WFMessageEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFMessageEngine.m; sourceTree = "<group>"; };
 		9E6C87CB1F5BC96600B51BD7 /* Organipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Organipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6C87CF1F5BC96600B51BD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E6C87D81F5BC96600B51BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -337,8 +342,6 @@
 		9E6C88C51F5C3DA200B51BD7 /* SDShortVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDShortVideoController.m; sourceTree = "<group>"; };
 		9E6C88C71F5C3DA200B51BD7 /* SDShortVideoProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDShortVideoProgressView.h; sourceTree = "<group>"; };
 		9E6C88C81F5C3DA200B51BD7 /* SDShortVideoProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDShortVideoProgressView.m; sourceTree = "<group>"; };
-		9E6C88CA1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDHomeTableViewCellModel.h; sourceTree = "<group>"; };
-		9E6C88CB1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDHomeTableViewCellModel.m; sourceTree = "<group>"; };
 		9E6C88CE1F5C3DA200B51BD7 /* SDEyeAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDEyeAnimationView.h; sourceTree = "<group>"; };
 		9E6C88CF1F5C3DA200B51BD7 /* SDEyeAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDEyeAnimationView.m; sourceTree = "<group>"; };
 		9E6C88D01F5C3DA200B51BD7 /* SDHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDHomeTableViewCell.h; sourceTree = "<group>"; };
@@ -600,6 +603,8 @@
 				9E37A7DD1F6FCA4700B0870B /* WFUser.m */,
 				9E37A7FE1F70EF2300B0870B /* WFGroup.h */,
 				9E37A7FF1F70EF2300B0870B /* WFGroup.m */,
+				9E37A80E1F7191F400B0870B /* WFMessage.h */,
+				9E37A80F1F7191F400B0870B /* WFMessage.m */,
 			);
 			name = WFModel;
 			sourceTree = "<group>";
@@ -850,6 +855,8 @@
 				9E87E91A1F660D1400B75BAD /* WFMessageTableViewController.h */,
 				9E87E91B1F660D1400B75BAD /* WFMessageTableViewController.m */,
 				9E87E91C1F660D1400B75BAD /* WFMessageTableViewController.xib */,
+				9E37A8111F71959A00B0870B /* WFMessageEngine.h */,
+				9E37A8121F71959A00B0870B /* WFMessageEngine.m */,
 			);
 			name = "Chat(聊天页面)";
 			path = Classes/Common/ChatController;
@@ -904,7 +911,6 @@
 			isa = PBXGroup;
 			children = (
 				9E6C88C01F5C3DA200B51BD7 /* Controllers */,
-				9E6C88C91F5C3DA200B51BD7 /* Models */,
 				9E6C88CC1F5C3DA200B51BD7 /* Views */,
 				9E37A7E71F70ADC100B0870B /* WFHostEngine.h */,
 				9E37A7E81F70ADC100B0870B /* WFHostEngine.m */,
@@ -947,15 +953,6 @@
 				9E6C88C81F5C3DA200B51BD7 /* SDShortVideoProgressView.m */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		9E6C88C91F5C3DA200B51BD7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				9E6C88CA1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.h */,
-				9E6C88CB1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		9E6C88CC1F5C3DA200B51BD7 /* Views */ = {
@@ -1579,6 +1576,7 @@
 			files = (
 				9E6C89751F5C3DA300B51BD7 /* SDBrowserImageView.m in Sources */,
 				9E87E8B91F6605AF00B75BAD /* UUMessageCell.m in Sources */,
+				9E37A8131F71959A00B0870B /* WFMessageEngine.m in Sources */,
 				9E87E8B81F6605AF00B75BAD /* UUMessage.m in Sources */,
 				9E6C89421F5C3DA200B51BD7 /* SDBaseTableViewController.m in Sources */,
 				9E87E8C21F66068F00B75BAD /* WFChatModel.m in Sources */,
@@ -1595,6 +1593,7 @@
 				9E6C89661F5C3DA200B51BD7 /* NSAttributedString+MLLabel.m in Sources */,
 				9E6C89471F5C3DA200B51BD7 /* SDWebViewController.m in Sources */,
 				9E1D1DA51F65192300FF6E29 /* UIColor+Hex.m in Sources */,
+				9E37A8101F7191F400B0870B /* WFMessage.m in Sources */,
 				9E1D1D8E1F65020B00FF6E29 /* SDBaseViewController.m in Sources */,
 				9E1D1DA91F65192300FF6E29 /* UIButton+WFActionBlock.m in Sources */,
 				9E6C896D1F5C3DA200B51BD7 /* MLLabelLayoutManager.m in Sources */,
@@ -1619,7 +1618,6 @@
 				9E10E7851F6EE23E00680D88 /* WFLoginLabelCell.m in Sources */,
 				9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */,
 				9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */,
-				9E6C895B1F5C3DA200B51BD7 /* SDHomeTableViewCellModel.m in Sources */,
 				9E37A7F51F70D2E000B0870B /* WFGroupEngine.m in Sources */,
 				9E6C89681F5C3DA200B51BD7 /* NSString+MLLabel.m in Sources */,
 				9E37A7EE1F70C5EB00B0870B /* WFAddNewGroupController.m in Sources */,

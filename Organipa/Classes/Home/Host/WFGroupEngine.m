@@ -9,6 +9,7 @@
 #import "WFGroupEngine.h"
 #import "WFNetworkSessionManager.h"
 #import "WFGroup.h"
+#import "NSDate+Utils.h"
 
 @implementation WFGroupEngine
 
@@ -30,6 +31,8 @@
             group.gid = responseObject[@"entity"][@"group_id"];
             group.ownerid = uid;
             group.gname = groupName;
+            group.update_time = [NSDate dateFromString:responseObject[@"entity"][@"updated_at"]];
+            [self saveNewGroupToDatabase:group];
             comletionHandler(group, nil);
         }
     } failure:^(NSInteger statusCode, id responseObject) {
@@ -50,6 +53,8 @@
             group.gid = responseObject[@"entity"][@"group_id"];
             group.ownerid = uid;
             group.gname = groupName;
+            group.update_time = [NSDate dateFromString:responseObject[@"entity"][@"updated_at"]];
+            [self saveNewGroupToDatabase:group];
             comletionHandler(group, nil);
         }
     } failure:^(NSInteger statusCode, id responseObject) {
@@ -64,4 +69,27 @@
     return @"http://organipa.andysheng.cn/";
 }
 
++ (instancetype)sharedGroupEngine{
+    static WFGroupEngine * groupEngine = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        groupEngine = [[WFGroupEngine alloc]init];
+    });
+    return groupEngine;
+}
+
+#pragma mark -- 数据库操作
+- (void)saveNewGroupToDatabase:(WFGroup *)group{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    [realm transactionWithBlock:^{
+        [realm addObject:group];
+    }];
+}
+
+- (void)deleteGroupFromDatabase:(WFGroup *)group{
+    RLMRealm * realm = [RLMRealm defaultRealm];
+    [realm transactionWithBlock:^{
+        [realm deleteObject:group];
+    }];
+}
 @end

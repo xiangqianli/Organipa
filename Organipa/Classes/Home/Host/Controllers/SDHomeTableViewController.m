@@ -40,7 +40,9 @@
 
 #import "WFUserBaiduLoginCredential.h"
 #import "WFUserRongyunLoginCredential.h"
+
 #import "WFHostEngine.h"
+#import "WFGroupEngine.h"
 
 #import "WFAddNewGroupController.h"
 #import "WFJoinCurrentGroupController.h"
@@ -70,6 +72,7 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
 @interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate>
 
 @property (nonatomic, strong) WFHostEngine * hostEngine;
+@property (nonatomic, strong) WFGroupEngine * groupEngine;
 
 @property (nonatomic, strong) UISearchController *searchController;
 
@@ -124,27 +127,18 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
 }
 
 - (void)setUpRealData{
-    NSArray * conversationArray = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:ConversationType_GROUP],nil];
-    [self.dataArray addObjectsFromArray:[[RCIMClient sharedRCIMClient]getConversationList:conversationArray]];
-}
-
-- (void)setupDataWithCount:(NSInteger)count
-{
-    for (int i = 0; i < count; i++) {
-        SDHomeTableViewCellModel *model = [SDHomeTableViewCellModel new];
-        model.imageName = [SDAnalogDataGenerator randomIconImageName];
-        model.name = [SDAnalogDataGenerator randomName];
-        model.message = [SDAnalogDataGenerator randomMessage];
-        [self.dataArray addObject:model];
+    //NSArray * conversationArray = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:ConversationType_GROUP],nil];
+    //[self.dataArray addObjectsFromArray:[[RCIMClient sharedRCIMClient]getConversationList:conversationArray]];
+    //[self.dataArray addObjectsFromArray:<#(nonnull NSArray *)#>];
+    RLMResults<WFGroup *> *groups = [WFGroup allObjects];
+    for (WFGroup * group in groups) {
+        [self.dataArray addObject:group];
     }
 }
 
+
 - (void)addGroupDataToTop:(WFGroup *)group{
-    SDHomeTableViewCellModel * model = [SDHomeTableViewCellModel new];
-    model.imageName = self.baiduUser.portrait;
-    model.name = group.gname;
-    model.message = @"";
-    [self.dataArray insertObject:model atIndex:0];
+    [self.dataArray insertObject:group atIndex:0];
     [self.tableView reloadData];
 }
 
@@ -179,6 +173,7 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[WFGroupEngine sharedGroupEngine] deleteGroupFromDatabase:[self.dataArray objectAtIndex:indexPath.row]];
         [self.dataArray removeObjectAtIndex:indexPath.row];
         // Delete the row from the data source.
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];

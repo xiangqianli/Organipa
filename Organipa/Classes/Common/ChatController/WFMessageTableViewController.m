@@ -55,7 +55,6 @@
 
 - (void)initBar
 {
-    
     self.navigationItem.title = self.group.gname;
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];

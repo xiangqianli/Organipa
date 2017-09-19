@@ -30,6 +30,7 @@
 
 #import "UIView+SDAutoLayout.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "NSDate+Utils.h"
 
 #define kDeleteButtonWidth      60.0f
 #define kTagButtonWidth         100.0f
@@ -212,17 +213,19 @@
 
 #pragma mark - properties
 
-- (void)setModel:(SDHomeTableViewCellModel *)model
+- (void)setModel:(WFGroup *)model
 {
     _model = model;
-    if ([model.imageName hasPrefix:@"http"]) {
-        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.imageName]];
+    if ([model.imageUrl hasPrefix:@"http"]) {
+        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
+    }else if(model.imageUrl == nil){
+        self.iconImageView.image = [UIImage imageNamed:@"chatfrom_doctor_icon"];
     }else{
-        self.iconImageView.image = [UIImage imageNamed:model.imageName];
+        self.iconImageView.image = [UIImage imageNamed:model.imageUrl];
     }
-    self.nameLabel.text = model.name;
-    self.timeLabel.text = model.time;
-    self.messageLabel.text = model.message;
+    self.nameLabel.text = model.gname;
+    self.timeLabel.text = [model.update_time dateStringWithShowRuleInHomePage];
+    self.messageLabel.text = [model.lastMessage content];
 }
 
 - (void)setIsSlided:(BOOL)isSlided

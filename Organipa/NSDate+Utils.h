@@ -79,4 +79,5 @@
 - (NSString *)string;
 - (NSString *)stringCutSeconds;
 
+- (NSString *)dateStringWithShowRuleInHomePage;
 @end

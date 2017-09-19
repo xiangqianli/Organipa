@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <RongIMLib/RCMessage.h>
+#import "WFMessage.h"
 
-@interface WFGroup : NSObject
+@interface WFGroup : RLMObject
 
 @property (nonatomic, assign) NSInteger gid;
 @property (nonatomic, assign) NSInteger ownerid;
 @property (nonatomic, copy) NSString * gname;
 @property (nonatomic, copy) NSString * imageUrl;
-@property (nonatomic, strong) RCMessage * lastMessage;
+@property (nonatomic, strong) WFMessage * lastMessage;
+@property (nonatomic, strong) NSDate * update_time;
+@property (nonatomic, strong) NSDate * create_time;
 
 @end

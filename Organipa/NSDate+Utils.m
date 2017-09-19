@@ -405,4 +405,27 @@
 + (NSString *)dbFormatString {
     return [NSDate timestampFormatString];
 }
+
+- (NSString *)dateStringWithShowRuleInHomePage{
+    NSTimeInterval datetime = [self timeIntervalSince1970];
+    NSTimeInterval curtime = [[NSDate dateWithTimeIntervalSinceNow:0] timeIntervalSince1970];
+    NSTimeInterval middleTime = curtime - datetime;
+    NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
+    NSString * returnStr;
+    if (middleTime<D_MINUTE)
+        returnStr = @"刚刚";
+    else if (middleTime<D_HOUR){
+        NSInteger minuteCount = middleTime/D_MINUTE;
+        returnStr = [NSString stringWithFormat:@"%ld分钟前",(long)minuteCount];
+    }else if (middleTime<D_DAY){
+        NSInteger hourCount = middleTime/D_HOUR;
+        returnStr = [NSString stringWithFormat:@"%ld小时前",hourCount];
+    }else if (middleTime<2*D_DAY)
+        returnStr = @"昨天";
+    else{
+        [formatter setDateFormat:@"MM.dd"];
+        returnStr = [formatter stringFromDate:self];
+    }
+    return returnStr;
+}
 @end

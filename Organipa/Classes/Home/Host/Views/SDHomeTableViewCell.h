@@ -28,7 +28,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SDHomeTableViewCellModel.h"
+#import "WFGroup.h"
 
 @interface SDHomeTableViewCell : UITableViewCell
 
@@ -37,7 +37,7 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
 
-@property (nonatomic, strong) SDHomeTableViewCellModel *model;
+@property (nonatomic, strong) WFGroup *model;
 
 + (CGFloat)fixedHeight;
 
