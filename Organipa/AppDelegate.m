@@ -38,6 +38,7 @@
 #import "BaiduAuthCodeDelegate.h"
 #import "SDHomeTableViewController.h"
 
+static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 
 @interface AppDelegate ()
 
@@ -47,7 +48,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [[RCIMClient sharedRCIMClient] initWithAppKey:rongyunAppKey];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [SDAppFrameTabBarController new];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -64,7 +65,6 @@
     UIViewController *childVC = [nav.childViewControllers lastObject];
     if ([childVC isKindOfClass:[SDHomeTableViewController class]]) {
         SDHomeTableViewController *homeVC = (SDHomeTableViewController *)childVC;
-        [homeVC startTableViewAnimationWithHidden:NO];
     }
     
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

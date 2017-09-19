@@ -33,6 +33,10 @@
 		9E37A7F21F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7F11F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m */; };
 		9E37A7F51F70D2E000B0870B /* WFGroupEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7F41F70D2E000B0870B /* WFGroupEngine.m */; };
 		9E37A7F81F70DB5E00B0870B /* WFUserRongyunLoginCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7F71F70DB5E00B0870B /* WFUserRongyunLoginCredential.m */; };
+		9E37A7FD1F70EBA500B0870B /* libAIPUnitSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E37A7FC1F70EBA500B0870B /* libAIPUnitSDK.a */; };
+		9E37A8001F70EF2300B0870B /* WFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7FF1F70EF2300B0870B /* WFGroup.m */; };
+		9E37A8041F71065500B0870B /* WFJoinCurrentGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A8021F71065500B0870B /* WFJoinCurrentGroupController.m */; };
+		9E37A8051F71065500B0870B /* WFJoinCurrentGroupController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E37A8031F71065500B0870B /* WFJoinCurrentGroupController.xib */; };
 		9E6C87D01F5BC96600B51BD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C87CF1F5BC96600B51BD7 /* main.m */; };
 		9E6C87D91F5BC96600B51BD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87D71F5BC96600B51BD7 /* Main.storyboard */; };
 		9E6C87DB1F5BC96600B51BD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E6C87DA1F5BC96600B51BD7 /* Assets.xcassets */; };
@@ -244,6 +248,13 @@
 		9E37A7F41F70D2E000B0870B /* WFGroupEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFGroupEngine.m; sourceTree = "<group>"; };
 		9E37A7F61F70DB5E00B0870B /* WFUserRongyunLoginCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserRongyunLoginCredential.h; sourceTree = "<group>"; };
 		9E37A7F71F70DB5E00B0870B /* WFUserRongyunLoginCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserRongyunLoginCredential.m; sourceTree = "<group>"; };
+		9E37A7FB1F70EBA500B0870B /* AIPUnitSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPUnitSDK.h; sourceTree = "<group>"; };
+		9E37A7FC1F70EBA500B0870B /* libAIPUnitSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAIPUnitSDK.a; sourceTree = "<group>"; };
+		9E37A7FE1F70EF2300B0870B /* WFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFGroup.h; sourceTree = "<group>"; };
+		9E37A7FF1F70EF2300B0870B /* WFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFGroup.m; sourceTree = "<group>"; };
+		9E37A8011F71065400B0870B /* WFJoinCurrentGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFJoinCurrentGroupController.h; sourceTree = "<group>"; };
+		9E37A8021F71065500B0870B /* WFJoinCurrentGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFJoinCurrentGroupController.m; sourceTree = "<group>"; };
+		9E37A8031F71065500B0870B /* WFJoinCurrentGroupController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WFJoinCurrentGroupController.xib; sourceTree = "<group>"; };
 		9E6C87CB1F5BC96600B51BD7 /* Organipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Organipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6C87CF1F5BC96600B51BD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9E6C87D81F5BC96600B51BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -450,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6E900379BB4A595A739C325 /* libPods-Organipa.a in Frameworks */,
+				9E37A7FD1F70EBA500B0870B /* libAIPUnitSDK.a in Frameworks */,
 				9E10E5A21F6EE16600680D88 /* BaiduOAuthSDK.a in Frameworks */,
 				9E87E8F11F66082C00B75BAD /* libmp3lame.a in Frameworks */,
 			);
@@ -586,6 +598,8 @@
 				9E10E7891F6EE24600680D88 /* WFAccount */,
 				9E37A7DC1F6FCA4700B0870B /* WFUser.h */,
 				9E37A7DD1F6FCA4700B0870B /* WFUser.m */,
+				9E37A7FE1F70EF2300B0870B /* WFGroup.h */,
+				9E37A7FF1F70EF2300B0870B /* WFGroup.m */,
 			);
 			name = WFModel;
 			sourceTree = "<group>";
@@ -599,6 +613,15 @@
 				9E37A7F11F70D1D500B0870B /* WFNetworkSessionManager+WFRongyunUser.m */,
 			);
 			name = WFRequest;
+			sourceTree = "<group>";
+		};
+		9E37A7FA1F70EBA500B0870B /* UnitSDK */ = {
+			isa = PBXGroup;
+			children = (
+				9E37A7FB1F70EBA500B0870B /* AIPUnitSDK.h */,
+				9E37A7FC1F70EBA500B0870B /* libAIPUnitSDK.a */,
+			);
+			path = UnitSDK;
 			sourceTree = "<group>";
 		};
 		9E6C87C21F5BC96600B51BD7 = {
@@ -626,7 +649,7 @@
 		9E6C87CD1F5BC96600B51BD7 /* Organipa */ = {
 			isa = PBXGroup;
 			children = (
-				9E37A7E01F6FCF0C00B0870B /* WFRequest */,
+				9E37A7FA1F70EBA500B0870B /* UnitSDK */,
 				9E37A7DB1F6FCA3500B0870B /* WFModel */,
 				9E10E5931F6EDC4B00680D88 /* Login(登陆) */,
 				9E6C88BE1F5C3DA200B51BD7 /* Home(群列表) */,
@@ -900,6 +923,9 @@
 				9E37A7EB1F70C5EB00B0870B /* WFAddNewGroupController.h */,
 				9E37A7EC1F70C5EB00B0870B /* WFAddNewGroupController.m */,
 				9E37A7ED1F70C5EB00B0870B /* WFAddNewGroupController.xib */,
+				9E37A8011F71065400B0870B /* WFJoinCurrentGroupController.h */,
+				9E37A8021F71065500B0870B /* WFJoinCurrentGroupController.m */,
+				9E37A8031F71065500B0870B /* WFJoinCurrentGroupController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1178,6 +1204,7 @@
 		9E8830D41F5F069A00A4B467 /* WFNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				9E37A7E01F6FCF0C00B0870B /* WFRequest */,
 				9E8830D51F5F06D200A4B467 /* WFNetworkSessionManager.h */,
 				9E8830D61F5F06D200A4B467 /* WFNetworkSessionManager.m */,
 				9E8830DE1F5FD56B00A4B467 /* WFNetworkSessionWrapper.h */,
@@ -1376,6 +1403,7 @@
 				9E6C883B1F5C3D9300B51BD7 /* pbg.jpg in Resources */,
 				9E87E90D1F660C1400B75BAD /* chat_animation_white3.png in Resources */,
 				9E6C88631F5C3D9300B51BD7 /* 19.jpg in Resources */,
+				9E37A8051F71065500B0870B /* WFJoinCurrentGroupController.xib in Resources */,
 				9E87E90F1F660C1400B75BAD /* chat_message_back.png in Resources */,
 				9E6C89701F5C3DA200B51BD7 /* LICENSE in Resources */,
 				9E87E9151F660C1400B75BAD /* chatfrom_doctor_icon.png in Resources */,
@@ -1601,6 +1629,7 @@
 				9E6C89691F5C3DA200B51BD7 /* MLExpressionManager.m in Sources */,
 				9E6C896E1F5C3DA200B51BD7 /* MLLabel.m in Sources */,
 				9E6C895D1F5C3DA200B51BD7 /* SDHomeTableViewCell.m in Sources */,
+				9E37A8041F71065500B0870B /* WFJoinCurrentGroupController.m in Sources */,
 				9E6C896F1F5C3DA200B51BD7 /* MLLinkLabel.m in Sources */,
 				9E6C89591F5C3DA200B51BD7 /* SDShortVideoController.m in Sources */,
 				9E6C89651F5C3DA200B51BD7 /* MLEmojiLabel.m in Sources */,
@@ -1619,6 +1648,7 @@
 				9E1D1DA71F65192300FF6E29 /* WFHelpers.m in Sources */,
 				9E6C89411F5C3DA200B51BD7 /* SDBaseNavigationController.m in Sources */,
 				9E6C895A1F5C3DA200B51BD7 /* SDShortVideoProgressView.m in Sources */,
+				9E37A8001F70EF2300B0870B /* WFGroup.m in Sources */,
 				9E87E8BA1F6605AF00B75BAD /* UUMessageContentButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1779,6 +1809,7 @@
 					"$(PROJECT_DIR)/Organipa/Classes/Vender/VoiceLib",
 					"$(PROJECT_DIR)/Organipa",
 					"$(PROJECT_DIR)/Organipa/WFShipper/Vender/VoiceLib",
+					"$(PROJECT_DIR)/Organipa/UnitSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BUPT.Organipa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1800,6 +1831,7 @@
 					"$(PROJECT_DIR)/Organipa/Classes/Vender/VoiceLib",
 					"$(PROJECT_DIR)/Organipa",
 					"$(PROJECT_DIR)/Organipa/WFShipper/Vender/VoiceLib",
+					"$(PROJECT_DIR)/Organipa/UnitSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BUPT.Organipa;
 				PRODUCT_NAME = "$(TARGET_NAME)";

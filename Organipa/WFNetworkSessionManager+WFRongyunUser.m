@@ -13,7 +13,7 @@
 - (void)getRongYunUserInfoWithParameters:(WFUser *)user CompletionBlock:(WFCompletionCallback)completionBlock{
     NSString * url = [NSString stringWithFormat:@"%@%@", self.WFNetworkBaseUrl, @"user/register"];
     WFNetworkMethodType type = WFNetworkMethodTypePost;
-    NSDictionary * newparameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",user.uid],@"user_id",user.uname,@"uname",user.portrait,@"portraitUri",nil];
+    NSDictionary * newparameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",user.uid],@"user_id",user.uname,@"name",user.portrait,@"portraitUri",nil];
     [self sendRequestWithUrl:url method:type parameters:newparameters success:^(NSInteger statusCode, id responseObject) {
         if (completionBlock) {
             completionBlock(responseObject, YES);

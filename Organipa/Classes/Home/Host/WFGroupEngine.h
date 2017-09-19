@@ -7,9 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WFNetworkSessionManager.h"
+
+@class WFGroup;
+typedef void(^WFGroupEngineCreateGroupCompletionHandler)(WFGroup * group, NSError * error);
 
 @interface WFGroupEngine : NSObject
 
 @property (strong, nonatomic) NSOperationQueue * ioqueue;
+
+- (void)createGroup:(NSInteger)uid groupName:(NSString *)groupName completionHandler:(WFGroupEngineCreateGroupCompletionHandler)comletionHandler;
+
+- (void)joinGroup:(NSInteger)uid groupName:(NSString *)groupName completionHandler:(WFGroupEngineCreateGroupCompletionHandler)comletionHandler;
 
 @end

@@ -28,6 +28,7 @@
         if (isSuccess) {
             baiduUserDict = response;
             WFUser * baiduUser = [WFUser yy_modelWithDictionary:response];
+            baiduUser.portrait = [NSString stringWithFormat:@"%@%@",@"http://tb.himg.baidu.com/sys/portraitn/item/",baiduUser.portrait];
             if (completionHandler) {
                 completionHandler(baiduUser, nil);
             }
@@ -40,7 +41,7 @@
         if (isSuccess) {
             if (completionHandler) {
                 NSDictionary * value = [response valueForKey:@"entity"];
-                completionHandler(response[@"token"], nil);
+                completionHandler(value[@"token"], nil);
             }
         }
     }];

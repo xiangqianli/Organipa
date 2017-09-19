@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WFGroup.h"
 
 @interface WFMessageTableViewController : UIViewController
+
+@property (nonatomic, strong) WFGroup * group;
 
 @end

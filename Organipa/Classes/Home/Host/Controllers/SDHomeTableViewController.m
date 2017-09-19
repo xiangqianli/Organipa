@@ -41,9 +41,12 @@
 #import "WFUserBaiduLoginCredential.h"
 #import "WFUserRongyunLoginCredential.h"
 #import "WFHostEngine.h"
+
 #import "WFAddNewGroupController.h"
+#import "WFJoinCurrentGroupController.h"
 
 #import "WFUser.h"
+#import "WFGroup.h"
 
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
@@ -59,21 +62,14 @@ static NSString * const baiduLoginApiKey = @"7TjGqkwAU5rQPcC6LKGMjpKd";
 
 static NSString * const baiduLoginAppleId = @"2014185";
 
+static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSuccessNotification";
+static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSuccessNotification";
 
 #define kCraticalProgressHeight 80
 
-@interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate, WFHostEngineProtocal>
-
-@property (nonatomic, weak) SDEyeAnimationView *eyeAnimationView;
-
-@property (nonatomic, strong) SDShortVideoController *shortVideoController;
+@interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate>
 
 @property (nonatomic, strong) WFHostEngine * hostEngine;
-
-@property (nonatomic, assign) BOOL tableViewIsHidden;
-
-@property (nonatomic, assign) CGFloat tabBarOriginalY;
-@property (nonatomic, assign) CGFloat tableViewOriginalY;
 
 @property (nonatomic, strong) UISearchController *searchController;
 
@@ -87,6 +83,8 @@ static NSString * const baiduLoginAppleId = @"2014185";
     if (self = [super init]) {
         [BaiduOAuthSDK initWithAPIKey:baiduLoginApiKey appId:baiduLoginAppleId];
         _hostEngine = [[WFHostEngine alloc]init];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addNewGroupSuccess:) name:WFAddNewGroupSuccessNotification object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(joinNewGroupSuccess:) name:WFJoinNewGroupSuccessNotification object:nil];
     }
     return self;
 }
@@ -104,8 +102,6 @@ static NSString * const baiduLoginAppleId = @"2014185";
     
     [self logInIfNeed];
     
-    [self getBaiduUser];
-    
     [self initBar];
 
 }
@@ -114,108 +110,15 @@ static NSString * const baiduLoginAppleId = @"2014185";
 {
     if (!_searchController) {
         _searchController = [[UISearchController alloc] initWithSearchResultsController:[UIViewController new]];
-//        _searchController.view.backgroundColor = [UIColor clearColor];
-////        [_searchController setSearchResultsUpdater: self.searchVC];
-//        [_searchController.searchBar setPlaceholder:@"搜索"];
-//        [_searchController.searchBar setBarTintColor:[UIColor lightGrayColor]];
-//        [_searchController.searchBar sizeToFit];
-//        [_searchController.searchBar setDelegate:self];
-//        [_searchController.searchBar.layer setBorderWidth:0.5f];
-////        [_searchController.searchBar.layer setBorderColor:WBColor(220, 220, 220, 1.0).CGColor];
     }
     return _searchController;
 }
 
-- (void)panView:(UIPanGestureRecognizer *)pan
-{
-//    NSLog(@">>>>>  pan");
-    
-    if (self.tableView.contentOffset.y < -64) {
-        [self performEyeViewAnimation];
-    }
-    
-    CGPoint point = [pan translationInView:pan.view];
-    [pan setTranslation:CGPointZero inView:pan.view];
-    
-    if (self.tableViewIsHidden && ![self.shortVideoController isRecordingVideo]) {
-        CGFloat tabBarTop = self.navigationController.tabBarController.tabBar.top;
-        CGFloat maxTabBarY = [UIScreen mainScreen].bounds.size.height + self.tableView.height;
-        if (!(tabBarTop > maxTabBarY && point.y > 0)) {
-            self.tableView.top += point.y;
-            self.navigationController.tabBarController.tabBar.top += point.y;
-        }
-    }
-    
-    if (pan.state == UIGestureRecognizerStateEnded) {
-        if (self.tableView.contentOffset.y < - (64 + kCraticalProgressHeight) && !self.tableViewIsHidden) {
-            [self startTableViewAnimationWithHidden:YES];
-        } else if (self.tableViewIsHidden) {
-            BOOL shouldHidde = NO;
-            if (self.tableView.top > [UIScreen mainScreen].bounds.size.height - 150) {
-                shouldHidde = YES;
-            }
-            [self startTableViewAnimationWithHidden:shouldHidde];
-        }
-        
-    }
-}
 
-- (void)performEyeViewAnimation
-{
-    CGFloat height = kCraticalProgressHeight;
-    CGFloat progress = -(self.tableView.contentOffset.y + 64) / height;
-    if (progress > 0) {
-        self.eyeAnimationView.progress = progress;
-    }
-
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!self.eyeAnimationView) {
-        [self setupEyeAnimationView];
-        
-        self.tabBarOriginalY = self.navigationController.tabBarController.tabBar.top;
-        self.tableViewOriginalY = self.tableView.top;
-    }
-    
-    if (!self.shortVideoController) {
-        self.shortVideoController = [SDShortVideoController new];
-        [self.tableView.superview insertSubview:self.shortVideoController.view atIndex:0];
-        __weak typeof(self) weakSelf = self;
-        [self.shortVideoController setCancelOperratonBlock:^{
-            [weakSelf startTableViewAnimationWithHidden:NO];
-        }];
-    }
-    
-}
-
-- (void)setupEyeAnimationView
-{
-    SDEyeAnimationView *view = [SDEyeAnimationView new];
-    view.bounds = CGRectMake(0, 0, 65, 44);
-    view.center = CGPointMake(self.view.bounds.size.width * 0.5, 70);
-    [self.tableView.superview insertSubview:view atIndex:0];
-    self.eyeAnimationView = view;
-    
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panView:)];
-    pan.delegate = self;
-    [self.tableView.superview addGestureRecognizer:pan];
-    
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
-{
-    
-    if (!self.tableView.isDragging) return;
-    if (![keyPath isEqualToString:kHomeObserveKeyPath] || self.tableView.contentOffset.y > 0) return;
-    
-    CGFloat height = 80.0;
-    CGFloat progress = -(self.tableView.contentOffset.y + 64) / height;
-    if (progress > 0) {
-        self.eyeAnimationView.progress = progress;
-    }
 }
 
 - (void)setupDataWithCount:(NSInteger)count
@@ -229,7 +132,14 @@ static NSString * const baiduLoginAppleId = @"2014185";
     }
 }
 
-
+- (void)addGroupDataToTop:(WFGroup *)group{
+    SDHomeTableViewCellModel * model = [SDHomeTableViewCellModel new];
+    model.imageName = self.baiduUser.portrait;
+    model.name = group.gname;
+    model.message = @"";
+    [self.dataArray insertObject:model atIndex:0];
+    [self.tableView reloadData];
+}
 
 #pragma mark - tableview delegate and datasource
 
@@ -247,45 +157,27 @@ static NSString * const baiduLoginAppleId = @"2014185";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIViewController *vc = [[WFMessageTableViewController alloc]init];
+    WFMessageTableViewController *vc = [[WFMessageTableViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     vc.view.backgroundColor = [UIColor whiteColor];
+    vc.group = self.dataArray[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - scrollview delegate
-
-- (void)startTableViewAnimationWithHidden:(BOOL)hidden
-{
-    CGFloat tableViewH = self.tableView.height;
-    CGFloat tabBarY = 0;
-    CGFloat tableViewY = 0;
-    if (hidden) {
-        tabBarY = tableViewH + self.tabBarOriginalY;
-        tableViewY = tableViewH + self.tableViewOriginalY;
-    } else {
-        tabBarY = self.tabBarOriginalY;
-        tableViewY = self.tableViewOriginalY;
-    }
-    [UIView animateWithDuration:kHomeTableViewAnimationDuration animations:^{
-        self.tableView.top = tableViewY;
-        self.navigationController.tabBarController.tabBar.top = tabBarY;
-        self.navigationController.navigationBar.alpha = (hidden ? 0 : 1);
-    } completion:^(BOOL finished) {
-        self.eyeAnimationView.hidden = hidden;
-
-    }];
-    if (!hidden) {
-        [self.shortVideoController hidde];
-    } else {
-        [self.shortVideoController show];
-    }
-    self.tableViewIsHidden = hidden;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.dataArray removeObjectAtIndex:indexPath.row];
+        // Delete the row from the data source.
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    
 }
 
 #pragma mark --login
@@ -294,6 +186,8 @@ static NSString * const baiduLoginAppleId = @"2014185";
     if (![BaiduOAuthSDK isUserTokenValid] || [WFUserBaiduLoginCredential sharedCredential].baiduLoginAccessTocken== nil) {
         //[BaiduOAuthSDK smsAuthWithTargetViewController:self scope:@"basic" andDelegate:self];
         [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic" andDelegate:self];
+    }else{
+        [self getBaiduUser];
     }
     
 }
@@ -305,6 +199,13 @@ static NSString * const baiduLoginAppleId = @"2014185";
             [self.hostEngine getRongyunUserWithBaiduUser:user completionHandler:^(NSString *userToken, NSError *error) {
                 if (error == nil) {
                     [[WFUserRongyunLoginCredential sharedCredential] updateWithAccessTocken:userToken];
+                    [[RCIMClient sharedRCIMClient] connectWithToken:userToken success:^(NSString *userId) {
+                        NSLog(@"连接到融云服务器成功");
+                    } error:^(RCConnectErrorCode status) {
+                        NSLog(@"连接到融云服务器失败 %ld",(long)status);
+                    } tokenIncorrect:^{
+                        NSLog(@"连接到融云服务器Token错误");
+                    }];
                 }
             }];
         }
@@ -312,14 +213,34 @@ static NSString * const baiduLoginAppleId = @"2014185";
 }
 
 - (void)initBar{
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGroup)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewGroupOrJoinGroup)];
 }
 
-- (void)addNewGroup{
+- (void)createNewGroupOrJoinGroup{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"新建群" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self createNewGroup];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"加入群" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self joinCurrentGroup];
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)createNewGroup{
     WFAddNewGroupController * addNewGroupController = [[WFAddNewGroupController alloc]init];
-    addNewGroupController.user = [self.user copy];
+    addNewGroupController.user = [self.baiduUser copy];
     [self.navigationController pushViewController:addNewGroupController animated:YES];
 }
+
+- (void)joinCurrentGroup{
+    WFJoinCurrentGroupController * joinNewGroupController = [[WFJoinCurrentGroupController alloc]init];
+    joinNewGroupController.user = [self.baiduUser copy];
+    [self.navigationController pushViewController:joinNewGroupController animated:YES];
+}
+
 #pragma mark --login delegate
 - (IBAction)doGetAuthCodeBySms:(id)sender {
     
@@ -366,11 +287,19 @@ static NSString * const baiduLoginAppleId = @"2014185";
 {
     NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
     [[WFUserBaiduLoginCredential sharedCredential]updateWithExpiredTime:tokenInfo.expiresIn accessTocken:tokenInfo.accessToken];
+    [self getBaiduUser];
     
 }
 
-#pragma mark -- WFHostEngineProtocal
-- (WFUser *)user{
-    return self.user;
+- (void)addNewGroupSuccess:(NSNotification *)notification{
+    NSDictionary * userinfo = notification.userInfo;
+    WFGroup * group = userinfo[@"group"];
+    [self addGroupDataToTop:group];
+}
+
+- (void)joinNewGroupSuccess:(NSNotification *)notification{
+    NSDictionary * userinfo = notification.userInfo;
+    WFGroup * group = userinfo[@"group"];
+    [self addGroupDataToTop:group];
 }
 @end

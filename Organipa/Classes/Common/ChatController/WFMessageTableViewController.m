@@ -39,6 +39,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.chatModel.isGroupChat = true;
     
     //add notification
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillShowNotification object:nil];
@@ -54,21 +55,12 @@
 
 - (void)initBar
 {
-    UISegmentedControl *segment = [[UISegmentedControl alloc]initWithItems:@[@" private ",@" group "]];
-    [segment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
-    segment.selectedSegmentIndex = 0;
-    self.navigationItem.titleView = segment;
+    
+    self.navigationItem.title = self.group.gname;
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:nil];
-}
-- (void)segmentChanged:(UISegmentedControl *)segment
-{
-    self.chatModel.isGroupChat = segment.selectedSegmentIndex;
-    [self.chatModel.dataSource removeAllObjects];
-    [self.chatModel populateRandomDataSource];
-    [self.chatTableView reloadData];
 }
 
 - (void)addRefreshViews

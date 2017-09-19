@@ -29,6 +29,7 @@
 #import "SDHomeTableViewCell.h"
 
 #import "UIView+SDAutoLayout.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define kDeleteButtonWidth      60.0f
 #define kTagButtonWidth         100.0f
@@ -98,8 +99,8 @@
     [self.contentView addSubview:_nameLabel];
     [self.contentView addSubview:_timeLabel];
     [self.contentView addSubview:_messageLabel];
-    [self insertSubview:_deleteButton belowSubview:self.contentView];
-    [self insertSubview:_tagButton belowSubview:self.contentView];
+//    [self insertSubview:_deleteButton belowSubview:self.contentView];
+//    [self insertSubview:_tagButton belowSubview:self.contentView];
     
     _deleteButton.sd_layout
     .topEqualToView(self)
@@ -214,8 +215,11 @@
 - (void)setModel:(SDHomeTableViewCellModel *)model
 {
     _model = model;
-    
-    self.iconImageView.image = [UIImage imageNamed:model.imageName];
+    if ([model.imageName hasPrefix:@"http"]) {
+        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.imageName]];
+    }else{
+        self.iconImageView.image = [UIImage imageNamed:model.imageName];
+    }
     self.nameLabel.text = model.name;
     self.timeLabel.text = model.time;
     self.messageLabel.text = model.message;

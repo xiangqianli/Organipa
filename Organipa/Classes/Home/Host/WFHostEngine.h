@@ -12,11 +12,6 @@
 typedef void(^WFHostEngineCompletionUserHandler)(WFUser * user, NSError * error);
 typedef void(^WFHostEngineCompletionRongyunUserHandler)(NSString * userToken, NSError * error);
 
-@protocol WFHostEngineProtocal
-
-- (WFUser *)user;
-
-@end
 
 @interface WFHostEngine : NSObject
 

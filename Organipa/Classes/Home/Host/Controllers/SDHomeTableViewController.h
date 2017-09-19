@@ -31,6 +31,4 @@
 
 @interface SDHomeTableViewController : SDBaseTableViewController
 
-- (void)startTableViewAnimationWithHidden:(BOOL)hidden;
-
 @end

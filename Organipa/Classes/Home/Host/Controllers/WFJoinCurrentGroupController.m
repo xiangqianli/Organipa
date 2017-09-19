@@ -1,26 +1,26 @@
 //
-//  WFAddNewGroupController.m
+//  WFJoinCurrentGroupController.m
 //  Organipa
 //
 //  Created by 李向前 on 2017/9/19.
 //  Copyright © 2017年 李向前. All rights reserved.
 //
 
-#import "WFAddNewGroupController.h"
-#import "WFUser.h"
+#import "WFJoinCurrentGroupController.h"
 #import "WFGroupEngine.h"
+#import "WFUser.h"
 
-static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSuccessNotification";
+static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSuccessNotification";
 
-@interface WFAddNewGroupController ()
+@interface WFJoinCurrentGroupController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *groupName;
+@property (weak, nonatomic) IBOutlet UITextField *searchForGroupField;
 
 @property (strong, nonatomic) WFGroupEngine * groupEngine;
 
 @end
 
-@implementation WFAddNewGroupController
+@implementation WFJoinCurrentGroupController
 
 - (instancetype)init{
     if (self = [super init]) {
@@ -28,12 +28,12 @@ static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSucces
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"编辑群资料";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(sendRequest)];
-    _groupName.placeholder = @"群名称（2-15个字）";
-    _groupName.autocorrectionType = UITextAutocorrectionTypeNo;
+    _searchForGroupField.placeholder = @"输入群ID";
+    _searchForGroupField.autocorrectionType = UITextAutocorrectionTypeNo;
+     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(sendRequest)];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -43,8 +43,8 @@ static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSucces
 }
 
 - (void)sendRequest{
-    [self.groupEngine createGroup:_user.uid groupName:_groupName.text completionHandler:^(WFGroup *group, NSError *error) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:WFAddNewGroupSuccessNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:group,@"group",nil]];
+    [self.groupEngine joinGroup:_user.uid groupName:_searchForGroupField.text completionHandler:^(WFGroup *group, NSError *error) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:WFJoinNewGroupSuccessNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:group,@"group",nil]];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
