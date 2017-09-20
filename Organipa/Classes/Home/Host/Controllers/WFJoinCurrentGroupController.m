@@ -41,7 +41,14 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
 
 - (void)sendRequest{
     [[WFGroupEngine sharedGroupEngine] joinGroup:_user.uid groupName:_searchForGroupField.text completionHandler:^(WFGroup *group, NSError *error) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:WFJoinNewGroupSuccessNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:group,@"group",nil]];
+        if (error == nil) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:WFJoinNewGroupSuccessNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:group,@"group",nil]];
+            wf_showHud(self.view, @"入群成功", 1);
+        }else{
+            MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = error.description;
+        }
+        
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
@@ -54,5 +61,14 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
     // Pass the selected object to the new view controller.
 }
 */
+static inline
+void wf_showHud(UIView *toView, NSString *text, CGFloat duration) {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:toView animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = text;
+    hud.labelColor = MAIN_BLUE;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES];
+}
 
 @end

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WFMessageEngine : NSObject
+@interface WFMessageEngine : NSObject<RCIMClientReceiveMessageDelegate>
+
++ (instancetype)sharedMessageEngine;
 
 @end

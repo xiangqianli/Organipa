@@ -14,9 +14,13 @@
 
 @property (strong, nonatomic) NSDate * expiredTime;
 
+@property (assign, nonatomic) NSInteger uid;
+
 - (void)save;
 
 - (void)updateWithExpiredTime:(NSDate *)expiredTime accessTocken:(NSString *)accessToken;
+
+- (void)updateWithUserId:(NSInteger)userId;
 
 + (instancetype)sharedCredential;
 

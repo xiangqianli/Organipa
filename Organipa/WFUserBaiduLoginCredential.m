@@ -11,8 +11,11 @@
 
 static NSString * const baiduloginExpiredTime = @"baiduloginExpiredTime";
 static NSString * const baiduLoginAccessTocken = @"baiduLoginAccessTocken";
+static NSString * const baiduUserId = @"baiduUserId";
+
 static NSString * const baiduLoginTockenArchive = @"baiduLoginArchiveTocken";
 static NSString * const baiduLoginTimeArchive = @"baiduLoginArchiveTime";
+static NSString * const baiduUserIdArchive = @"baiduUserIdArchive";
 
 
 @implementation WFUserBaiduLoginCredential
@@ -38,6 +41,7 @@ static NSString * const baiduLoginTimeArchive = @"baiduLoginArchiveTime";
     if (self) {
         self.expiredTime = [coder decodeObjectForKey:baiduloginExpiredTime];
         self.baiduLoginAccessTocken = [coder decodeObjectForKey:baiduLoginAccessTocken];
+        self.uid = [[coder decodeObjectForKey:baiduUserId] integerValue];
     }
     return self;
 }
@@ -45,11 +49,13 @@ static NSString * const baiduLoginTimeArchive = @"baiduLoginArchiveTime";
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.expiredTime forKey:baiduloginExpiredTime];
     [aCoder encodeObject:self.baiduLoginAccessTocken forKey:baiduLoginAccessTocken];
+    [aCoder encodeObject:[NSNumber numberWithInteger:self.uid] forKey:baiduUserId];
 }
 
 - (void)save{
     [Lockbox archiveObject:self.baiduLoginAccessTocken forKey:baiduLoginTockenArchive accessibility:kSecAttrAccessibleWhenUnlocked];
     [Lockbox archiveObject:self.expiredTime forKey:baiduLoginTimeArchive accessibility:kSecAttrAccessibleWhenUnlocked];
+    [Lockbox archiveObject:[NSNumber numberWithInteger:self.uid] forKey:baiduUserIdArchive accessibility:kSecAttrAccessibleWhenUnlocked];
 }
 
 - (void)updateWithExpiredTime:(NSDate *)expiredTime accessTocken:(NSString *)accessToken{
@@ -58,6 +64,10 @@ static NSString * const baiduLoginTimeArchive = @"baiduLoginArchiveTime";
     [self save];
 }
 
+- (void)updateWithUserId:(NSInteger)userId{
+    self.uid = userId;
+    [self save];
+}
 + (instancetype)sharedCredential{
     static WFUserBaiduLoginCredential * credential = nil;
     static dispatch_once_t onceToken;
@@ -66,6 +76,7 @@ static NSString * const baiduLoginTimeArchive = @"baiduLoginArchiveTime";
             credential = [[WFUserBaiduLoginCredential alloc]init];
             credential.baiduLoginAccessTocken = [Lockbox unarchiveObjectForKey:baiduLoginTockenArchive];
             credential.expiredTime = [Lockbox unarchiveObjectForKey:baiduLoginTimeArchive];
+            credential.uid = [Lockbox unarchiveObjectForKey:baiduUserIdArchive];
         }
     });
     return credential;

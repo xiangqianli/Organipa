@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WFNetworkSessionManager.h"
 
-@class WFGroup;
+@class WFGroup, WFMessage;
 typedef void(^WFGroupEngineCreateGroupCompletionHandler)(WFGroup * group, NSError * error);
 
 @interface WFGroupEngine : NSObject
@@ -24,5 +24,7 @@ typedef void(^WFGroupEngineCreateGroupCompletionHandler)(WFGroup * group, NSErro
 
 //数据库操作
 - (void)deleteGroupFromDatabase:(WFGroup *)group;
+
+- (void)updateMessageListGroupIfNeed:(WFMessage *)message completionHandler:(void(^)(void))block;
 
 @end

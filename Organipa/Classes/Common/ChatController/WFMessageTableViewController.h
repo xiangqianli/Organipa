@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) WFGroup * group;
 
+- (instancetype)initWithGroupId:(NSString *)groupId groupName:(NSString *)groupName;
+
 @end

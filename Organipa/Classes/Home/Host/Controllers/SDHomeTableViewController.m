@@ -66,6 +66,7 @@ static NSString * const baiduLoginAppleId = @"2014185";
 
 static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSuccessNotification";
 static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSuccessNotification";
+static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageNotification";
 
 #define kCraticalProgressHeight 80
 
@@ -88,6 +89,8 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
         _hostEngine = [[WFHostEngine alloc]init];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addNewGroupSuccess:) name:WFAddNewGroupSuccessNotification object:nil];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(joinNewGroupSuccess:) name:WFJoinNewGroupSuccessNotification object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNewMessage:) name:WFReceiveNewMessageNotification object:nil];
+
     }
     return self;
 }
@@ -158,10 +161,11 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WFMessageTableViewController *vc = [[WFMessageTableViewController alloc]init];
+    NSString * gid = [self.dataArray[indexPath.row] valueForKey:@"gid"];
+    NSString * gname = [self.dataArray[indexPath.row] valueForKey:@"gname"];
+    WFMessageTableViewController *vc = [[WFMessageTableViewController alloc]initWithGroupId:gid groupName:gname];
     vc.hidesBottomBarWhenPushed = YES;
     vc.view.backgroundColor = [UIColor whiteColor];
-    vc.group = self.dataArray[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -198,6 +202,7 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
     [self.hostEngine getCurrentUserInfoWithAccessTocken:[WFUserBaiduLoginCredential sharedCredential].baiduLoginAccessTocken CompletionHandler:^(WFUser *user, NSError *error) {
         if (error == nil) {
             self.baiduUser = user;
+            [[WFUserBaiduLoginCredential sharedCredential] updateWithUserId:user.uid];
             [self.hostEngine getRongyunUserWithBaiduUser:user completionHandler:^(NSString *userToken, NSError *error) {
                 if (error == nil) {
                     [[WFUserRongyunLoginCredential sharedCredential] updateWithAccessTocken:userToken];
@@ -290,7 +295,6 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
     NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
     [[WFUserBaiduLoginCredential sharedCredential]updateWithExpiredTime:tokenInfo.expiresIn accessTocken:tokenInfo.accessToken];
     [self getBaiduUser];
-    
 }
 
 - (void)addNewGroupSuccess:(NSNotification *)notification{
@@ -303,5 +307,12 @@ static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSucc
     NSDictionary * userinfo = notification.userInfo;
     WFGroup * group = userinfo[@"group"];
     [self addGroupDataToTop:group];
+}
+
+- (void)receiveNewMessage:(NSNotification *)notification{
+    WFMessage * message = notification.userInfo[@"message"];
+    [[WFGroupEngine sharedGroupEngine] updateMessageListGroupIfNeed:message completionHandler:^{
+        [self setUpRealData];
+    }];
 }
 @end

@@ -20,4 +20,6 @@
 
 - (void)addSpecifiedItem:(NSDictionary *)dic;
 
+- (void)fetchInitialDataSourceWithGroupId:(NSString *)gid;
+
 @end

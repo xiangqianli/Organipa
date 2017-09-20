@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIButton+AFNetworking.h"
 #import "UUImageAvatarBrowser.h"
+#import "WFMessage.h"
 
 @interface UUMessageCell ()<UUAVAudioPlayerDelegate>
 {
@@ -87,14 +88,14 @@
 //头像点击
 - (void)btnHeadImageClick:(UIButton *)button{
     if ([self.delegate respondsToSelector:@selector(headImageDidClick:userId:)])  {
-        [self.delegate headImageDidClick:self userId:self.messageFrame.message.strId];
+        [self.delegate headImageDidClick:self userId:[NSString stringWithFormat:@"%ld",self.messageFrame.message.from_id]];
     }
 }
 
 
 - (void)btnContentClick{
     //play audio
-    if (self.messageFrame.message.type == UUMessageTypeVoice) {
+    if (self.messageFrame.message.messageType == UUMessageTypeVoice) {
         if(!contentVoiceIsPlaying){
             [[NSNotificationCenter defaultCenter] postNotificationName:@"VoicePlayHasInterrupt" object:nil];
             contentVoiceIsPlaying = YES;
@@ -107,7 +108,7 @@
         }
     }
     //show the picture
-    else if (self.messageFrame.message.type == UUMessageTypePicture)
+    else if (self.messageFrame.message.messageType == UUMessageTypePicture)
     {
         if (self.btnContent.backImageView) {
             [UUImageAvatarBrowser showImage:self.btnContent.backImageView];
@@ -117,7 +118,7 @@
         }
     }
     // show text and gonna copy that
-    else if (self.messageFrame.message.type == UUMessageTypeText)
+    else if (self.messageFrame.message.messageType == UUMessageTypeText)
     {
         [self.btnContent becomeFirstResponder];
         UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -150,7 +151,8 @@
 - (void)setMessageFrame:(UUMessageFrame *)messageFrame{
 
     _messageFrame = messageFrame;
-    UUMessage *message = messageFrame.message;
+    UUMessage *message = [[UUMessage alloc]init];
+    [message setWithWFMessage:messageFrame.message];
     
     // 1、设置时间
     self.labelTime.text = message.strTime;

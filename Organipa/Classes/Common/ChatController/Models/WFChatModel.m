@@ -8,6 +8,8 @@
 #import "WFChatModel.h"
 #import "UUMessage.h"
 #import "UUMessageFrame.h"
+#import "WFMessage.h"
+#import "NSDate+Utils.h"
 
 @implementation WFChatModel
 
@@ -44,6 +46,7 @@
     if (message.showDateLabel) {
         previousTime = dataDic[@"strTime"];
     }
+    
     [self.dataSource addObject:messageFrame];
 }
 
@@ -124,5 +127,25 @@ static int dateNum = 10;
     return array[index];
 }
 
+#pragma mark --
+- (void)fetchInitialDataSourceWithGroupId:(NSString *)gid{
+    self.dataSource = [NSMutableArray array];
+    RLMResults<WFMessage *> *messages = [[WFMessage objectsWhere:[NSString stringWithFormat:@"gid = '%@'", gid]] sortedResultsUsingKeyPath:@"create_time_interval" ascending:YES];
+   
+    //目前还没有messageId
+    for (WFMessage * mmessage in messages) {
+        UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
+        UUMessage *message = [[UUMessage alloc] init];
+        [message setWithWFMessage:mmessage];
+        [message minuteOffSetStart:previousTime end:[mmessage.create_time string]];
+        messageFrame.showTime = message.showDateLabel;
+        [messageFrame setWFMessage:mmessage];
+        
+        if (message.showDateLabel) {
+            previousTime = [mmessage.create_time string];
+        }
 
+        [self.dataSource addObject:messageFrame];
+    }
+}
 @end

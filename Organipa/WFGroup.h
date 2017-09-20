@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "WFMessage.h"
 
-@interface WFGroup : RLMObject
+@interface WFGroup : RLMObject<NSCopying>
 
-@property (nonatomic, assign) NSInteger gid;
+@property (nonatomic, copy) NSString * gid;
 @property (nonatomic, assign) NSInteger ownerid;
 @property (nonatomic, copy) NSString * gname;
 @property (nonatomic, copy) NSString * imageUrl;

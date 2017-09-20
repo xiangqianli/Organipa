@@ -17,9 +17,12 @@
 #import "ACMacros.h"
 #import "WFConst.h"
 #import "WFSettings.h"
+
+#import <MBProgressHUD.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <RACCommand.h>
 #import <RongIMLib/RongIMLib.h>
 #import <Realm/Realm.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #endif /* WFPrefixHeader_pch */

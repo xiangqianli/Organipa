@@ -50,7 +50,7 @@
     [[WFNetworkSessionManager sharedManager] sendRequestWithUrl:url method:type parameters:newparameters success:^(NSInteger statusCode, id responseObject) {
         if (comletionHandler && [responseObject[@"code"] isEqual:@1]) {
             WFGroup * group = [[WFGroup alloc]init];
-            group.gid = responseObject[@"entity"][@"group_id"];
+            group.gid = responseObject[@"entity"][@"id"];
             group.ownerid = uid;
             group.gname = groupName;
             group.update_time = [NSDate dateFromString:responseObject[@"entity"][@"updated_at"]];
@@ -91,5 +91,19 @@
     [realm transactionWithBlock:^{
         [realm deleteObject:group];
     }];
+}
+
+- (void)updateMessageListGroupIfNeed:(WFMessage *)message completionHandler:(void(^)(void))block{
+    RLMResults<WFGroup *> * results = [WFGroup objectsWhere:@"gid = %@", message.gid];
+    if ([results count] > 0) {
+        WFGroup * group = results.firstObject;
+        RLMRealm * realm = [RLMRealm defaultRealm];
+        [realm transactionWithBlock:^{
+            group.lastMessage = [message copy];
+        }];
+        if (block) {
+            block();
+        }
+    }
 }
 @end

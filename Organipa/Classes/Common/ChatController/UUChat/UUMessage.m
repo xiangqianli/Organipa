@@ -8,6 +8,8 @@
 
 #import "UUMessage.h"
 #import "NSDate+Utils.h"
+#import "WFMessage.h"
+#import "WFUserBaiduLoginCredential.h"
 
 @implementation UUMessage
 - (void)setWithDict:(NSDictionary *)dict{
@@ -38,6 +40,50 @@
             
         default:
             break;
+    }
+}
+
+- (void)setWithWFMessage:(WFMessage *)message{
+    NSInteger userId;
+    if ([message isKindOfClass:[WFMessage class]]) {
+        userId = message.from_id;
+    
+    RLMResults<WFUser *>*results = [WFUser objectsWhere:@"uid == %d", userId];
+    WFUser * sendUser = [results firstObject];
+    if (sendUser == nil && userId != [WFUserBaiduLoginCredential sharedCredential].uid) {
+        sendUser = [[WFUser alloc]init];
+        sendUser.uname = @"朋友";
+        sendUser.portrait = @"chatfrom_doctor_icon";
+        self.from = UUMessageFromOther;
+    }else if(userId == [WFUserBaiduLoginCredential sharedCredential].uid){
+        sendUser = [[WFUser alloc]init];
+        sendUser.uname = @"我";
+        sendUser.portrait = @"chatfrom_doctor_icon";
+        self.from = UUMessageFromMe;
+    }
+    self.strName = sendUser.uname;
+    self.strIcon = sendUser.portrait;
+    
+    self.strTime = [message.create_time dateStringWithShowRuleInHomePage];
+    NSInteger type = message.messageType;
+    switch (type) {
+        case 0:
+            self.type = UUMessageTypeText;
+            self.strContent = message.content;
+            break;
+        case 1:
+            self.type = UUMessageTypePicture;
+//            self.picture
+            break;
+            
+        case 2:
+            self.type = UUMessageTypeVoice;
+//            self.voice = dict[@"voice"];
+//            self.strVoiceTime = dict[@"strVoiceTime"];
+            break;
+        default:
+            break;
+    }
     }
 }
 

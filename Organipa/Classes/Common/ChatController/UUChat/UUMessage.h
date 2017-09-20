@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, MessageFrom) {
     UUMessageFromOther = 1    // 别人发得
 };
 
-
+@class WFMessage;
 @interface UUMessage : NSObject
 
 @property (nonatomic, copy) NSString *strIcon;
@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, MessageFrom) {
 @property (nonatomic, assign) BOOL showDateLabel;
 
 - (void)setWithDict:(NSDictionary *)dict;
+
+- (void)setWithWFMessage:(WFMessage *)message;
 
 - (void)minuteOffSetStart:(NSString *)start end:(NSString *)end;
 

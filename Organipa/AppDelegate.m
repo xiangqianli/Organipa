@@ -27,16 +27,15 @@
  */
 
 #import "AppDelegate.h"
-
 #import "SDAppFrameTabBarController.h"
-
 #import "UIView+SDAutoLayout.h"
-
 #import "SDHomeTableViewController.h"
 
 #import "BaiduDelegate.h"
 #import "BaiduAuthCodeDelegate.h"
 #import "SDHomeTableViewController.h"
+
+#import "WFMessage.h"
 
 static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 
@@ -55,6 +54,7 @@ static NSString * const rongyunAppKey = @"pwe86ga5piik6";
     [self.window makeKeyAndVisible];
     
     [self setupNavBar];
+    [self migrateRealmIfNeed];
     return YES;
 }
 
@@ -101,4 +101,18 @@ static NSString * const rongyunAppKey = @"pwe86ga5piik6";
     bar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
 }
 
+- (void)migrateRealmIfNeed{
+    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    
+    config.schemaVersion = 3;
+    
+    config.migrationBlock = ^(RLMMigration *migration, uint64_t oldSchemaVersion) {
+        
+        // 目前我们还未进行数据迁移，因此 oldSchemaVersion == 0
+        if (oldSchemaVersion < 1) {
+            
+        }};
+    
+    [RLMRealmConfiguration setDefaultConfiguration:config];
+}
 @end

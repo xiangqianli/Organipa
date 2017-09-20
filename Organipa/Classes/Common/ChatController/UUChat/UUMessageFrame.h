@@ -23,7 +23,7 @@
 #define ChatContentFont [UIFont systemFontOfSize:14]//内容字体
 
 #import <Foundation/Foundation.h>
-@class UUMessage;
+@class UUMessage, WFMessage;
 
 @interface UUMessageFrame : NSObject
 
@@ -33,7 +33,11 @@
 @property (nonatomic, assign, readonly) CGRect contentF;
 
 @property (nonatomic, assign, readonly) CGFloat cellHeight;
-@property (nonatomic, strong) UUMessage *message;
+//@property (nonatomic, strong) UUMessage *message;
+@property (nonatomic, strong) WFMessage * message;
 @property (nonatomic, assign) BOOL showTime;
 
+//- (void)setMessage:(UUMessage *)message;
+
+- (void)setWFMessage:(WFMessage *)message;
 @end
