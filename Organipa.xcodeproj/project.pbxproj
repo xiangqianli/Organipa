@@ -1224,6 +1224,7 @@
 				9E6C87C91F5BC96600B51BD7 /* Resources */,
 				270183920A718D278622F3FA /* [CP] Embed Pods Frameworks */,
 				4E9BD6367A06D948C8A88EF3 /* [CP] Copy Pods Resources */,
+				9E37A8171F723C9800B0870B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1536,6 +1537,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OrganipaTests/Pods-OrganipaTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9E37A8171F723C9800B0870B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
 		};
 		CB3BBCC265BADC39C31AF2C0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

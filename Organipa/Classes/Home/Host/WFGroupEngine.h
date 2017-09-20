@@ -14,7 +14,7 @@ typedef void(^WFGroupEngineCreateGroupCompletionHandler)(WFGroup * group, NSErro
 
 @interface WFGroupEngine : NSObject
 
-@property (strong, nonatomic) NSOperationQueue * ioqueue;
+@property (strong, nonatomic) dispatch_queue_t ioqueue;
 
 + (instancetype)sharedGroupEngine;
 

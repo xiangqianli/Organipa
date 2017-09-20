@@ -36,6 +36,7 @@
 #import "SDHomeTableViewController.h"
 
 #import "WFMessage.h"
+#import "WFMessageEngine.h"
 
 static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 
@@ -48,6 +49,7 @@ static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[RCIMClient sharedRCIMClient] initWithAppKey:rongyunAppKey];
+    [WFMessageEngine sharedMessageEngine];//触发监听机制
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [SDAppFrameTabBarController new];
     self.window.backgroundColor = [UIColor whiteColor];

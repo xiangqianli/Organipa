@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WFMessage.h"
 
 @interface WFChatModel : NSObject
 
@@ -14,12 +15,14 @@
 
 @property (nonatomic) BOOL isGroupChat;
 
-- (void)populateRandomDataSource;
-
-- (void)addRandomItemsToDataSource:(NSInteger)number;
+//- (void)populateRandomDataSource;
+//
+//- (void)addRandomItemsToDataSource:(NSInteger)number;
 
 - (void)addSpecifiedItem:(NSDictionary *)dic;
 
 - (void)fetchInitialDataSourceWithGroupId:(NSString *)gid;
+
+- (void)addOthersItem:(WFMessage *)message;
 
 @end

@@ -15,8 +15,7 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-        _ioqueue = [[NSOperationQueue alloc]init];
-        _ioqueue.maxConcurrentOperationCount = 2;
+        _ioqueue = dispatch_queue_create(DISPATCH_Realm_Queue, nil);
     }
     return self;
 }
@@ -50,7 +49,7 @@
     [[WFNetworkSessionManager sharedManager] sendRequestWithUrl:url method:type parameters:newparameters success:^(NSInteger statusCode, id responseObject) {
         if (comletionHandler && [responseObject[@"code"] isEqual:@1]) {
             WFGroup * group = [[WFGroup alloc]init];
-            group.gid = responseObject[@"entity"][@"id"];
+            group.gid = groupName;
             group.ownerid = uid;
             group.gname = groupName;
             group.update_time = [NSDate dateFromString:responseObject[@"entity"][@"updated_at"]];
@@ -80,30 +79,35 @@
 
 #pragma mark -- 数据库操作
 - (void)saveNewGroupToDatabase:(WFGroup *)group{
-    RLMRealm * realm = [RLMRealm defaultRealm];
-    [realm transactionWithBlock:^{
-        [realm addObject:group];
-    }];
+    dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+        RLMRealm * realm = [RLMRealm defaultRealm];
+        [realm transactionWithBlock:^{
+            [realm addObject:group];
+        }];
+    });
 }
 
 - (void)deleteGroupFromDatabase:(WFGroup *)group{
-    RLMRealm * realm = [RLMRealm defaultRealm];
-    [realm transactionWithBlock:^{
-        [realm deleteObject:group];
-    }];
+    dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+        RLMRealm * realm = [RLMRealm defaultRealm];
+        [realm transactionWithBlock:^{
+            [realm deleteObject:group];
+        }];
+    });
 }
 
 - (void)updateMessageListGroupIfNeed:(WFMessage *)message completionHandler:(void(^)(void))block{
-    RLMResults<WFGroup *> * results = [WFGroup objectsWhere:@"gid = %@", message.gid];
-    if ([results count] > 0) {
-        WFGroup * group = results.firstObject;
-        RLMRealm * realm = [RLMRealm defaultRealm];
-        [realm transactionWithBlock:^{
-            group.lastMessage = [message copy];
-        }];
-        if (block) {
-            block();
+        RLMResults<WFGroup *> * results = [WFGroup objectsWhere:@"gid = %@", message.gid];
+        if ([results count] > 0) {
+            WFGroup * group = results.firstObject;
+                RLMRealm * realm = [RLMRealm defaultRealm];
+                [realm transactionWithBlock:^{
+                    group.lastMessage = [message copy];
+                }];
+                if (block) {
+                    block();
+                }
         }
-    }
+    
 }
 @end

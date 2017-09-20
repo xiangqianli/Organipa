@@ -32,4 +32,6 @@ static NSString * const WFMeFontRegularName = @"PingFangSC-Regular";
 
 #define WFAvatarMeFirstLevelSize 29
 
+#define DISPATCH_Realm_Queue "com.BUPT.Organipa.ioQueue"
+
 #endif /* WFConst_h */

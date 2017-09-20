@@ -47,10 +47,9 @@
     NSInteger userId;
     if ([message isKindOfClass:[WFMessage class]]) {
         userId = message.from_id;
-    
-    RLMResults<WFUser *>*results = [WFUser objectsWhere:@"uid == %d", userId];
+    RLMResults<WFUser *>* results = [WFUser objectsWhere:@"uid == %d", userId];
     WFUser * sendUser = [results firstObject];
-    if (message.from == UUMessageFromOther) {
+    if (sendUser == nil && message.from == UUMessageFromOther) {
         sendUser = [[WFUser alloc]init];
         sendUser.uname = @"朋友";
         sendUser.portrait = @"chatfrom_doctor_icon";

@@ -23,12 +23,20 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     dispatch_once(&onceToken, ^{
         if (messageEngine == nil) {
             messageEngine = [[WFMessageEngine alloc]init];
+            
             //设置接收消息的类
-            [[RCIMClient sharedRCIMClient] setReceiveMessageDelegate:self object:nil];
 
         }
     });
     return messageEngine;
+}
+
+- (instancetype)init{
+    if(self = [super init]){
+        [[RCIMClient sharedRCIMClient] setReceiveMessageDelegate:self object:nil];
+
+    }
+    return self;
 }
 
 #pragma mark -- 接收消息delegate
@@ -41,9 +49,14 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
         fmessage.content = [textMessage.content copy];
         fmessage.from_id = [message.senderUserId integerValue];
         fmessage.fromStr = message.senderUserId;
+        fmessage.from = 1;
         fmessage.gid = message.targetId;
+        fmessage.messageType = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:WFReceiveNewMessageNotification object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:fmessage,@"message",nil]];
     }
 }
 
+- (void)start{
+    //空方法，触发监听机制
+}
 @end

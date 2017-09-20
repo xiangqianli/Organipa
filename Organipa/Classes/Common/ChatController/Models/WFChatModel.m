@@ -25,6 +25,20 @@
 //    }
 //}
 
+- (void)addOthersItem:(WFMessage *)message{
+    UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
+    
+    //这里用到UUMessage只是用于计算是否要隐藏时间条
+    UUMessage *umessage = [[UUMessage alloc] init];
+    [umessage minuteOffSetStart:previousTime end:[message.create_time string]];
+    messageFrame.showTime = umessage.showDateLabel;
+    [messageFrame setWFMessage:message];
+    if (umessage.showDateLabel) {
+        previousTime = [message.create_time string];
+    }
+    [self.dataSource addObject:messageFrame];
+}
+
 // 添加自己的item
 - (void)addSpecifiedItem:(NSDictionary *)dic
 {

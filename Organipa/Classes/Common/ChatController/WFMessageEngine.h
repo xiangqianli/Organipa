@@ -12,4 +12,6 @@
 
 + (instancetype)sharedMessageEngine;
 
+- (void)start;
+
 @end

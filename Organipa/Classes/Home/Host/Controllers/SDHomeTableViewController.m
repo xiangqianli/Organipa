@@ -311,8 +311,10 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 
 - (void)receiveNewMessage:(NSNotification *)notification{
     WFMessage * message = notification.userInfo[@"message"];
-    [[WFGroupEngine sharedGroupEngine] updateMessageListGroupIfNeed:message completionHandler:^{
-        [self setUpRealData];
-    }];
+    dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+        [[WFGroupEngine sharedGroupEngine] updateMessageListGroupIfNeed:message completionHandler:^{
+            [self setUpRealData];
+        }];
+    });
 }
 @end

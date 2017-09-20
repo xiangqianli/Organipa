@@ -14,6 +14,8 @@
 #import "UUMessageFrame.h"
 #import "UUMessage.h"
 #import "WFUserBaiduLoginCredential.h"
+#import "WFMessageEngine.h"
+#import "WFGroupEngine.h"
 
 static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageNotification";
 
@@ -101,6 +103,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 //    //_head.scrollView = self.chatTableView;
 //}
 
+
 - (void)loadBaseViewsAndData
 {
     self.chatModel = [[WFChatModel alloc]init];
@@ -154,7 +157,23 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 - (void)receiveNewMessage:(NSNotification *)notification{
     WFMessage * message = notification.userInfo[@"message"];
     if (message.gid == self.group.gid) {
-        
+        switch (message.messageType) {
+            case UUMessageTypeText:{
+                [self.chatModel addOthersItem:message];
+                [self.chatTableView reloadData];
+                [self tableViewScrollToBottom];
+//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                    RLMRealm * real = [RLMRealm defaultRealm];
+//                    [real beginWriteTransaction];
+//                    [real addObject:message];
+//                    [real commitWriteTransaction];
+//                });
+                break;
+            }
+            default:
+                break;
+        }
+
     }
 }
 
@@ -220,10 +239,11 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                     [self.chatTableView reloadData];
                     [self tableViewScrollToBottom];
                 });
-                RLMRealm * real = [RLMRealm defaultRealm];
-                [real beginWriteTransaction];
-                [real addObject:message];
-                [real commitWriteTransaction];
+                dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{                    RLMRealm * real = [RLMRealm defaultRealm];
+                    [real beginWriteTransaction];
+                    [real addObject:message];
+                    [real commitWriteTransaction];
+                });
                 NSLog(@"发送成功，当前消息ID : %ld",messageId);
             } error:^(RCErrorCode nErrorCode, long messageId) {
                 NSLog(@"发送失败，消息ID：%ld, 错误码%ld", messageId, nErrorCode);
