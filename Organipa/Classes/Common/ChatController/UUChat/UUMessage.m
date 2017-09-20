@@ -50,15 +50,15 @@
     
     RLMResults<WFUser *>*results = [WFUser objectsWhere:@"uid == %d", userId];
     WFUser * sendUser = [results firstObject];
-    if (sendUser == nil && userId != [WFUserBaiduLoginCredential sharedCredential].uid) {
+    if (message.from == UUMessageFromOther) {
         sendUser = [[WFUser alloc]init];
         sendUser.uname = @"朋友";
         sendUser.portrait = @"chatfrom_doctor_icon";
         self.from = UUMessageFromOther;
-    }else if(userId == [WFUserBaiduLoginCredential sharedCredential].uid){
+    }else if(message.from == UUMessageFromMe){
         sendUser = [[WFUser alloc]init];
         sendUser.uname = @"我";
-        sendUser.portrait = @"chatfrom_doctor_icon";
+        sendUser.portrait = @"chatto_doctor_icon";
         self.from = UUMessageFromMe;
     }
     self.strName = sendUser.uname;

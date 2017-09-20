@@ -2,6 +2,7 @@
 //  UUMessage.h
 //  UUChatDemoForTextVoicePicture
 //
+//  注意目前该类已经基本上迁移到WFMessage了
 //  Created by shake on 14-8-26.
 //  Copyright (c) 2014年 uyiuyao. All rights reserved.
 //

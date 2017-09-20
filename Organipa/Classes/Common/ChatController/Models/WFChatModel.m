@@ -13,17 +13,17 @@
 
 @implementation WFChatModel
 
-- (void)populateRandomDataSource {
-    self.dataSource = [NSMutableArray array];
-    [self.dataSource addObjectsFromArray:[self additems:5]];
-}
-
-- (void)addRandomItemsToDataSource:(NSInteger)number{
-    
-    for (int i=0; i<number; i++) {
-        [self.dataSource insertObject:[[self additems:1] firstObject] atIndex:0];
-    }
-}
+//- (void)populateRandomDataSource {
+//    self.dataSource = [NSMutableArray array];
+//    [self.dataSource addObjectsFromArray:[self additems:5]];
+//}
+//
+//- (void)addRandomItemsToDataSource:(NSInteger)number{
+//    
+//    for (int i=0; i<number; i++) {
+//        [self.dataSource insertObject:[[self additems:1] firstObject] atIndex:0];
+//    }
+//}
 
 // 添加自己的item
 - (void)addSpecifiedItem:(NSDictionary *)dic
@@ -40,8 +40,24 @@
     
     [message setWithDict:dataDic];
     [message minuteOffSetStart:previousTime end:dataDic[@"strTime"]];
+    
+    WFMessage * fmessage = [[WFMessage alloc]init];
+    fmessage.from = UUMessageFromMe;
+    fmessage.create_time = [NSDate date];
+    fmessage.fromStr = @"我";
+    fmessage.messageType = message.type;
+    switch (fmessage.messageType) {
+        case UUMessageTypeText:
+            fmessage.content = message.strContent;
+            break;
+        default:
+            break;
+    }
+    
+    [message minuteOffSetStart:previousTime end:[fmessage.create_time string]];
+    
     messageFrame.showTime = message.showDateLabel;
-    [messageFrame setMessage:message];
+    [messageFrame setWFMessage:fmessage];
     
     if (message.showDateLabel) {
         previousTime = dataDic[@"strTime"];
@@ -52,27 +68,27 @@
 
 // 添加聊天item（一个cell内容）
 static NSString *previousTime = nil;
-- (NSArray *)additems:(NSInteger)number
-{
-    NSMutableArray *result = [NSMutableArray array];
-    
-    for (int i=0; i<number; i++) {
-        
-        NSDictionary *dataDic = [self getDic];
-        UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
-        UUMessage *message = [[UUMessage alloc] init];
-        [message setWithDict:dataDic];
-        [message minuteOffSetStart:previousTime end:dataDic[@"strTime"]];
-        messageFrame.showTime = message.showDateLabel;
-        [messageFrame setMessage:message];
-        
-        if (message.showDateLabel) {
-            previousTime = dataDic[@"strTime"];
-        }
-        [result addObject:messageFrame];
-    }
-    return result;
-}
+//- (NSArray *)additems:(NSInteger)number
+//{
+//    NSMutableArray *result = [NSMutableArray array];
+//    
+//    for (int i=0; i<number; i++) {
+//        
+//        NSDictionary *dataDic = [self getDic];
+//        UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
+//        UUMessage *message = [[UUMessage alloc] init];
+//        [message setWithDict:dataDic];
+//        [message minuteOffSetStart:previousTime end:dataDic[@"strTime"]];
+//        messageFrame.showTime = message.showDateLabel;
+//        [messageFrame setMessage:message];
+//        
+//        if (message.showDateLabel) {
+//            previousTime = dataDic[@"strTime"];
+//        }
+//        [result addObject:messageFrame];
+//    }
+//    return result;
+//}
 
 // 如下:群聊（groupChat）
 static int dateNum = 10;

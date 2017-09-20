@@ -46,7 +46,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     [super viewDidLoad];
     
     [self initBar];
-    [self addRefreshViews];
+    //[self addRefreshViews];
     [self loadBaseViewsAndData];
 }
 
@@ -78,28 +78,28 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:nil];
 }
 
-- (void)addRefreshViews
-{
-    __weak typeof(self) weakSelf = self;
-    
-    //load more
-    int pageNum = 3;
-    
-    _head = [MJRefreshHeader headerWithRefreshingBlock:^{
-        [weakSelf.chatModel addRandomItemsToDataSource:pageNum];
-        
-        if (weakSelf.chatModel.dataSource.count > pageNum) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:pageNum inSection:0];
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakSelf.chatTableView reloadData];
-                [weakSelf.chatTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            });
-        }
-        [weakSelf.head endRefreshing];
-    }];
-    //_head.scrollView = self.chatTableView;
-}
+//- (void)addRefreshViews
+//{
+//    __weak typeof(self) weakSelf = self;
+//    
+//    //load more
+//    int pageNum = 3;
+//    
+//    _head = [MJRefreshHeader headerWithRefreshingBlock:^{
+//        [weakSelf.chatModel addRandomItemsToDataSource:pageNum];
+//        
+//        if (weakSelf.chatModel.dataSource.count > pageNum) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:pageNum inSection:0];
+//            
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [weakSelf.chatTableView reloadData];
+//                [weakSelf.chatTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+//            });
+//        }
+//        [weakSelf.head endRefreshing];
+//    }];
+//    //_head.scrollView = self.chatTableView;
+//}
 
 - (void)loadBaseViewsAndData
 {
@@ -215,11 +215,11 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
         case UUMessageTypeText:{
             RCTextMessage * textMessage = [RCTextMessage messageWithContent:dic[@"strContent"]];
             [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_GROUP targetId:self.group.gid content:textMessage pushContent:nil pushData:nil success:^(long messageId) {
-                dispatch_async(dispatch_get_main_queue(), ^{
+                //dispatch_async(dispatch_get_main_queue(), ^{
                     [self.chatModel addSpecifiedItem:dic];
                     [self.chatTableView reloadData];
                     [self tableViewScrollToBottom];
-                });
+                //});
                 RLMRealm * real = [RLMRealm defaultRealm];
                 [real beginWriteTransaction];
                 [real addObject:message];
