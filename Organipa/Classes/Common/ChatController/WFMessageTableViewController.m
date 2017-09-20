@@ -215,11 +215,11 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
         case UUMessageTypeText:{
             RCTextMessage * textMessage = [RCTextMessage messageWithContent:dic[@"strContent"]];
             [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_GROUP targetId:self.group.gid content:textMessage pushContent:nil pushData:nil success:^(long messageId) {
-                //dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self.chatModel addSpecifiedItem:dic];
                     [self.chatTableView reloadData];
                     [self tableViewScrollToBottom];
-                //});
+                });
                 RLMRealm * real = [RLMRealm defaultRealm];
                 [real beginWriteTransaction];
                 [real addObject:message];
