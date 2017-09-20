@@ -127,12 +127,16 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self setUpRealData];
+    [self.tableView reloadData];
 }
 
 - (void)setUpRealData{
     //NSArray * conversationArray = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:ConversationType_GROUP],nil];
     //[self.dataArray addObjectsFromArray:[[RCIMClient sharedRCIMClient]getConversationList:conversationArray]];
     //[self.dataArray addObjectsFromArray:<#(nonnull NSArray *)#>];
+    [self.dataArray removeAllObjects];
+    
     RLMResults<WFGroup *> *groups = [WFGroup allObjects];
     for (WFGroup * group in groups) {
         [self.dataArray addObject:group];
@@ -178,9 +182,10 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [[WFGroupEngine sharedGroupEngine] deleteGroupFromDatabase:[self.dataArray objectAtIndex:indexPath.row]];
-        [self.dataArray removeObjectAtIndex:indexPath.row];
         // Delete the row from the data source.
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.dataArray removeObjectAtIndex:indexPath.row];
+
         
     }
     
@@ -312,9 +317,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 - (void)receiveNewMessage:(NSNotification *)notification{
     WFMessage * message = notification.userInfo[@"message"];
     dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
-        [[WFGroupEngine sharedGroupEngine] updateMessageListGroupIfNeed:message completionHandler:^{
-            [self setUpRealData];
-        }];
+        [[WFGroupEngine sharedGroupEngine] updateMessageListGroupIfNeed:message completionHandler:nil];
     });
 }
 @end

@@ -79,21 +79,21 @@
 
 #pragma mark -- 数据库操作
 - (void)saveNewGroupToDatabase:(WFGroup *)group{
-    dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+   // dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
         RLMRealm * realm = [RLMRealm defaultRealm];
         [realm transactionWithBlock:^{
             [realm addObject:group];
         }];
-    });
+    //});
 }
 
 - (void)deleteGroupFromDatabase:(WFGroup *)group{
-    dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+    //dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
         RLMRealm * realm = [RLMRealm defaultRealm];
         [realm transactionWithBlock:^{
             [realm deleteObject:group];
         }];
-    });
+    //});
 }
 
 - (void)updateMessageListGroupIfNeed:(WFMessage *)message completionHandler:(void(^)(void))block{
