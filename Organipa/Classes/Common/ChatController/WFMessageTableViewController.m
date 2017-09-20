@@ -202,11 +202,26 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 #pragma mark - InputFunctionViewDelegate
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView sendMessage:(NSString *)message
 {
-    NSDictionary *dic = @{@"strContent": message,
-                          @"type": @(UUMessageTypeText)};
     funcView.TextViewInput.text = @"";
     [funcView changeSendBtnWithPhoto:YES];
+//    [[WFUnitManager sharedManager] askUnit:message completion:^(NSString *result) {
+//        if ([result length] > [message length]) {
+//            NSDictionary *dic = @{@"strContent": result,
+//                                  @"type": @(UUMessageTypeUnitText),
+//                                  @"originStr" : message};
+//            [self dealTheFunctionData:dic];
+//        }else{
+//            NSDictionary *dic = @{@"strContent": message,
+//                                  @"type": @(UUMessageTypeText)};
+//            [self dealTheFunctionData:dic];
+//        }
+//    }];
+    
+    NSDictionary *dic = @{@"strContent": message,
+                          @"type": @(UUMessageTypeText)};
     [self dealTheFunctionData:dic];
+    
+    
 }
 
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView sendPicture:(UIImage *)image
@@ -232,7 +247,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     message.from = UUMessageFromMe;
     message.content = dic[@"strContent"];
     message.gid = self.group.gid;
-    message.messageType = UUMessageTypeText;
+    message.messageType = messageType;
     message.fromStr = @"我";
     message.create_time = [NSDate dateWithTimeIntervalSinceNow:0];
     message.create_time_interval = [message.create_time timeIntervalSince1970];
@@ -251,6 +266,26 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                     [real addObject:message];
                     [real commitWriteTransaction];
                // });
+                [[WFGroupEngine sharedGroupEngine]updateMessageListGroupIfNeed:message completionHandler:nil];
+                NSLog(@"发送成功，当前消息ID : %ld",messageId);
+            } error:^(RCErrorCode nErrorCode, long messageId) {
+                NSLog(@"发送失败，消息ID：%ld, 错误码%ld", messageId, nErrorCode);
+            }];
+            break;
+        }
+        case UUMessageTypeUnitText:{
+            RCTextMessage * textMessage = [RCTextMessage messageWithContent:dic[@"strContent"]];
+            [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_GROUP targetId:self.group.gid content:textMessage pushContent:nil pushData:nil success:^(long messageId) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.chatModel addSpecifiedItem:dic];
+                    [self.chatTableView reloadData];
+                    [self tableViewScrollToBottom];
+                });
+                RLMRealm * real = [RLMRealm defaultRealm];
+                [real beginWriteTransaction];
+                [real addObject:message];
+                [real commitWriteTransaction];
+                
                 [[WFGroupEngine sharedGroupEngine]updateMessageListGroupIfNeed:message completionHandler:nil];
                 NSLog(@"发送成功，当前消息ID : %ld",messageId);
             } error:^(RCErrorCode nErrorCode, long messageId) {

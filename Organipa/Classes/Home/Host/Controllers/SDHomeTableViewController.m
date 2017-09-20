@@ -35,6 +35,7 @@
 #import "SDShortVideoController.h"
 #import "WFMessageTableViewController.h"
 #import "BaiduOAuthSDK.h"
+#import "SVProgressHUD.h"
 #import "BaiduDelegate.h"
 #import "BaiduAuthCodeDelegate.h"
 
@@ -49,6 +50,8 @@
 
 #import "WFUser.h"
 #import "WFGroup.h"
+
+#import "AIPUnitSDK.h"
 
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
@@ -68,6 +71,9 @@ static NSString * const WFAddNewGroupSuccessNotification = @"WFAddNewGroupSucces
 static NSString * const WFJoinNewGroupSuccessNotification = @"WFJoinNewGroupSuccessNotification";
 static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageNotification";
 
+static NSString * const API_KEY = @"GaUpbfXH0nelhEAwnGFXG9Cq";
+static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
+
 #define kCraticalProgressHeight 80
 
 @interface SDHomeTableViewController () <UIGestureRecognizerDelegate, BaiduAuthorizeDelegate, BaiduAuthCodeDelegate>
@@ -78,6 +84,9 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 @property (nonatomic, strong) UISearchController *searchController;
 
 @property (nonatomic, strong) WFUser * baiduUser;
+
+@property (nonatomic, strong) NSTimer *waitTimer;
+
 
 @end
 
@@ -111,6 +120,21 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     [self logInIfNeed];
     
     [self initBar];
+    
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD show];
+    [[AIPUnitSDK sharedInstance] getAccessTokenWithAK:API_KEY SK:SECRET_KEY completion:^{
+        [SVProgressHUD dismiss];
+    }];
+    
+    [[AIPUnitSDK sharedInstance] setSceneID:8658];
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([AIPUnitSDK sharedInstance].accessToken == nil) {
+            weakSelf.waitTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(waitAccessToken) userInfo:nil repeats:YES];
+        }
+    });
 
 }
 
@@ -122,7 +146,10 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     return _searchController;
 }
 
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -253,6 +280,12 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     [self.navigationController pushViewController:joinNewGroupController animated:YES];
 }
 
+- (void)waitAccessToken {
+    if ([AIPUnitSDK sharedInstance].accessToken != nil) {
+        [self.waitTimer invalidate];
+        self.waitTimer = nil;
+    }
+}
 #pragma mark --login delegate
 - (IBAction)doGetAuthCodeBySms:(id)sender {
     

@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WFUnitQURES.h"
 
 @interface WFUnitModelResponse : NSObject
+
+@property (nonatomic, assign) BOOL success;
+@property (nonatomic, strong) WFUnitQURES * qures;
 
 @end

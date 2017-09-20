@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WFUnitIntentCandidate.h"
 
 @interface WFUnitQURES : NSObject
+
+@property (nonatomic, copy) NSArray<WFUnitIntentCandidate *> * candidates;
+
+@property (nonatomic, copy) NSString * raw_query;
 
 @end

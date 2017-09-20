@@ -160,7 +160,7 @@ static int dateNum = 10;
 #pragma mark --
 - (void)fetchInitialDataSourceWithGroupId:(NSString *)gid{
     self.dataSource = [NSMutableArray array];
-    RLMResults<WFMessage *> *messages = [[WFMessage objectsWhere:[NSString stringWithFormat:@"gid = '%@'", gid]] sortedResultsUsingKeyPath:@"create_time_interval" ascending:NO];
+    RLMResults<WFMessage *> *messages = [[WFMessage objectsWhere:[NSString stringWithFormat:@"gid = '%@'", gid]] sortedResultsUsingKeyPath:@"create_time_interval" ascending:YES];
    
     //目前还没有messageId
     for (WFMessage * mmessage in messages) {

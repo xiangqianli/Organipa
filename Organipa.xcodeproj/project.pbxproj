@@ -15,6 +15,8 @@
 		9E10E7881F6EE23E00680D88 /* WFRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E7841F6EE23E00680D88 /* WFRegisterViewController.xib */; };
 		9E10E78E1F6EE25A00680D88 /* LoginSource.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */; };
 		9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E10E7901F6EE27900680D88 /* UIButton+Common.m */; };
+		9E1689C01F72663300C5F951 /* WFUnitIntentCandidate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1689BF1F72663300C5F951 /* WFUnitIntentCandidate.m */; };
+		9E1689C31F72674700C5F951 /* WFUnitSlots.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1689C21F72674700C5F951 /* WFUnitSlots.m */; };
 		9E1D1D8E1F65020B00FF6E29 /* SDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */; };
 		9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D941F65192300FF6E29 /* UIAlertController+Extension.m */; };
 		9E1D1DA51F65192300FF6E29 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D961F65192300FF6E29 /* UIColor+Hex.m */; };
@@ -222,6 +224,10 @@
 		9E10E78D1F6EE25A00680D88 /* LoginSource.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LoginSource.xcassets; sourceTree = "<group>"; };
 		9E10E78F1F6EE27900680D88 /* UIButton+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Common.h"; sourceTree = "<group>"; };
 		9E10E7901F6EE27900680D88 /* UIButton+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Common.m"; sourceTree = "<group>"; };
+		9E1689BE1F72663300C5F951 /* WFUnitIntentCandidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUnitIntentCandidate.h; sourceTree = "<group>"; };
+		9E1689BF1F72663300C5F951 /* WFUnitIntentCandidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUnitIntentCandidate.m; sourceTree = "<group>"; };
+		9E1689C11F72674700C5F951 /* WFUnitSlots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUnitSlots.h; sourceTree = "<group>"; };
+		9E1689C21F72674700C5F951 /* WFUnitSlots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUnitSlots.m; sourceTree = "<group>"; };
 		9E1D1D811F64EC6100FF6E29 /* WFPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WFPrefixHeader.pch; path = ../../../../Organipa/WFPrefixHeader.pch; sourceTree = "<group>"; };
 		9E1D1D8C1F65020B00FF6E29 /* SDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBaseViewController.h; sourceTree = "<group>"; };
 		9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBaseViewController.m; sourceTree = "<group>"; };
@@ -700,6 +706,10 @@
 				9E37A8311F725B5E00B0870B /* WFUnitModelResponse.m */,
 				9E37A8341F725B9900B0870B /* WFUnitQURES.h */,
 				9E37A8351F725B9900B0870B /* WFUnitQURES.m */,
+				9E1689BE1F72663300C5F951 /* WFUnitIntentCandidate.h */,
+				9E1689BF1F72663300C5F951 /* WFUnitIntentCandidate.m */,
+				9E1689C11F72674700C5F951 /* WFUnitSlots.h */,
+				9E1689C21F72674700C5F951 /* WFUnitSlots.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1679,6 +1689,7 @@
 				9E87E8BC1F6605AF00B75BAD /* UUProgressHUD.m in Sources */,
 				9E87E8B71F6605AF00B75BAD /* UUInputFunctionView.m in Sources */,
 				9E1D1DAA1F65192300FF6E29 /* UIDevice+WFScale.m in Sources */,
+				9E1689C01F72663300C5F951 /* WFUnitIntentCandidate.m in Sources */,
 				9E6C895C1F5C3DA200B51BD7 /* SDEyeAnimationView.m in Sources */,
 				9E6C89711F5C3DA200B51BD7 /* README.md in Sources */,
 				9E37A7E31F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m in Sources */,
@@ -1716,6 +1727,7 @@
 				9E10E7911F6EE27900680D88 /* UIButton+Common.m in Sources */,
 				9E37A7F51F70D2E000B0870B /* WFGroupEngine.m in Sources */,
 				9E6C89681F5C3DA200B51BD7 /* NSString+MLLabel.m in Sources */,
+				9E1689C31F72674700C5F951 /* WFUnitSlots.m in Sources */,
 				9E37A7EE1F70C5EB00B0870B /* WFAddNewGroupController.m in Sources */,
 				9E6C87D01F5BC96600B51BD7 /* main.m in Sources */,
 				9E87E8B51F6605AF00B75BAD /* UUAVAudioPlayer.m in Sources */,

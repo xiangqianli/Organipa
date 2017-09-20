@@ -30,6 +30,7 @@
 #import "SDAppFrameTabBarController.h"
 #import "UIView+SDAutoLayout.h"
 #import "SDHomeTableViewController.h"
+#import "AIPUnitSDK.h"
 
 #import "BaiduDelegate.h"
 #import "BaiduAuthCodeDelegate.h"
@@ -40,6 +41,7 @@
 
 static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 
+
 @interface AppDelegate ()
 
 @end
@@ -49,6 +51,7 @@ static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[RCIMClient sharedRCIMClient] initWithAppKey:rongyunAppKey];
+    
     [WFMessageEngine sharedMessageEngine];//触发监听机制
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [SDAppFrameTabBarController new];

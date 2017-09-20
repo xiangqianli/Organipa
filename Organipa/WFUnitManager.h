@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class WFUnitModelResponse;
+
 @interface WFUnitManager : NSObject
 
 + (instancetype)sharedManager;
+
+- (void)askUnit:(NSString *)word completion:(void(^)(NSString * result))completionHandler;
 
 @end

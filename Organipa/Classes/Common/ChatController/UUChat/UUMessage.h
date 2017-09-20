@@ -12,7 +12,8 @@
 typedef NS_ENUM(NSInteger, MessageType) {
     UUMessageTypeText     = 0 , // 文字
     UUMessageTypePicture  = 1 , // 图片
-    UUMessageTypeVoice    = 2   // 语音
+    UUMessageTypeVoice    = 2 , // 语音
+    UUMessageTypeUnitText = 3   //Unit信息
 };
 
 
