@@ -250,8 +250,8 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     message.gid = self.group.gid;
     message.messageType = [messageType integerValue];
     message.fromStr = @"我";
-    message.create_time = [NSDate dateWithTimeIntervalSinceNow:0];
-    message.create_time_interval = [message.create_time timeIntervalSince1970];
+    message.create_time = [NSDate date];
+    message.create_time_interval = [message.create_time timeIntervalSince1970]/1000;
     switch ([messageType longValue]) {
         case UUMessageTypeText:{
             
