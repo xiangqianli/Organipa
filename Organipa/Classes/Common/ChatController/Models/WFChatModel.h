@@ -15,6 +15,8 @@
 
 @property (nonatomic) BOOL isGroupChat;
 
+@property (nonatomic, strong) NSMutableDictionary * unitStringMappingDictionary;
+
 //- (void)populateRandomDataSource;
 //
 //- (void)addRandomItemsToDataSource:(NSInteger)number;

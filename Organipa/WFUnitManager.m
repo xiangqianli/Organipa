@@ -38,15 +38,17 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 
 - (void)askUnit:(NSString *)word completion:(void(^)(NSString * result))completionHandler{
     __block NSString * result = [NSString stringWithString:word];
-    [self askUnitForJsonObject:word completion:^(WFUnitQURES *quers) {
-        result =  [self wf_serializeObject:quers];
+    [self askUnitForJsonObject:word completion:^(WFUnitQURES *quers, NSString * result) {
+        if (quers != nil) {
+            result =  [self wf_serializeObject:quers];
+        }
         if (completionHandler) {
             completionHandler(result);
         }
     }];
 }
 
-- (void)askUnitForJsonObject:(NSString *)word completion:(void(^)(WFUnitQURES * quers))completionHandler{
+- (void)askUnitForJsonObject:(NSString *)word completion:(void(^)(WFUnitQURES * quers, NSString * result))completionHandler{
    
     __block WFUnitModelResponse * response = [[WFUnitModelResponse alloc]init];
     [[AIPUnitSDK sharedInstance] askWord:word completion:^(NSError *error, NSDictionary* resultDict) {
@@ -105,8 +107,11 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
                 }];
                 
             }];
+            if (response.qures.candidates == nil || response.qures.candidates.count == 0) {
+                completionHandler(nil, word);
+            }
             if (response.qures != nil) {
-                completionHandler(response.qures);
+                completionHandler(response.qures, nil);
             }
         }
     }];
@@ -117,7 +122,7 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
     return [Object yy_modelToJSONString];
 }
 
-- (WFUnitQURES *)wf_deserializeJsonString:(NSString *)word{
+- (void)wf_deserializeJsonString:(NSString *)word completion:(void (^)(WFUnitQURES *))completionHandler{
     WFUnitModelResponse * response = [[WFUnitModelResponse alloc]init];
     response.success = YES;
     response.qures = [WFUnitQURES yy_modelWithJSON:word];
@@ -172,6 +177,8 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
             }
         }];
     }];
-    return response.qures;
+    if (completionHandler) {
+        completionHandler(response.qures);
+    }
 }
 @end

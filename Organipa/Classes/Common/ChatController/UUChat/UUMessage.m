@@ -10,6 +10,11 @@
 #import "NSDate+Utils.h"
 #import "WFMessage.h"
 #import "WFUserBaiduLoginCredential.h"
+#import "WFUnitManager.h"
+#import "WFUnitQURES.h"
+#import "WFUnitSlots.h"
+#import "WFUnitModelResponse.h"
+#import "WFUnitIntentCandidate.h"
 
 @implementation UUMessage
 - (void)setWithDict:(NSDictionary *)dict{
@@ -37,7 +42,34 @@
             self.voice = dict[@"voice"];
             self.strVoiceTime = dict[@"strVoiceTime"];
             break;
-            
+        case 3:{
+            self.type = UUMessageTypeUnitText;
+            self.strContent = dict[@"originStr"];
+            self.attributedString = [[NSMutableAttributedString alloc]initWithString:dict[@"originStr"]];
+            [[WFUnitManager sharedManager] wf_deserializeJsonString:dict[@"strContent"] completion:^(WFUnitQURES *quers) {
+                NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
+                [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSArray<WFUnitSlots *> * slots = candidates[idx].slots;
+                    [slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        WFUnitSlots * slot = slots[idx];
+                        NSRange range = NSMakeRange(slot.offset, slot.length/2);
+                        if (slot.recordType == WFSlotRecordTypeUnknown) {
+                            [self.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeCateArea){
+                            [self.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                        }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
+                            [self.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                        }else if(slot.recordType == WFSlotRecordTypeMealTime){
+                            [self.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeMealScale){
+                            [self.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeRestaurant){
+                            [self.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
+                        }
+                    }];
+                }];
+            }];
+        }
         default:
             break;
     }
@@ -72,14 +104,39 @@
             break;
         case 1:
             self.type = UUMessageTypePicture;
-//            self.picture
             break;
-            
         case 2:
             self.type = UUMessageTypeVoice;
-//            self.voice = dict[@"voice"];
-//            self.strVoiceTime = dict[@"strVoiceTime"];
             break;
+        case 3:{
+            self.type = UUMessageTypeUnitText;
+            self.strContent = message.content;
+            self.attributedString = [[NSMutableAttributedString alloc]initWithString:message.cleanContent];
+            [[WFUnitManager sharedManager] wf_deserializeJsonString:message.cleanContent completion:^(WFUnitQURES *quers) {
+                NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
+                [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSArray<WFUnitSlots *> * slots = candidates[idx].slots;
+                    [slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        WFUnitSlots * slot = slots[idx];
+                        NSRange range = NSMakeRange(slot.offset, slot.length/2);
+                        if (slot.recordType == WFSlotRecordTypeUnknown) {
+                            [self.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeCateArea){
+                            [self.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                        }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
+                            [self.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                        }else if(slot.recordType == WFSlotRecordTypeMealTime){
+                            [self.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeMealScale){
+                            [self.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeRestaurant){
+                            [self.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
+                        }
+                    }];
+                }];
+            }];
+
+        }
         default:
             break;
     }

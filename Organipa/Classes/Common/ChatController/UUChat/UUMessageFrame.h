@@ -33,7 +33,7 @@
 @property (nonatomic, assign, readonly) CGRect contentF;
 
 @property (nonatomic, assign, readonly) CGFloat cellHeight;
-//@property (nonatomic, strong) UUMessage *message;
+@property (nonatomic, strong) UUMessage * umessage;
 @property (nonatomic, strong) WFMessage * message;
 @property (nonatomic, assign) BOOL showTime;
 

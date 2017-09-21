@@ -24,6 +24,7 @@
 		9E1689D51F729CBA00C5F951 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9E1689CC1F729CBA00C5F951 /* SVProgressHUD.bundle */; };
 		9E1689D61F729CBA00C5F951 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1689CE1F729CBA00C5F951 /* SVProgressHUD.m */; };
 		9E1689D71F729CBA00C5F951 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1689D01F729CBA00C5F951 /* SVRadialGradientLayer.m */; };
+		9E1689DD1F72AC0A00C5F951 /* WFSlotString.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1689DC1F72AC0A00C5F951 /* WFSlotString.m */; };
 		9E1D1D8E1F65020B00FF6E29 /* SDBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */; };
 		9E1D1DA41F65192300FF6E29 /* UIAlertController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D941F65192300FF6E29 /* UIAlertController+Extension.m */; };
 		9E1D1DA51F65192300FF6E29 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D961F65192300FF6E29 /* UIColor+Hex.m */; };
@@ -239,6 +240,8 @@
 		9E1689CE1F729CBA00C5F951 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		9E1689CF1F729CBA00C5F951 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		9E1689D01F729CBA00C5F951 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		9E1689DB1F72AC0A00C5F951 /* WFSlotString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFSlotString.h; sourceTree = "<group>"; };
+		9E1689DC1F72AC0A00C5F951 /* WFSlotString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFSlotString.m; sourceTree = "<group>"; };
 		9E1D1D811F64EC6100FF6E29 /* WFPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WFPrefixHeader.pch; path = ../../../../Organipa/WFPrefixHeader.pch; sourceTree = "<group>"; };
 		9E1D1D8C1F65020B00FF6E29 /* SDBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBaseViewController.h; sourceTree = "<group>"; };
 		9E1D1D8D1F65020B00FF6E29 /* SDBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBaseViewController.m; sourceTree = "<group>"; };
@@ -954,6 +957,8 @@
 			children = (
 				9E87E8C01F66068F00B75BAD /* WFChatModel.h */,
 				9E87E8C11F66068F00B75BAD /* WFChatModel.m */,
+				9E1689DB1F72AC0A00C5F951 /* WFSlotString.h */,
+				9E1689DC1F72AC0A00C5F951 /* WFSlotString.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1739,6 +1744,7 @@
 				9E6C896E1F5C3DA200B51BD7 /* MLLabel.m in Sources */,
 				9E6C895D1F5C3DA200B51BD7 /* SDHomeTableViewCell.m in Sources */,
 				9E37A8041F71065500B0870B /* WFJoinCurrentGroupController.m in Sources */,
+				9E1689DD1F72AC0A00C5F951 /* WFSlotString.m in Sources */,
 				9E6C896F1F5C3DA200B51BD7 /* MLLinkLabel.m in Sources */,
 				9E6C89591F5C3DA200B51BD7 /* SDShortVideoController.m in Sources */,
 				9E37A8361F725B9900B0870B /* WFUnitQURES.m in Sources */,

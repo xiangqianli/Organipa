@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class WFUnitModelResponse;
+@class WFUnitModelResponse, WFUnitQURES;
 
 @interface WFUnitManager : NSObject
 
@@ -16,4 +16,5 @@
 
 - (void)askUnit:(NSString *)word completion:(void(^)(NSString * result))completionHandler;
 
+- (void)wf_deserializeJsonString:(NSString *)word completion:(void(^)(WFUnitQURES * quers))completionHandler;
 @end

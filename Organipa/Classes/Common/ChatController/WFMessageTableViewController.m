@@ -204,23 +204,23 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 {
     funcView.TextViewInput.text = @"";
     [funcView changeSendBtnWithPhoto:YES];
-//    [[WFUnitManager sharedManager] askUnit:message completion:^(NSString *result) {
-//        if ([result length] > [message length]) {
-//            NSDictionary *dic = @{@"strContent": result,
-//                                  @"type": @(UUMessageTypeUnitText),
-//                                  @"originStr" : message};
-//            [self dealTheFunctionData:dic];
-//        }else{
-//            NSDictionary *dic = @{@"strContent": message,
-//                                  @"type": @(UUMessageTypeText)};
-//            [self dealTheFunctionData:dic];
-//        }
-//    }];
+    [[WFUnitManager sharedManager] askUnit:message completion:^(NSString *result) {
+        if ([result length] > [message length]) {
+            NSDictionary *dic = @{@"strContent": result,
+                                  @"type": @(UUMessageTypeUnitText),
+                                  @"originStr" : message};
+            [self dealTheFunctionData:dic];
+        }else{
+            NSDictionary *dic = @{@"strContent": message,
+                                  @"type": @(UUMessageTypeText)};
+            [self dealTheFunctionData:dic];
+        }
+    }];
     
-    NSDictionary *dic = @{@"strContent": message,
-                          @"type": @(UUMessageTypeText)};
-    [self dealTheFunctionData:dic];
-    
+//    NSDictionary *dic = @{@"strContent": message,
+//                          @"type": @(UUMessageTypeText)};
+//    [self dealTheFunctionData:dic];
+//    
     
 }
 
@@ -241,18 +241,19 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 
 - (void)dealTheFunctionData:(NSDictionary *)dic
 {
-    NSInteger messageType = [dic[@"type"] integerValue];
+    NSNumber *messageType = dic[@"type"];
     WFMessage * message = [[WFMessage alloc]init];
     message.from_id = [WFUserBaiduLoginCredential sharedCredential].uid;
     message.from = UUMessageFromMe;
     message.content = dic[@"strContent"];
     message.gid = self.group.gid;
-    message.messageType = messageType;
+    message.messageType = [messageType integerValue];
     message.fromStr = @"我";
     message.create_time = [NSDate dateWithTimeIntervalSinceNow:0];
     message.create_time_interval = [message.create_time timeIntervalSince1970];
-    switch (messageType) {
+    switch ([messageType longValue]) {
         case UUMessageTypeText:{
+            
             RCTextMessage * textMessage = [RCTextMessage messageWithContent:dic[@"strContent"]];
             [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_GROUP targetId:self.group.gid content:textMessage pushContent:nil pushData:nil success:^(long messageId) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -274,6 +275,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
             break;
         }
         case UUMessageTypeUnitText:{
+            message.cleanContent = dic[@"originStr"];
             RCTextMessage * textMessage = [RCTextMessage messageWithContent:dic[@"strContent"]];
             [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_GROUP targetId:self.group.gid content:textMessage pushContent:nil pushData:nil success:^(long messageId) {
                 dispatch_async(dispatch_get_main_queue(), ^{

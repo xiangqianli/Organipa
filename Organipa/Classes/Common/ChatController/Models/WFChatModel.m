@@ -10,29 +10,44 @@
 #import "UUMessageFrame.h"
 #import "WFMessage.h"
 #import "NSDate+Utils.h"
+#import "WFUnitQURES.h"
+#import "WFUnitManager.h"
 
 @implementation WFChatModel
-
-//- (void)populateRandomDataSource {
-//    self.dataSource = [NSMutableArray array];
-//    [self.dataSource addObjectsFromArray:[self additems:5]];
-//}
-//
-//- (void)addRandomItemsToDataSource:(NSInteger)number{
-//    
-//    for (int i=0; i<number; i++) {
-//        [self.dataSource insertObject:[[self additems:1] firstObject] atIndex:0];
-//    }
-//}
 
 - (void)addOthersItem:(WFMessage *)message{
     UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
     
-    //这里用到UUMessage只是用于计算是否要隐藏时间条
+    //这里用到UUMessage只是用于计算是否要隐藏时间条 处理message有Unit格式的情况
+    
     UUMessage *umessage = [[UUMessage alloc] init];
     [umessage minuteOffSetStart:previousTime end:[message.create_time string]];
     messageFrame.showTime = umessage.showDateLabel;
     [messageFrame setWFMessage:message];
+    messageFrame.umessage = umessage;
+    if (message.messageType == UUMessageTypeUnitText) {
+        umessage.attributedString = [[NSMutableAttributedString alloc]initWithString:message.cleanContent];
+        [[WFUnitManager sharedManager] wf_deserializeJsonString:message.content completion:^(WFUnitQURES *quers) {
+            NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
+            [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                WFUnitSlots * slot = candidates[idx];
+                NSRange range = NSMakeRange(slot.offset, slot.length);
+                if (slot.recordType == WFSlotRecordTypeUnknown) {
+                    [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+                }else if (slot.recordType == WFSlotRecordTypeCateArea){
+                    [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
+                    [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                }else if(slot.recordType == WFSlotRecordTypeMealTime){
+                    [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
+                }else if (slot.recordType == WFSlotRecordTypeMealScale){
+                    [umessage.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
+                }else if (slot.recordType == WFSlotRecordTypeRestaurant){
+                    [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
+                }
+            }];
+        }];
+    }
     if (umessage.showDateLabel) {
         previousTime = [message.create_time string];
     }
@@ -46,10 +61,10 @@
     UUMessage *message = [[UUMessage alloc] init];
     NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithDictionary:dic];
     
-    NSString *URLStr = @"http://img0.bdstatic.com/img/image/shouye/xinshouye/mingxing16.jpg";
+    NSString *URLStr = @"chatto_doctor_icon";
     [dataDic setObject:@(UUMessageFromMe) forKey:@"from"];
     [dataDic setObject:[[NSDate date] description] forKey:@"strTime"];
-    [dataDic setObject:@"Hello,Sister" forKey:@"strName"];
+    [dataDic setObject:@"我" forKey:@"strName"];
     [dataDic setObject:URLStr forKey:@"strIcon"];
     
     [message setWithDict:dataDic];
@@ -61,9 +76,15 @@
     fmessage.fromStr = @"我";
     fmessage.messageType = message.type;
     switch (fmessage.messageType) {
-        case UUMessageTypeText:
+        case UUMessageTypeText:{
             fmessage.content = message.strContent;
             break;
+        }
+        case UUMessageTypeUnitText:{
+            fmessage.content = dic[@"strContent"];
+            fmessage.cleanContent = dic[@"originStr"];
+            break;
+        }
         default:
             break;
     }
@@ -72,6 +93,7 @@
     
     messageFrame.showTime = message.showDateLabel;
     [messageFrame setWFMessage:fmessage];
+    messageFrame.umessage = message;
     
     if (message.showDateLabel) {
         previousTime = dataDic[@"strTime"];
@@ -80,82 +102,8 @@
     [self.dataSource addObject:messageFrame];
 }
 
-// 添加聊天item（一个cell内容）
+
 static NSString *previousTime = nil;
-//- (NSArray *)additems:(NSInteger)number
-//{
-//    NSMutableArray *result = [NSMutableArray array];
-//    
-//    for (int i=0; i<number; i++) {
-//        
-//        NSDictionary *dataDic = [self getDic];
-//        UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
-//        UUMessage *message = [[UUMessage alloc] init];
-//        [message setWithDict:dataDic];
-//        [message minuteOffSetStart:previousTime end:dataDic[@"strTime"]];
-//        messageFrame.showTime = message.showDateLabel;
-//        [messageFrame setMessage:message];
-//        
-//        if (message.showDateLabel) {
-//            previousTime = dataDic[@"strTime"];
-//        }
-//        [result addObject:messageFrame];
-//    }
-//    return result;
-//}
-
-// 如下:群聊（groupChat）
-static int dateNum = 10;
-- (NSDictionary *)getDic
-{
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    int randomNum = arc4random()%5;
-    if (randomNum == UUMessageTypePicture) {
-        [dictionary setObject:[UIImage imageNamed:[NSString stringWithFormat:@"%zd.jpeg",arc4random()%2]] forKey:@"picture"];
-    }else{
-        // 文字出现概率4倍于图片（暂不出现Voice类型）
-        randomNum = UUMessageTypeText;
-        [dictionary setObject:[self getRandomString] forKey:@"strContent"];
-    }
-    NSDate *date = [[NSDate date]dateByAddingTimeInterval:arc4random()%1000*(dateNum++) ];
-    [dictionary setObject:@(UUMessageFromOther) forKey:@"from"];
-    [dictionary setObject:@(randomNum) forKey:@"type"];
-    [dictionary setObject:[date description] forKey:@"strTime"];
-    // 这里判断是否是私人会话、群会话
-    int index = _isGroupChat ? arc4random()%6 : 0;
-    [dictionary setObject:[self getName:index] forKey:@"strName"];
-    [dictionary setObject:[self getImageStr:index] forKey:@"strIcon"];
-    
-    return dictionary;
-}
-
-- (NSString *)getRandomString {
-    
-    NSString *lorumIpsum = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non quam ac massa viverra semper. Maecenas mattis justo ac augue volutpat congue. Maecenas laoreet, nulla eu faucibus gravida, felis orci dictum risus, sed sodales sem eros eget risus. Morbi imperdiet sed diam et sodales.";
-    
-    NSArray *lorumIpsumArray = [lorumIpsum componentsSeparatedByString:@" "];
-    
-    int r = arc4random() % [lorumIpsumArray count];
-    r = MAX(6, r); // no less than 6 words
-    NSArray *lorumIpsumRandom = [lorumIpsumArray objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, r)]];
-    
-    return [NSString stringWithFormat:@"%@!!", [lorumIpsumRandom componentsJoinedByString:@" "]];
-}
-
-- (NSString *)getImageStr:(NSInteger)index{
-    NSArray *array = @[@"http://www.120ask.com/static/upload/clinic/article/org/201311/201311061651418413.jpg",
-                       @"http://p1.qqyou.com/touxiang/uploadpic/2011-3/20113212244659712.jpg",
-                       @"http://www.qqzhi.com/uploadpic/2014-09-14/004638238.jpg",
-                       @"http://e.hiphotos.baidu.com/image/pic/item/5ab5c9ea15ce36d3b104443639f33a87e950b1b0.jpg",
-                       @"http://ts1.mm.bing.net/th?&id=JN.C21iqVw9uSuD2ZyxElpacA&w=300&h=300&c=0&pid=1.9&rs=0&p=0",
-                       @"http://ts1.mm.bing.net/th?&id=JN.7g7SEYKd2MTNono6zVirpA&w=300&h=300&c=0&pid=1.9&rs=0&p=0"];
-    return array[index];
-}
-
-- (NSString *)getName:(NSInteger)index{
-    NSArray *array = @[@"Hi,Daniel",@"Hi,Juey",@"Hey,Jobs",@"Hey,Bob",@"Hah,Dane",@"Wow,Boss"];
-    return array[index];
-}
 
 #pragma mark --
 - (void)fetchInitialDataSourceWithGroupId:(NSString *)gid{
@@ -170,6 +118,35 @@ static int dateNum = 10;
         [message minuteOffSetStart:previousTime end:[mmessage.create_time string]];
         messageFrame.showTime = message.showDateLabel;
         [messageFrame setWFMessage:mmessage];
+        
+        if (mmessage.messageType == UUMessageTypeUnitText) {
+            message.attributedString = [[NSMutableAttributedString alloc]initWithString:mmessage.content];
+            [[WFUnitManager sharedManager] wf_deserializeJsonString:mmessage.content completion:^(WFUnitQURES *quers) {
+                NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
+                [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    WFUnitIntentCandidate * candi = candidates[idx];
+                    [candi.slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        WFUnitSlots * slot = candi.slots[idx];
+                        NSRange range = NSMakeRange(slot.offset, slot.length);
+                        if (slot.recordType == WFSlotRecordTypeUnknown) {
+                            [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeCateArea){
+                            [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                        }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
+                            [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                        }else if(slot.recordType == WFSlotRecordTypeMealTime){
+                            [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeMealScale){
+                            [message.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
+                        }else if (slot.recordType == WFSlotRecordTypeRestaurant){
+                            [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
+                        }
+                    }];
+                    
+                }];
+            }];
+            [messageFrame setUmessage:message];
+        }
         
         if (message.showDateLabel) {
             previousTime = [mmessage.create_time string];

@@ -112,6 +112,9 @@
         case UUMessageTypeVoice:
             contentSize = CGSizeMake(120, 20);
             break;
+        case UUMessageTypeUnitText:
+            contentSize = [_message.cleanContent sizeWithFont:ChatContentFont  constrainedToSize:CGSizeMake(ChatContentW, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+            break;
         default:
             break;
     }

@@ -38,6 +38,8 @@ typedef NS_ENUM(NSInteger, MessageFrom) {
 @property (nonatomic, assign) MessageType type;
 @property (nonatomic, assign) MessageFrom from;
 
+@property (nonatomic, strong) NSMutableAttributedString * attributedString;
+
 @property (nonatomic, assign) BOOL showDateLabel;
 
 - (void)setWithDict:(NSDictionary *)dict;

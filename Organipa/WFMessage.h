@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString * gid;
 @property (nonatomic, assign) NSInteger messageType;
 
+@property (nonatomic, copy) NSString * cleanContent;//为了适应新出现的Unit的字符串,Unit类型下是一个没有样式的字符串
 @property (nonatomic, copy) NSString * content;
 @property (nonatomic, copy) NSString * pictureUrl;
 @property (nonatomic, copy) NSString * voiceUrl;

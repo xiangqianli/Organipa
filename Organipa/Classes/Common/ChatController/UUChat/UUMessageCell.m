@@ -151,8 +151,8 @@
 - (void)setMessageFrame:(UUMessageFrame *)messageFrame{
 
     _messageFrame = messageFrame;
-    UUMessage *message = [[UUMessage alloc]init];
-    [message setWithWFMessage:messageFrame.message];
+    UUMessage *message = messageFrame.umessage;
+    //[message setWithWFMessage:messageFrame.message];
     
     // 1、设置时间
     self.labelTime.text = message.strTime;
@@ -227,7 +227,12 @@
 //            voiceURL = [NSString stringWithFormat:@"%@%@",RESOURCE_URL_HOST,message.strVoice];
         }
             break;
-            
+        case UUMessageTypeUnitText:
+        {
+            [self.btnContent setAttributedTitle:messageFrame.umessage.attributedString forState:UIControlStateNormal];
+            //[self.btnContent.titleLabel setAttributedText:messageFrame.umessage.attributedString];
+            break;
+        }
         default:
             break;
     }
