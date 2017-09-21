@@ -207,9 +207,10 @@
     [self.btnContent setBackgroundImage:normal forState:UIControlStateNormal];
     [self.btnContent setBackgroundImage:normal forState:UIControlStateHighlighted];
 
+    WFMessage * fmessage = messageFrame.message;
     switch (message.type) {
         case UUMessageTypeText:
-            [self.btnContent setTitle:message.strContent forState:UIControlStateNormal];
+            [self.btnContent setTitle:fmessage.content forState:UIControlStateNormal];
             break;
         case UUMessageTypePicture:
         {

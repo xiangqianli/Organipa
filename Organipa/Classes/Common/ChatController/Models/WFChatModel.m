@@ -31,7 +31,7 @@
             NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
             [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 WFUnitSlots * slot = candidates[idx];
-                NSRange range = NSMakeRange(slot.offset, slot.length);
+                NSRange range = NSMakeRange(slot.offset/2, slot.length/2);
                 if (slot.recordType == WFSlotRecordTypeUnknown) {
                     [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
                 }else if (slot.recordType == WFSlotRecordTypeCateArea){
@@ -120,14 +120,14 @@ static NSString *previousTime = nil;
         [messageFrame setWFMessage:mmessage];
         
         if (mmessage.messageType == UUMessageTypeUnitText) {
-            message.attributedString = [[NSMutableAttributedString alloc]initWithString:mmessage.content];
+            message.attributedString = [[NSMutableAttributedString alloc]initWithString:mmessage.cleanContent];
             [[WFUnitManager sharedManager] wf_deserializeJsonString:mmessage.content completion:^(WFUnitQURES *quers) {
                 NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
                 [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     WFUnitIntentCandidate * candi = candidates[idx];
                     [candi.slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         WFUnitSlots * slot = candi.slots[idx];
-                        NSRange range = NSMakeRange(slot.offset, slot.length);
+                        NSRange range = NSMakeRange(slot.offset/2, slot.length/2);
                         if (slot.recordType == WFSlotRecordTypeUnknown) {
                             [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
                         }else if (slot.recordType == WFSlotRecordTypeCateArea){

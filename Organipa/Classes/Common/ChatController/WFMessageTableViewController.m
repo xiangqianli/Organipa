@@ -168,12 +168,12 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                 [self.chatModel addOthersItem:message];
                 [self.chatTableView reloadData];
                 [self tableViewScrollToBottom];
-//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                    RLMRealm * real = [RLMRealm defaultRealm];
-//                    [real beginWriteTransaction];
-//                    [real addObject:message];
-//                    [real commitWriteTransaction];
-//                });
+
+               RLMRealm * real = [RLMRealm defaultRealm];
+               [real beginWriteTransaction];
+               [real addObject:message];
+               [real commitWriteTransaction];
+
                 break;
             }
             default:
@@ -246,6 +246,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     message.from_id = [WFUserBaiduLoginCredential sharedCredential].uid;
     message.from = UUMessageFromMe;
     message.content = dic[@"strContent"];
+    message.cleanContent = dic[@"strContent"];
     message.gid = self.group.gid;
     message.messageType = [messageType integerValue];
     message.fromStr = @"我";

@@ -225,7 +225,11 @@
     }
     self.nameLabel.text = model.gname;
     self.timeLabel.text = [model.update_time dateStringWithShowRuleInHomePage];
-    self.messageLabel.text = [model.lastMessage content];
+    if ([model.lastMessage messageType] == 3) {
+        self.messageLabel.text = [model.lastMessage cleanContent];
+    }else{
+        self.messageLabel.text = [model.lastMessage content];
+    }
 }
 
 - (void)setIsSlided:(BOOL)isSlided

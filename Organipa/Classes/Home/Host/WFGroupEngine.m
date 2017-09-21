@@ -102,7 +102,7 @@
             WFGroup * group = results.firstObject;
                 RLMRealm * realm = [RLMRealm defaultRealm];
                 [realm transactionWithBlock:^{
-                    group.lastMessage = [message copy];
+                    group.lastMessage = message;
                 }];
                 if (block) {
                     block();

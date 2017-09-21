@@ -15,10 +15,20 @@
     message.from_id = _from_id;
     message.gid = _gid;
     message.content = [_content copy];
+    message.cleanContent = [_cleanContent copy];
     message.create_time = _create_time;
     message.create_time_interval = _create_time_interval;
-    message.messageType = _messageType;
+//    if (_messageType == 3) {
+//        message.messageType = 0;
+//        message.content = [_cleanContent copy];
+//    }else{
+        message.messageType = _messageType;
+        message.cleanContent = [_cleanContent copy];
+//    }
     message.fromStr = [_fromStr copy];
+    
+    message.pictureUrl = [_pictureUrl copy];
+    message.voiceUrl = [_voiceUrl copy];
     return message;
 }
 

@@ -109,7 +109,7 @@ static NSString * const rongyunAppKey = @"pwe86ga5piik6";
 - (void)migrateRealmIfNeed{
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
     
-    config.schemaVersion = 4;
+    config.schemaVersion = 1;
     
     config.migrationBlock = ^(RLMMigration *migration, uint64_t oldSchemaVersion) {
         

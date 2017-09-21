@@ -39,10 +39,10 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 - (void)askUnit:(NSString *)word completion:(void(^)(NSString * result))completionHandler{
     __block NSString * result = [NSString stringWithString:word];
     [self askUnitForJsonObject:word completion:^(WFUnitQURES *quers, NSString * result) {
-        if (quers != nil) {
+        if (quers != nil && quers.candidates.count > 0) {
             result =  [self wf_serializeObject:quers];
         }
-        if (completionHandler) {
+        if (completionHandler && result != nil) {
             completionHandler(result);
         }
     }];
@@ -55,6 +55,7 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
         if ([resultDict objectForKey:@"qu_res"] != nil) {
             response.success = YES;
             response.qures = [WFUnitQURES yy_modelWithDictionary:resultDict[@"qu_res"]];
+            
             [response.qures.candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 WFUnitIntentCandidate * candi = response.qures.candidates[idx];
                 NSString * intentStr = candi.intentStr;
