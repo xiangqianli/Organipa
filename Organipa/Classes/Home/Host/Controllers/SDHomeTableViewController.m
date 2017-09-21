@@ -349,7 +349,7 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 
 - (void)receiveNewMessage:(NSNotification *)notification{
     WFMessage * message = notification.userInfo[@"message"];
-    dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [[WFGroupEngine sharedGroupEngine] updateMessageListGroupIfNeed:message completionHandler:nil];
     });
 }

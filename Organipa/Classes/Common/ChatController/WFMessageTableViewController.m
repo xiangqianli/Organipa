@@ -168,12 +168,13 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                 [self.chatModel addOthersItem:message];
                 [self.chatTableView reloadData];
                 [self tableViewScrollToBottom];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                RLMRealm * real = [RLMRealm defaultRealm];
+                [real beginWriteTransaction];
+                [real addObject:message];
+                [real commitWriteTransaction];
 
-               RLMRealm * real = [RLMRealm defaultRealm];
-               [real beginWriteTransaction];
-               [real addObject:message];
-               [real commitWriteTransaction];
-
+            });
                 break;
             }
             default:
