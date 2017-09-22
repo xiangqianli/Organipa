@@ -165,25 +165,24 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     message.create_time = [NSDate dateWithTimeIntervalSince1970:message.create_time_interval/1000];
     message.create_time_interval = message.create_time_interval/1000;
     message.from = UUMessageFromOther;
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"self contains[cd] 'intent_candidates'"];
+    if ([predicate evaluateWithObject:message.content]) {
+        message.messageType = UUMessageTypeUnitText;
+    }else{
+        message.messageType = UUMessageTypeText;
+    }
     if (message.gid == self.group.gid) {
-        switch (message.messageType) {
-            case UUMessageTypeText:{
-                [self.chatModel addOthersItem:message];
-                [self.chatTableView reloadData];
-                [self tableViewScrollToBottom];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                RLMRealm * real = [RLMRealm defaultRealm];
-                [real beginWriteTransaction];
-                [real addObject:message];
-                [real commitWriteTransaction];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.chatModel addOthersItem:message];
+            [self.chatTableView reloadData];
+            [self tableViewScrollToBottom];
+        
+            RLMRealm * real = [RLMRealm defaultRealm];
+            [real beginWriteTransaction];
+            [real addObject:message];
+            [real commitWriteTransaction];
 
-            });
-                break;
-            }
-            default:
-                break;
-        }
-
+        });
     }
 }
 

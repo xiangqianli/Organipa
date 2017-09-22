@@ -23,31 +23,40 @@
     UUMessage *umessage = [[UUMessage alloc] init];
     [umessage minuteOffSetStart:previousTime end:[message.create_time string]];
     messageFrame.showTime = umessage.showDateLabel;
-    [messageFrame setWFMessage:message];
-    messageFrame.umessage = umessage;
+
+    
     if (message.messageType == UUMessageTypeUnitText) {
-        umessage.attributedString = [[NSMutableAttributedString alloc]initWithString:message.cleanContent];
+        umessage.type = UUMessageTypeUnitText;
         [[WFUnitManager sharedManager] wf_deserializeJsonString:message.content completion:^(WFUnitQURES *quers) {
+            umessage.attributedString = [[NSMutableAttributedString alloc]initWithString:quers.raw_query];
+            message.cleanContent = quers.raw_query;
+            [messageFrame setWFMessage:message];
             NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
             [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                WFUnitSlots * slot = candidates[idx];
-                NSRange range = NSMakeRange(slot.offset/2, slot.length/2);
-                if (slot.recordType == WFSlotRecordTypeUnknown) {
-                    [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
-                }else if (slot.recordType == WFSlotRecordTypeCateArea){
-                    [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-                }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
-                    [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
-                }else if(slot.recordType == WFSlotRecordTypeMealTime){
-                    [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
-                }else if (slot.recordType == WFSlotRecordTypeMealScale){
-                    [umessage.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
-                }else if (slot.recordType == WFSlotRecordTypeRestaurant){
-                    [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
-                }
+                WFUnitIntentCandidate * candi = candidates[idx];
+               
+                [candi.slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     WFUnitSlots * slot = obj;
+                    NSRange range = NSMakeRange(slot.offset/2, slot.length/2);
+                    if (slot.recordType == WFSlotRecordTypeUnknown) {
+                        [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+                    }else if (slot.recordType == WFSlotRecordTypeCateArea){
+                        [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
+                        [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                    }else if(slot.recordType == WFSlotRecordTypeMealTime){
+                        [umessage.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
+                    }else if (slot.recordType == WFSlotRecordTypeMealScale){
+                        [umessage.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
+                    }else if (slot.recordType == WFSlotRecordTypeRestaurant){
+                        [umessage.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
+                    }
+                }];
             }];
         }];
+        [messageFrame setUmessage:umessage];
     }
+    
     if (umessage.showDateLabel) {
         previousTime = [message.create_time string];
     }
