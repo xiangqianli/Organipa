@@ -164,6 +164,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     WFMessage * message = notification.userInfo[@"message"];
     message.create_time = [NSDate dateWithTimeIntervalSince1970:message.create_time_interval/1000];
     message.create_time_interval = message.create_time_interval/1000;
+    message.from = UUMessageFromOther;
     if (message.gid == self.group.gid) {
         switch (message.messageType) {
             case UUMessageTypeText:{
@@ -254,7 +255,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     message.messageType = [messageType integerValue];
     message.fromStr = @"我";
     message.create_time = [NSDate date];
-    message.create_time_interval = [message.create_time timeIntervalSince1970]/1000;
+    message.create_time_interval = [message.create_time timeIntervalSince1970];
     switch ([messageType longValue]) {
         case UUMessageTypeText:{
             

@@ -153,6 +153,8 @@
     _messageFrame = messageFrame;
     UUMessage *message = messageFrame.umessage;
     //[message setWithWFMessage:messageFrame.message];
+    //message.attributedString = messageFrame.umessage.attributedString;
+    message.from = messageFrame.message.from;
     
     // 1、设置时间
     self.labelTime.text = message.strTime;
