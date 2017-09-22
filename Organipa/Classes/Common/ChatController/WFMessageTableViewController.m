@@ -162,6 +162,8 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 
 - (void)receiveNewMessage:(NSNotification *)notification{
     WFMessage * message = notification.userInfo[@"message"];
+    message.create_time = [NSDate dateWithTimeIntervalSince1970:message.create_time_interval/1000];
+    message.create_time_interval = message.create_time_interval/1000;
     if (message.gid == self.group.gid) {
         switch (message.messageType) {
             case UUMessageTypeText:{
@@ -264,11 +266,13 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                     [self tableViewScrollToBottom];
                 });
                // dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+
                     RLMRealm * real = [RLMRealm defaultRealm];
                     [real beginWriteTransaction];
                     [real addObject:message];
                     [real commitWriteTransaction];
-               // });
+                });
                 [[WFGroupEngine sharedGroupEngine]updateMessageListGroupIfNeed:message completionHandler:nil];
                 NSLog(@"发送成功，当前消息ID : %ld",messageId);
             } error:^(RCErrorCode nErrorCode, long messageId) {
@@ -284,12 +288,13 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                     [self.chatModel addSpecifiedItem:dic];
                     [self.chatTableView reloadData];
                     [self tableViewScrollToBottom];
-                });
-                RLMRealm * real = [RLMRealm defaultRealm];
-                [real beginWriteTransaction];
-                [real addObject:message];
-                [real commitWriteTransaction];
+
                 
+                    RLMRealm * real = [RLMRealm defaultRealm];
+                    [real beginWriteTransaction];
+                    [real addObject:message];
+                    [real commitWriteTransaction];
+                });
                 [[WFGroupEngine sharedGroupEngine]updateMessageListGroupIfNeed:message completionHandler:nil];
                 NSLog(@"发送成功，当前消息ID : %ld",messageId);
             } error:^(RCErrorCode nErrorCode, long messageId) {
