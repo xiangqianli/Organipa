@@ -112,47 +112,50 @@ static NSString *previousTime = nil;
    
     //目前还没有messageId
     for (WFMessage * mmessage in messages) {
-        UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
-        UUMessage *message = [[UUMessage alloc] init];
-        [message setWithWFMessage:mmessage];
-        [message minuteOffSetStart:previousTime end:[mmessage.create_time string]];
-        messageFrame.showTime = message.showDateLabel;
-        [messageFrame setWFMessage:mmessage];
-        
-        if (mmessage.messageType == UUMessageTypeUnitText) {
-            message.attributedString = [[NSMutableAttributedString alloc]initWithString:mmessage.cleanContent];
-            [[WFUnitManager sharedManager] wf_deserializeJsonString:mmessage.content completion:^(WFUnitQURES *quers) {
-                NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
-                [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    WFUnitIntentCandidate * candi = candidates[idx];
-                    [candi.slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        WFUnitSlots * slot = candi.slots[idx];
-                        NSRange range = NSMakeRange(slot.offset/2, slot.length/2);
-                        if (slot.recordType == WFSlotRecordTypeUnknown) {
-                            [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
-                        }else if (slot.recordType == WFSlotRecordTypeCateArea){
-                            [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-                        }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
-                            [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
-                        }else if(slot.recordType == WFSlotRecordTypeMealTime){
-                            [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
-                        }else if (slot.recordType == WFSlotRecordTypeMealScale){
-                            [message.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
-                        }else if (slot.recordType == WFSlotRecordTypeRestaurant){
-                            [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
-                        }
+        if (mmessage.tag == 0) {
+            UUMessageFrame *messageFrame = [[UUMessageFrame alloc]init];
+            UUMessage *message = [[UUMessage alloc] init];
+            [message setWithWFMessage:mmessage];
+            [message minuteOffSetStart:previousTime end:[mmessage.create_time string]];
+            messageFrame.showTime = message.showDateLabel;
+            [messageFrame setWFMessage:mmessage];
+            
+            if (mmessage.messageType == UUMessageTypeUnitText) {
+                message.attributedString = [[NSMutableAttributedString alloc]initWithString:mmessage.cleanContent];
+                [[WFUnitManager sharedManager] wf_deserializeJsonString:mmessage.content completion:^(WFUnitQURES *quers) {
+                    NSArray<WFUnitIntentCandidate *>* candidates = quers.candidates;
+                    [candidates enumerateObjectsUsingBlock:^(WFUnitIntentCandidate * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        WFUnitIntentCandidate * candi = candidates[idx];
+                        [candi.slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            WFUnitSlots * slot = candi.slots[idx];
+                            NSRange range = NSMakeRange(slot.offset/2, slot.length/2);
+                            if (slot.recordType == WFSlotRecordTypeUnknown) {
+                                [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+                            }else if (slot.recordType == WFSlotRecordTypeCateArea){
+                                [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                            }else if(slot.recordType == WFSlotRecordTypeFoodInfo){
+                                [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                            }else if(slot.recordType == WFSlotRecordTypeMealTime){
+                                [message.attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:range];
+                            }else if (slot.recordType == WFSlotRecordTypeMealScale){
+                                [message.attributedString addAttribute:NSBackgroundColorAttributeName value:[UIColor yellowColor] range:range];
+                            }else if (slot.recordType == WFSlotRecordTypeRestaurant){
+                                [message.attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleDouble] range:range];
+                            }
+                        }];
+                        
                     }];
-                    
                 }];
-            }];
-            [messageFrame setUmessage:message];
+                [messageFrame setUmessage:message];
+            }
+            
+            if (message.showDateLabel) {
+                previousTime = [mmessage.create_time string];
+            }
+            
+            [self.dataSource addObject:messageFrame];
         }
         
-        if (message.showDateLabel) {
-            previousTime = [mmessage.create_time string];
-        }
-
-        [self.dataSource addObject:messageFrame];
     }
 }
 @end

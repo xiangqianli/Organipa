@@ -266,13 +266,13 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
                     [self tableViewScrollToBottom];
                 });
                // dispatch_async([WFGroupEngine sharedGroupEngine].ioqueue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
+               // dispatch_async(dispatch_get_main_queue(), ^{
 
                     RLMRealm * real = [RLMRealm defaultRealm];
                     [real beginWriteTransaction];
                     [real addObject:message];
                     [real commitWriteTransaction];
-                });
+                //});
                 [[WFGroupEngine sharedGroupEngine]updateMessageListGroupIfNeed:message completionHandler:nil];
                 NSLog(@"发送成功，当前消息ID : %ld",messageId);
             } error:^(RCErrorCode nErrorCode, long messageId) {

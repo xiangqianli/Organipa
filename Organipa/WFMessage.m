@@ -29,6 +29,7 @@
     
     message.pictureUrl = [_pictureUrl copy];
     message.voiceUrl = [_voiceUrl copy];
+    message.tag = 1;
     return message;
 }
 

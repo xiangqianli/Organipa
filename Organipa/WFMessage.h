@@ -27,4 +27,6 @@
 @property (nonatomic, copy) NSString * pictureUrl;
 @property (nonatomic, copy) NSString * voiceUrl;
 
+@property (nonatomic, assign) NSInteger tag;
+
 @end
