@@ -23,7 +23,7 @@
     UUMessage *umessage = [[UUMessage alloc] init];
     [umessage minuteOffSetStart:previousTime end:[message.create_time string]];
     messageFrame.showTime = umessage.showDateLabel;
-
+    message.from = UUMessageFromOther; //这句要加，要不然会样式混乱
     
     if (message.messageType == UUMessageTypeUnitText) {
         umessage.type = UUMessageTypeUnitText;
@@ -53,9 +53,11 @@
                     }
                 }];
             }];
+           
         }];
-        [messageFrame setUmessage:umessage];
     }
+    [messageFrame setUmessage:umessage];//这句要加，不然样式也会混乱
+    [messageFrame setWFMessage:message];
     
     if (umessage.showDateLabel) {
         previousTime = [message.create_time string];
@@ -154,10 +156,11 @@ static NSString *previousTime = nil;
                         }];
                         
                     }];
+                    [messageFrame setUmessage:message];
                 }];
-                [messageFrame setUmessage:message];
+                
             }
-            
+            [messageFrame setUmessage:message];
             if (message.showDateLabel) {
                 previousTime = [mmessage.create_time string];
             }
