@@ -53,6 +53,8 @@
 
 #import "AIPUnitSDK.h"
 
+#import "WFCalenderManager.h"
+
 #define kHomeTableViewControllerCellId @"HomeTableViewController"
 
 #define kHomeObserveKeyPath @"contentOffset"
@@ -148,7 +150,7 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [[WFCalenderManager sharedCalenderManager]saveDictToCalender];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -161,7 +163,7 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 - (void)setUpRealData{
     //NSArray * conversationArray = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInteger:ConversationType_GROUP],nil];
     //[self.dataArray addObjectsFromArray:[[RCIMClient sharedRCIMClient]getConversationList:conversationArray]];
-    //[self.dataArray addObjectsFromArray:<#(nonnull NSArray *)#>];
+    //[self.dataArray addObjectsFromArray:];
     [self.dataArray removeAllObjects];
     
     RLMResults<WFGroup *> *groups = [WFGroup allObjects];

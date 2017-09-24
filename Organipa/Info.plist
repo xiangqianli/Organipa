@@ -44,5 +44,7 @@
 		<string>BaiduSSO</string>
 		<string>baidusso</string>
 	</array>
+    <key>NSCalendarsUsageDescription</key>
+    <string>App需要您的同意,才能访问日历</string>
 </dict>
 </plist>

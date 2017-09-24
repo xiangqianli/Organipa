@@ -34,6 +34,7 @@
 		9E1D1DA91F65192300FF6E29 /* UIButton+WFActionBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1D9F1F65192300FF6E29 /* UIButton+WFActionBlock.m */; };
 		9E1D1DAA1F65192300FF6E29 /* UIDevice+WFScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1DA11F65192300FF6E29 /* UIDevice+WFScale.m */; };
 		9E1D1DAB1F65192300FF6E29 /* UIView+WFHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D1DA31F65192300FF6E29 /* UIView+WFHelper.m */; };
+		9E2DF94D1F78190300016EFB /* WFCalenderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DF94C1F78190300016EFB /* WFCalenderManager.m */; };
 		9E37A7D51F6FA9C800B0870B /* WFUserBaiduLoginCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */; };
 		9E37A7DE1F6FCA4700B0870B /* WFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7DD1F6FCA4700B0870B /* WFUser.m */; };
 		9E37A7E31F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E37A7E21F70050600B0870B /* WFNetworkSessionManager+WFBaiduUser.m */; };
@@ -262,6 +263,8 @@
 		9E1D1DA11F65192300FF6E29 /* UIDevice+WFScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+WFScale.m"; sourceTree = "<group>"; };
 		9E1D1DA21F65192300FF6E29 /* UIView+WFHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WFHelper.h"; sourceTree = "<group>"; };
 		9E1D1DA31F65192300FF6E29 /* UIView+WFHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WFHelper.m"; sourceTree = "<group>"; };
+		9E2DF94B1F78190300016EFB /* WFCalenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFCalenderManager.h; sourceTree = "<group>"; };
+		9E2DF94C1F78190300016EFB /* WFCalenderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFCalenderManager.m; sourceTree = "<group>"; };
 		9E37A7D31F6FA9C800B0870B /* WFUserBaiduLoginCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUserBaiduLoginCredential.h; sourceTree = "<group>"; };
 		9E37A7D41F6FA9C800B0870B /* WFUserBaiduLoginCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFUserBaiduLoginCredential.m; sourceTree = "<group>"; };
 		9E37A7DC1F6FCA4700B0870B /* WFUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFUser.h; sourceTree = "<group>"; };
@@ -698,6 +701,8 @@
 				9E37A8331F725B6400B0870B /* Model */,
 				9E37A8191F7257C100B0870B /* WFUnitManager.h */,
 				9E37A81A1F7257C100B0870B /* WFUnitManager.m */,
+				9E2DF94B1F78190300016EFB /* WFCalenderManager.h */,
+				9E2DF94C1F78190300016EFB /* WFCalenderManager.m */,
 			);
 			name = WFUnit;
 			sourceTree = "<group>";
@@ -1736,6 +1741,7 @@
 				9E37A7F51F70D2E000B0870B /* WFGroupEngine.m in Sources */,
 				9E6C89681F5C3DA200B51BD7 /* NSString+MLLabel.m in Sources */,
 				9E1689C31F72674700C5F951 /* WFUnitSlots.m in Sources */,
+				9E2DF94D1F78190300016EFB /* WFCalenderManager.m in Sources */,
 				9E37A7EE1F70C5EB00B0870B /* WFAddNewGroupController.m in Sources */,
 				9E6C87D01F5BC96600B51BD7 /* main.m in Sources */,
 				9E87E8B51F6605AF00B75BAD /* UUAVAudioPlayer.m in Sources */,

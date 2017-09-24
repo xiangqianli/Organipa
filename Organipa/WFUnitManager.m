@@ -15,6 +15,8 @@
 #import "WFUnitSlots.h"
 #import <YYModel.h>
 
+#import "WFCalenderManager.h"
+
 static NSString * const API_KEY = @"GaUpbfXH0nelhEAwnGFXG9Cq";
 static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 
@@ -143,10 +145,12 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeMealTime;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeMealTime;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeMealTime];
             }else if([obj.typestr isEqualToString:@"user_cate_area"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeCateArea;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeCateArea;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeCateArea];
             }else if([obj.typestr isEqualToString:@"user_food_info"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeFoodInfo;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeFoodInfo;
@@ -159,6 +163,7 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeRestaurant;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeRestaurant;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeRestaurant];
             }else if([obj.typestr isEqualToString:@"user_taste"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeTaste;
             }else if([obj.typestr isEqualToString:@"user_price"]){

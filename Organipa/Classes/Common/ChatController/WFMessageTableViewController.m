@@ -19,6 +19,8 @@
 #import "WFGroupEngine.h"
 #import "WFUnitManager.h"
 
+#import "WFCalenderManager.h"
+
 static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageNotification";
 
 @interface WFMessageTableViewController ()<UUInputFunctionViewDelegate,UUMessageCellDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -59,6 +61,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
 {
     [super viewDidAppear:animated];
     self.chatModel.isGroupChat = true;
+    [[WFCalenderManager sharedCalenderManager] addObject:_group.gname toKey:WFCalenderRecordTypeTitle];
     
     //add notification
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillShowNotification object:nil];
