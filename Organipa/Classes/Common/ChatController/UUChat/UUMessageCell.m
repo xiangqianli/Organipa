@@ -131,12 +131,14 @@
 {
     [self.btnContent benginLoadVoice];
 }
+
 - (void)UUAVAudioPlayerBeiginPlay
 {
     //开启红外线感应
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     [self.btnContent didLoadVoice];
 }
+
 - (void)UUAVAudioPlayerDidFinishPlay
 {
     //关闭红外线感应
@@ -212,8 +214,11 @@
     WFMessage * fmessage = messageFrame.message;
     switch (message.type) {
         case UUMessageTypeText:
-            [self.btnContent setTitle:fmessage.content forState:UIControlStateNormal];
+        {
+            NSAttributedString * attributeString = [[NSAttributedString alloc]initWithString:fmessage.content];
+            [self.btnContent setAttributedTitle:attributeString forState:UIControlStateNormal];
             break;
+        }
         case UUMessageTypePicture:
         {
             self.btnContent.backImageView.hidden = NO;
