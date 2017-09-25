@@ -150,7 +150,6 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[WFCalenderManager sharedCalenderManager]saveDictToCalender];
 }
 
 - (void)viewDidAppear:(BOOL)animated

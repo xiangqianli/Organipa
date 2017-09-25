@@ -85,7 +85,7 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
     
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveDictToCalender)];
 }
 
 //- (void)addRefreshViews
@@ -350,5 +350,13 @@ static NSString * const WFReceiveNewMessageNotification = @"WFReceiveNewMessageN
         _chatModel = [[WFChatModel alloc]init];
     }
     return _chatModel;
+}
+
+#pragma mark -- 消息转发
+- (id)forwardingTargetForSelector:(SEL)aSelector{
+    if ([NSStringFromSelector(aSelector) isEqualToString:@"saveDictToCalender"]) {
+        return [WFCalenderManager sharedCalenderManager];
+    }else
+        return self;
 }
 @end

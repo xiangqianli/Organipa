@@ -9,7 +9,7 @@
 #import "WFCalenderManager.h"
 #import <EventKit/EventKit.h>
 
-#define kCalenderKeywordsCount 3//标题 区域 时间 餐馆
+#define kCalenderKeywordsCount 5//标题 区域 时间 餐馆 备注
 #define indexToString(i) [NSString stringWithFormat:@"%lu",(unsigned long)i]
 
 @interface WFCalenderManager()
@@ -45,12 +45,13 @@
 - (void)saveDictToCalender{
     NSString * title = [_calenderDict objectForKey:indexToString(WFCalenderRecordTypeTitle)];
     NSString * location = [_calenderDict objectForKey:indexToString(WFCalenderRecordTypeCateArea)];
-    NSDate * startDate = [_calenderDict objectForKey:indexToString(WFCalenderRecordTypeMealTime)];
-    NSDate * endDate = [startDate dateByAddingTimeInterval:7200];//默认两小时
+    NSString * startDate = [_calenderDict objectForKey:indexToString(WFCalenderRecordTypeMealTime)];
+    NSString * notes = [_calenderDict objectForKey:indexToString(WFCalenderRecordTypeNote)];
     BOOL allDay = false;
     if (self.isTitleSet == YES) {
-        [self createEventCalendarTitle:title location:location startDate:startDate endDate:endDate allDay:allDay alarmArray:nil];
+        [self createEventCalendarTitle:title location:location startDate:startDate endDate:nil allDay:allDay alarmArray:nil notes:notes];
         self.isTitleSet = NO;
+        [self cleanDict];
     }
 }
 
@@ -72,7 +73,16 @@
 }
 
 - (void)addWord:(NSString *)word toKey:(WFCalenderRecordType)recordType{
-    [_calenderDict setObject:word forKey:indexToString(recordType)];
+    NSMutableString * currentStr = [_calenderDict objectForKey:indexToString(recordType)];
+    if (!currentStr || [currentStr isEqualToString:@""]) {
+        [_calenderDict setObject:word forKey:indexToString(recordType)];
+    }else{
+        NSPredicate * predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self contains[cd] '%@'",word]];
+        if (![predicate evaluateWithObject:currentStr]) {
+            currentStr = [currentStr stringByAppendingString:[NSString stringWithFormat:@" %@",word]];
+            [_calenderDict setObject:currentStr forKey:indexToString(recordType)];
+        }
+    }
 }
 
 - (void)addDate:(NSDate *)date toKey:(WFCalenderRecordType)recordTyep{
@@ -80,7 +90,7 @@
 }
 
 #pragma mark --private method
-- (void)createEventCalendarTitle:(NSString *)title location:(NSString *)location startDate:(NSDate *)startDate endDate:(NSDate *)endDate allDay:(BOOL)allDay alarmArray:(NSArray *)alarmArray{
+- (void)createEventCalendarTitle:(NSString *)title location:(NSString *)location startDate:(NSString *)startDate endDate:(NSDate *)endDate allDay:(BOOL)allDay alarmArray:(NSArray *)alarmArray notes:(NSString *)notes{
     __weak typeof(self) weakSelf = self;
     
     EKEventStore *eventStore = [[EKEventStore alloc] init];
@@ -104,12 +114,15 @@
                     event.location = location;
                     
                     NSDateFormatter *tempFormatter = [[NSDateFormatter alloc]init];
-                    [tempFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                    
-                    event.startDate = startDate;
-                    event.endDate   = endDate;
+                    [tempFormatter setDateFormat:@"yyyy-MM-dd"];
+                    if (startDate && ![startDate  isEqual: @""]) {
+                        event.startDate = [tempFormatter dateFromString:startDate];
+                    }else{
+                        event.startDate = [NSDate date];
+                    }
+                    event.endDate = [event.startDate dateByAddingTimeInterval:7200];
                     event.allDay = allDay;
-                    
+                    event.notes = notes;
                     //添加提醒
                     if (alarmArray && alarmArray.count > 0) {
                         

@@ -141,45 +141,67 @@ static NSString * const SECRET_KEY = @"5KuCQX4p9rYZfmR8EyFMpHRj96F7GYBt";
         }
         NSUInteger ydx = idx;
         [candi.slots enumerateObjectsUsingBlock:^(WFUnitSlots * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.typestr isEqualToString:@"user_meal_time"]) {
+            if ([obj.typestr isEqualToString:@"user_meal_time"] || [obj.recordtypestr isEqualToString:@"user_meal_time"]) {
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeMealTime;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeMealTime;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
-                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeMealTime];
-            }else if([obj.typestr isEqualToString:@"user_cate_area"]){
+                if (![obj.normalized_word isEqualToString:@""] && ![obj.normalized_word isEqualToString:obj.original_word]) {
+                    [[WFCalenderManager sharedCalenderManager]addObject:obj.normalized_word toKey:WFCalenderRecordTypeMealTime];
+                }else{
+                    [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+                }
+            }else if([obj.typestr isEqualToString:@"user_cate_area"] || [obj.recordtypestr isEqualToString:@"user_cate_area"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeCateArea;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeCateArea;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
-                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeCateArea];
-            }else if([obj.typestr isEqualToString:@"user_food_info"]){
+//                if (![obj.normalized_word isEqualToString:@""] && ![obj.normalized_word isEqualToString:obj.original_word]) {
+//                    [[WFCalenderManager sharedCalenderManager]addObject:obj.normalized_word toKey:WFCalenderRecordTypeCateArea];
+//                }else{
+                    [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+//                }
+            }else if([obj.typestr isEqualToString:@"user_food_info"] || [obj.recordtypestr isEqualToString:@"user_food_info"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeFoodInfo;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeFoodInfo;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
-            }else if([obj.typestr isEqualToString:@"user_meal_scale"]){
+                [[WFCalenderManager sharedCalenderManager] addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_meal_scale"] || [obj.recordtypestr isEqualToString:@"user_meal_scale"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeMealScale;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeMealScale;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
-            }else if([obj.typestr isEqualToString:@"user_restaurant"]){
+                [[WFCalenderManager sharedCalenderManager] addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_restaurant"] || [obj.recordtypestr isEqualToString:@"user_restaurant"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeRestaurant;
                 response.qures.candidates[ydx].slots[idx].recordType = WFSlotRecordTypeRestaurant;
                 response.qures.candidates[ydx].slots[idx].recordtypestr = obj.typestr;
-                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeRestaurant];
-            }else if([obj.typestr isEqualToString:@"user_taste"]){
+//                if (![obj.normalized_word isEqualToString:@""]) {
+//                    [[WFCalenderManager sharedCalenderManager]addObject:obj.normalized_word toKey:WFCalenderRecordTypeRestaurant];
+//                }else{
+                    [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+//                }
+            }else if([obj.typestr isEqualToString:@"user_taste"] || [obj.recordtypestr isEqualToString:@"user_taste"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeTaste;
-            }else if([obj.typestr isEqualToString:@"user_price"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_price"] || [obj.recordtypestr isEqualToString:@"user_price"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypePrice;
-            }else if([obj.typestr isEqualToString:@"user_parking"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_parking"] || [obj.recordtypestr isEqualToString:@"user_parking"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeParking;
-            }else if([obj.typestr isEqualToString:@"user_open_hours"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_open_hours"] || [obj.recordtypestr isEqualToString:@"user_open_hours"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeOpenHours;
-            }else if([obj.typestr isEqualToString:@"user_environment"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_environment"] || [obj.recordtypestr isEqualToString:@"user_environment"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeEnviroment;
-            }else if([obj.typestr isEqualToString:@"user_group_buy"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_group_buy"] || [obj.recordtypestr isEqualToString:@"user_group_buy"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeGroupBuy;
-            }else if([obj.typestr isEqualToString:@"user_wifi"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_wifi"] || [obj.recordtypestr isEqualToString:@"user_wifi"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeWIFI;
-            }else if([obj.typestr isEqualToString:@"user_sortby_cate"]){
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
+            }else if([obj.typestr isEqualToString:@"user_sortby_cate"] || [obj.recordtypestr isEqualToString:@"user_sortby_cate"]){
                 response.qures.candidates[ydx].slots[idx].type = WFSlotTypeSortBy;
+                [[WFCalenderManager sharedCalenderManager]addObject:obj.original_word toKey:WFCalenderRecordTypeNote];
             }
         }];
     }];

@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, WFCalenderRecordType){
     
     WFCalenderRecordTypeRestaurant,//餐馆
     
+    WFCalenderRecordTypeNote//备注
+    
 };
 
 @interface WFCalenderManager : NSObject
